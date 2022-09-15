@@ -2,7 +2,6 @@
 using Kwytto.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Kwytto.LiteUI
@@ -57,6 +56,7 @@ namespace Kwytto.LiteUI
         private void Start()
         {
             Panel = gameObject.AddComponent<UIPanel>();
+            Panel.zOrder = int.MaxValue;
         }
 
         public Rect WindowRect => windowRect;
@@ -252,7 +252,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        internal static Texture2D LoadHighlightTexture() => highlightTexture = KlyteResourceLoader.LoadTexture("_commons.UI.Images.highlight.png");
+        internal static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadTexture("_commons.UI.Images.highlight.png");
 
         public void MoveResize(Rect newWindowRect) => windowRect = newWindowRect;
 
@@ -320,7 +320,7 @@ namespace Kwytto.LiteUI
                     DrawCloseButton(mouse);
                 }
             }
-             
+
             if (Resizable)
             {
                 DrawResizeHandle(mouse);
@@ -408,7 +408,7 @@ namespace Kwytto.LiteUI
             GUI.DrawTexture(new Rect(0.0f, 0.0f, windowRect.width, TitleBarHeight), moveTex, ScaleMode.StretchToFill);
             if (cachedModIcon is null)
             {
-                cachedModIcon = UIView.GetAView().defaultAtlas.sprites.Where(x => x.name == CommonProperties.ModIcon).FirstOrDefault()?.texture;
+                cachedModIcon = KResourceLoader.LoadTexture($"UI.Images.{CommonProperties.ModIcon}.png");
                 if (cachedModIcon is null)
                 {
                     cachedModIcon = new Texture2D(1, 1);

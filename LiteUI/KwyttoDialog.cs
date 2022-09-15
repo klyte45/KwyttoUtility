@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kwytto.LiteUI
 {
-    internal class KwyttoDialog : GUIRootWindowBase
+    public class KwyttoDialog : GUIRootWindowBase
     {
         private BindProperties properties;
         protected override bool ShowCloseButton => properties.showClose;
@@ -107,7 +107,7 @@ namespace Kwytto.LiteUI
         }
 
         #region Extra Classes
-        internal struct ButtonDefinition
+        public struct ButtonDefinition
         {
             public string title;
             public Func<bool> onClick;
@@ -115,7 +115,7 @@ namespace Kwytto.LiteUI
             public ButtonStyle style;
         }
 
-        internal enum ButtonStyle
+        public enum ButtonStyle
         {
             Default,
             White,
@@ -139,10 +139,10 @@ namespace Kwytto.LiteUI
             }
         }
 
-        internal struct BindProperties
+        public struct BindProperties
         {
             public string title;
-            // public string icon;
+            public string icon;
             public bool showClose;
             public float messageTextSizeMultiplier;
             public string message;

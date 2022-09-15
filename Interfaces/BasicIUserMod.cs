@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
-using static ColossalFramework.UI.UITextureAtlas;
 using static Kwytto.LiteUI.KwyttoDialog;
 
 namespace Kwytto.Interfaces
@@ -332,7 +331,7 @@ namespace Kwytto.Interfaces
                 try
                 {
                     string title = $"{SimpleName} v{Version}";
-                    string notes = KlyteResourceLoader.LoadResourceString("UI.VersionNotes.txt");
+                    string notes = KResourceLoader.LoadResourceString("UI.VersionNotes.txt");
                     string text = string.Format(KStr.comm_releaseNotes_WasUpdatedTitle, SimpleName);
                     var targetUrl = GetButtonLink();
                     ShowModal(new BindProperties()
@@ -443,17 +442,7 @@ namespace Kwytto.Interfaces
         }
 
         public Dictionary<ulong, Tuple<string, string>> SearchIncompatibilities() => IncompatibleModList.Count == 0 ? null : PluginUtils.VerifyModsEnabled(IncompatibleModList, IncompatibleDllModList);
-        public void OnViewStart()
-        {
-            var newSprites = new List<SpriteInfo>();
-            TextureAtlasUtils.LoadImagesFromResources("_commons.UI.Images", ref newSprites);
-            TextureAtlasUtils.LoadImagesFromResources("UI.Images", ref newSprites);
-            LogUtils.DoLog($"ADDING {newSprites.Count} sprites!");
-            TextureAtlasUtils.RegenerateDefaultTextureAtlas(newSprites);
-            LogUtils.FlushBuffer();
-
-            ExtraOnViewStartActions();
-        }
+        public void OnViewStart() => ExtraOnViewStartActions();
 
         protected virtual void ExtraOnViewStartActions() { }
         protected virtual Dictionary<ulong, string> IncompatibleModList { get; } = new Dictionary<ulong, string>();

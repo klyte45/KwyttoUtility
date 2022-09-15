@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Kwytto.Utils
 {
-    public static class KlyteResourceLoader
+    public static class KResourceLoader
     {
         public static string Prefix { get; } = "Klyte";
 

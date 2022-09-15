@@ -55,7 +55,7 @@ namespace Kwytto.Utils
             }
             else
             {
-                generatedSpriteName = KlyteResourceLoader.GetDefaultSpriteNameFor(textureName);
+                generatedSpriteName = KResourceLoader.GetDefaultSpriteNameFor(textureName);
             }
             borderDescriptors.TryGetValue(generatedSpriteName, out Tuple<RectOffset, bool> border);
             var res = new SpriteInfo
@@ -87,10 +87,10 @@ namespace Kwytto.Utils
         public static void LoadImagesFromResources(string path, ref List<SpriteInfo> newSprites)
         {
             string[] imagesFiles = KFileUtils.GetAllFilesEmbeddedAtFolder(path, ".png");
-            TextureAtlasUtils.ParseBorderDescriptors(KlyteResourceLoader.LoadResourceStringLines($"{path}.{BORDER_FILENAME}"), out Dictionary<string, Tuple<RectOffset, bool>> borderDescriptor);
+            ParseBorderDescriptors(KResourceLoader.LoadResourceStringLines($"{path}.{BORDER_FILENAME}"), out Dictionary<string, Tuple<RectOffset, bool>> borderDescriptor);
             foreach (string file in imagesFiles)
             {
-                Texture2D tex = KlyteResourceLoader.LoadTexture($"{path}.{file}");
+                Texture2D tex = KResourceLoader.LoadTexture($"{path}.{file}");
                 if (tex != null)
                 {
                     newSprites.AddRange(TextureAtlasUtils.CreateSpriteInfo(borderDescriptor, file, tex));
@@ -145,7 +145,7 @@ namespace Kwytto.Utils
         public static void ParseImageIntoDefaultTextureAtlas(Type enumType, string resourceName, int width, int height, ref List<SpriteInfo> sprites)
         {
             Array spriteValues = Enum.GetValues(enumType);
-            Texture2D image = KlyteResourceLoader.LoadTexture(resourceName);
+            Texture2D image = KResourceLoader.LoadTexture(resourceName);
             for (int i = 0; i < spriteValues.Length && i * width < image.width; i++)
             {
                 var textureQuad = new Texture2D(width, height, TextureFormat.RGBA32, false);
@@ -153,7 +153,7 @@ namespace Kwytto.Utils
                 sprites.Add(new SpriteInfo()
                 {
                     texture = textureQuad,
-                    name = KlyteResourceLoader.GetDefaultSpriteNameFor(spriteValues.GetValue(i) as Enum)
+                    name = KResourceLoader.GetDefaultSpriteNameFor(spriteValues.GetValue(i) as Enum)
                 });
             }
         }
