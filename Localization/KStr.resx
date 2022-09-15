@@ -135,4 +135,45 @@
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
+  <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
+    <value>Current Version:</value>
+    <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
+  </data>
+  <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
+    <value>Follow Kwytto at Twitter to get update news!</value>
+    <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
+  </data>
+  <data name="comm_releaseNotes_Ok" xml:space="preserve">
+    <value>Okay!</value>
+  </data>
+  <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
+    <value>See news at Workshop Page!</value>
+  </data>
+  <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
+    <value>{0} was updated! Release notes:</value>
+    <comment>Argument 0 is the mod name</comment>
+  </data>
+  <data name="comm_reportABugBtn" xml:space="preserve">
+    <value>Report-a-bug helper</value>
+    <comment>This is also the title of the window with the information</comment>
+  </data>
+  <data name="comm_reportABugContent" xml:space="preserve">
+    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
+Additionally, you can find the mod log at the leftmost button below.
+
+There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
+Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
+    <value>Go to the guide</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
+    <value>Go to mod log</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
+    <value>Go to mod page</value>
+  </data>
+  <data name="comm_reportABugOpt_Ok" xml:space="preserve">
+    <value>Okay...</value>
+  </data>
 </root>

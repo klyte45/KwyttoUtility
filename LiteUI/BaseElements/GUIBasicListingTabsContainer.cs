@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.Globalization;
+using Klyte._commons.Localization;
 using Klyte.Localization;
 using Kwytto.LiteUI;
 using System;
@@ -79,7 +80,7 @@ namespace Kwytto.UI
             {
                 var sideListArea = new Rect(0, 0, 120, area.height);
                 var sideList = m_listGetter();
-                var addItemText = Str.comm_addItemList;
+                var addItemText = KStr.comm_addItemList;
                 if (GUIKlyteCommons.CreateItemVerticalList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel))
                 {
                     m_onAdd();

@@ -1,10 +1,9 @@
-﻿using ColossalFramework;
+﻿using CitiesHarmony.API;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Reflection.Emit;
 using UnityEngine;
 
 namespace Kwytto.Utils
@@ -59,39 +58,45 @@ namespace Kwytto.Utils
 
         public static void UnpatchAll()
         {
-            LogUtils.DoWarnLog($"Unpatching all: {m_harmony.Id}");
-            foreach (MethodInfo method in m_patches)
+            HarmonyHelper.DoOnHarmonyReady(() =>
             {
-                m_harmony.Unpatch(method, HarmonyPatchType.All, m_harmony.Id);
-            }
-            foreach (Action action in m_onUnpatchActions)
-            {
-                action?.Invoke();
-            }
-            m_onUnpatchActions.Clear();
-            m_patches.Clear();
+                LogUtils.DoWarnLog($"Unpatching all: {m_harmony.Id}");
+                foreach (MethodInfo method in m_patches)
+                {
+                    m_harmony.Unpatch(method, HarmonyPatchType.All, m_harmony.Id);
+                }
+                foreach (Action action in m_onUnpatchActions)
+                {
+                    action?.Invoke();
+                }
+                m_onUnpatchActions.Clear();
+                m_patches.Clear();
+            });
         }
         public static void PatchAll()
         {
-            LogUtils.DoWarnLog($"Patching all: {m_harmony.Id}");
-            GameObject m_topObj = GameObject.Find("k45_Redirectors") ?? new GameObject("k45_Redirectors");
-            Type typeTarg = typeof(IRedirectable);
-            List<Type> instances = ReflectionUtils.GetInterfaceImplementations(typeTarg, typeTarg);
-            LogUtils.DoLog($"Found Redirectors: {instances.Count}");
-            Application.logMessageReceived += ErrorPatchingHandler;
-            try
+            HarmonyHelper.DoOnHarmonyReady(() =>
             {
-                foreach (Type t in instances)
+                LogUtils.DoWarnLog($"Patching all: {m_harmony.Id}");
+                GameObject m_topObj = GameObject.Find("k45_Redirectors") ?? new GameObject("k45_Redirectors");
+                Type typeTarg = typeof(IRedirectable);
+                List<Type> instances = ReflectionUtils.GetInterfaceImplementations(typeTarg, typeTarg);
+                LogUtils.DoLog($"Found Redirectors: {instances.Count}");
+                Application.logMessageReceived += ErrorPatchingHandler;
+                try
                 {
-                    LogUtils.DoLog($"Redirector: {t}");
-                    m_topObj.AddComponent(t);
+                    foreach (Type t in instances)
+                    {
+                        LogUtils.DoLog($"Redirector: {t}");
+                        m_topObj.AddComponent(t);
 
+                    }
                 }
-            }
-            finally
-            {
-                Application.logMessageReceived -= ErrorPatchingHandler;
-            }
+                finally
+                {
+                    Application.logMessageReceived -= ErrorPatchingHandler;
+                }
+            });
         }
 
         private static void ErrorPatchingHandler(string logString, string stackTrace, LogType type)
@@ -125,7 +130,7 @@ namespace Kwytto.Utils
                 //    }
                 //    return true;
                 //});
-                LogUtils.DoErrorLog($"{logString}\n{stackTrace}"); 
+                LogUtils.DoErrorLog($"{logString}\n{stackTrace}");
             }
         }
 

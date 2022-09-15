@@ -16,6 +16,8 @@ namespace Kwytto.LiteUI
         public static readonly Texture2D greenTexture;
         public static readonly Texture2D darkRedTexture;
         public static readonly Texture2D redTexture;
+        public static readonly Texture2D almostWhiteTexture;
+        public static readonly Texture2D whiteTexture;
 
         static GUIKlyteCommons()
         {
@@ -23,6 +25,8 @@ namespace Kwytto.LiteUI
             greenTexture = CreateTextureOfColor(Color.green);
             darkRedTexture = CreateTextureOfColor(Color.Lerp(Color.red, Color.gray, 0.5f));
             redTexture = CreateTextureOfColor(Color.red);
+            almostWhiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.gray, 0.28f));
+            whiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.gray, 0.12f));
         }
 
         private static Texture2D CreateTextureOfColor(Color src)

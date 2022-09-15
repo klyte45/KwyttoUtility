@@ -1,14 +1,17 @@
 ﻿using ColossalFramework;
+using ColossalFramework.Globalization;
 using ColossalFramework.Packaging;
 using ColossalFramework.PlatformServices;
 using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
 using Klyte._commons.Localization;
+using Klyte.Localization;
 using Kwytto.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using static ColossalFramework.UI.UITextureAtlas;
@@ -93,6 +96,8 @@ namespace Kwytto.Interfaces
         {
             OnLevelLoadedInherit(mode);
             OnLevelLoadingInternal();
+
+            InitializeMod();
         }
 
         protected virtual void OnLevelLoadedInherit(LoadMode mode)
@@ -145,6 +150,8 @@ namespace Kwytto.Interfaces
             Controller = null;
             Redirector.UnpatchAll();
             PatchesApply();
+            DestroyMod();
+            LogUtils.FlushBuffer();
         }
         public virtual void OnReleased() => PluginManager.instance.eventPluginsStateChanged -= SearchIncompatibilitiesModal;
 
@@ -159,12 +166,14 @@ namespace Kwytto.Interfaces
 
         public void OnEnabled()
         {
+            LocaleChanged();
             if (CurrentSaveVersion.value != FullVersion)
             {
                 needShowPopup = true;
             }
             KFileUtils.EnsureFolderCreation(CommonProperties.ModRootFolder);
             PatchesApply();
+            LogUtils.FlushBuffer();
         }
 
         public void OnDisabled() => Redirector.UnpatchAll();
@@ -251,22 +260,28 @@ namespace Kwytto.Interfaces
             {
                 ShowVersionInfoPopup(true);
             });
-            group9.AddButton("Report-a-bug helper", () => ShowModal(new BindProperties()
+            group9.AddButton(KStr.comm_reportABugBtn, () => ShowModal(new BindProperties()
             {
                 // icon = IconName,
-                title = "Report-a-bug helper",
-                message = "If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...\n\n" +
-                         "There's a link for a Workshop guide by <color #008800>aubergine18</color> explaining how to find your log file, depending of OS you're using.\nFeel free to create a topic at Workshop or just leave a comment linking your files.",
+                title = KStr.comm_reportABugBtn,
+                message = KStr.comm_reportABugContent,
                 buttons = new ButtonDefinition[]
                 {
                     new ButtonDefinition
                     {
-                        title= "Okay...",
-                        onClick= () => true
+                        title=  KStr.comm_reportABugOpt_GoToModLog,
+                        onClick= ()=>{
+                            ColossalFramework.Utils.OpenInFileBrowser(LogUtils.LogPath);
+                            return false;
+                        }
                     },
                     new ButtonDefinition
                     {
-                        title=  "Go to the guide",
+                        isSpace = true
+                    },
+                    new ButtonDefinition
+                    {
+                        title= KStr.comm_reportABugOpt_GoToGuide,
                         onClick= ()=>{
                             ColossalFramework.Utils.OpenUrlThreaded("https://steamcommunity.com/sharedfiles/filedetails/?id=463645931");
                             return false;
@@ -274,13 +289,24 @@ namespace Kwytto.Interfaces
                     },
                     new ButtonDefinition
                     {
-                        title= "Go to mod page",
+                        title= KStr.comm_reportABugOpt_GoToModPage,
                         onClick= ()=>{
                             ColossalFramework.Utils.OpenUrlThreaded("https://steamcommunity.com/sharedfiles/filedetails/?id=" + ModId);
                             return false;
                         }
                     },
+                    new ButtonDefinition
+                    {
+                        isSpace = true
+                    },
+                    new ButtonDefinition
+                    {
+                        title= KStr.comm_reportABugOpt_Ok,
+                        onClick= () => true,
+                        style=ButtonStyle.White
+                    },
                 },
+                messageAlign = TextAnchor.MiddleLeft,
             }));
 
             //UIDropDown dd = null;
@@ -312,30 +338,28 @@ namespace Kwytto.Interfaces
                 {
                     string title = $"{SimpleName} v{Version}";
                     string notes = KlyteResourceLoader.LoadResourceString("UI.VersionNotes.txt");
-                    var fullWidth = notes.StartsWith("<extended>");
-                    if (fullWidth)
-                    {
-                        notes = notes.Substring("<extended>".Length);
-                    }
-                    string text = $"<size=28>{SimpleName} was updated! Release notes:</size>\n\n<size=14>{notes}</size>";
+                    string text = string.Format(KStr.comm_releaseNotes_WasUpdatedTitle, SimpleName);
                     var targetUrl = GetButtonLink();
                     ShowModal(new BindProperties()
                     {
                         //icon = IconName,
                         showClose = true,
+                        scrollText = notes,
+                        scrollTextSizeMultiplier = 0.75f,
+                        scrollTextAlign = TextAnchor.UpperLeft,
                         buttons = new ButtonDefinition[]
                         {
                             new ButtonDefinition
                             {
-                                title = $"Current Version:\n<color=#FFFF00ff>{FullVersion}</color>"
+                                title = $"{KStr.comm_releaseNotes_CurrentVersion} <color=#FFFF00ff>{FullVersion}</color>"
                             },
                             new ButtonDefinition
                             {
-                                IsSpace=true
+                                isSpace=true
                             },
                             new ButtonDefinition
                             {
-                                title=  "See the news on the mod page at Workshop!",
+                                title=  KStr.comm_releaseNotes_ToWorkshop,
                                 onClick= ()=>{
                                     ColossalFramework.Utils.OpenUrlThreaded("https://steamcommunity.com/sharedfiles/filedetails/?id=" + ModId);
                                     return false;
@@ -343,7 +367,7 @@ namespace Kwytto.Interfaces
                             },
                             new ButtonDefinition
                             {
-                                title= "Follow Kwytto on Twitter to get mods news!",
+                                title=  KStr.comm_releaseNotes_FollowKwytto,
                                 onClick= ()=>{
                                     ColossalFramework.Utils.OpenUrlThreaded("https://twitter.com/kwytto");
                                     return false;
@@ -351,11 +375,12 @@ namespace Kwytto.Interfaces
                             },
                             new ButtonDefinition
                             {
-                                title= "Okay!",
-                                onClick= () => true
+                                title= KStr.comm_releaseNotes_Ok,
+                                onClick= () => true,
+                                style=ButtonStyle.White
                             },
                         },
-                        messageAlign = TextAnchor.MiddleLeft,
+                        messageAlign = TextAnchor.UpperLeft,
                         title = title,
                         message = text,
                     });
@@ -431,6 +456,29 @@ namespace Kwytto.Interfaces
         protected virtual List<ulong> AutomaticUnsubMods { get; } = new List<ulong>();
         public IEnumerable<KeyValuePair<ulong, string>> IncompatibleModListAll => IncompatibleModListCommons.Union(IncompatibleModList);
         public IEnumerable<string> IncompatibleDllModListAll => IncompatibleDllModListCommons.Union(IncompatibleDllModList);
+
+
+
+
+        public void InitializeMod()
+        {
+            LocaleManager.eventLocaleChanged += LocaleChanged;
+
+        }
+
+        public void DestroyMod()
+        {
+            LocaleManager.eventLocaleChanged -= LocaleChanged;
+        }
+        protected abstract void SetLocaleCulture(CultureInfo culture);
+        internal static CultureInfo Culture => new CultureInfo(SingletonLite<LocaleManager>.instance.language == "zh" ? "zh-cn" : SingletonLite<LocaleManager>.instance.language);
+        internal static void LocaleChanged()
+        {
+            var newCulture = Culture;
+            Debug.Log($"{CommonProperties.ModName} Locale changed {Str.Culture?.Name}->{newCulture.Name}");
+            KStr.Culture = newCulture;
+            Instance.SetLocaleCulture(newCulture);
+        }
 
     }
 

@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,10 +13,11 @@ namespace Kwytto.Utils
         #region Log Utils
 
         private static readonly object fileLock;
-        public static string logPath;
+        public static string LogPath { get; private set; }
         public static char indentChar;
         public static int indentLevel;
         private static List<string> buffer;
+        private static float lastWriteBuffer;
 
         static LogUtils()
         {
@@ -26,17 +28,22 @@ namespace Kwytto.Utils
 
             string folderPath = Path.Combine(KFileUtils.BASE_FOLDER_PATH, "_LOGS");
             KFileUtils.EnsureFolderCreation(folderPath);
-            logPath = Path.Combine(folderPath, CommonProperties.Acronym + ".log.txt");
+            LogPath = Path.Combine(folderPath, CommonProperties.Acronym + ".log.txt");
+
         }
         private static void LogBuffered(string format, params object[] args)
         {
-            Debug.LogFormat(format, args);
             lock (fileLock)
             {
                 buffer.Add(string.Format(format, args));
             }
+            if (Time.time - lastWriteBuffer > 1.5f)
+            {
+                FlushBuffer();
+                lastWriteBuffer = Time.time;
+            }
         }
-        private static void FlushBuffer()
+        public static void FlushBuffer()
         {
             lock (fileLock)
             {
@@ -45,7 +52,7 @@ namespace Kwytto.Utils
                     return;
                 }
 
-                using (StreamWriter streamWriter = File.AppendText(logPath))
+                using (StreamWriter streamWriter = File.AppendText(LogPath))
                 {
                     foreach (string item in buffer)
                     {
@@ -60,15 +67,16 @@ namespace Kwytto.Utils
         {
             return new string(indentChar, indentLevel);
         }
-        public static void Log(string format, params object[] args)
+        private static void Log(string format, params object[] args)
         {
-            Debug.LogFormat(format, args);
+            FlushBuffer();
             lock (fileLock)
             {
-                using (StreamWriter streamWriter = File.AppendText(logPath))
+                using (StreamWriter streamWriter = File.AppendText(LogPath))
                     streamWriter.WriteLine(IndentString() + string.Format(format, args));
             }
         }
+        private static string LogLineStart(string level) => $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}][{level,-8}][v{CommonProperties.FullVersion,-12}] ";
 
         public static void DoLog(string format, params object[] args)
         {
@@ -76,38 +84,35 @@ namespace Kwytto.Utils
             {
                 if (CommonProperties.DebugMode)
                 {
-                    LogBuffered(string.Format($"{CommonProperties.Acronym}v" + CommonProperties.Version + " " + format, args));
-                    FlushBuffer();
+                    LogBuffered(string.Format(LogLineStart("DEBUG") + format, args));
                 }
 
             }
             catch
             {
-               Log($"{CommonProperties.Acronym}: Erro ao fazer log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
+                LogBuffered($"{LogLineStart("SEVERE")} Erro ao fazer log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
             }
         }
         public static void DoWarnLog(string format, params object[] args)
         {
             try
             {
-                LogBuffered($"{CommonProperties.Acronym}v" + CommonProperties.Version + " " + format, args);
-                FlushBuffer();
+                LogBuffered(LogLineStart("WARNING") + format, args);
             }
             catch
             {
-               Log($"{CommonProperties.Acronym}: Erro ao fazer warn log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
+                LogBuffered($"{LogLineStart("SEVERE")} Erro ao fazer warn log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
             }
         }
         public static void DoErrorLog(string format, params object[] args)
         {
             try
             {
-                Log($"{CommonProperties.Acronym}v" + CommonProperties.Version + " " + format, args);
-                FlushBuffer();
+                LogBuffered(LogLineStart("ERROR") + format, args);
             }
             catch
             {
-               Log($"{CommonProperties.Acronym}: Erro ao fazer err log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
+                LogBuffered($"{LogLineStart("SEVERE")}: Erro ao fazer err log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
             }
         }
 
@@ -116,7 +121,7 @@ namespace Kwytto.Utils
             if (force || CommonProperties.DebugMode)
             {
                 int j = 0;
-                LogBuffered($"TRANSPILLED:\n\t{string.Join("\n\t", inst.Select(x => $"{(j++).ToString("D8")} {x.opcode.ToString().PadRight(10)} {ParseOperand(inst, x.operand)}").ToArray())}");
+                LogBuffered($"{LogLineStart("TRANSPILLED")}\n\t{string.Join("\n\t", inst.Select(x => $"{(j++).ToString("D8")} {x.opcode.ToString().PadRight(10)} {ParseOperand(inst, x.operand)}").ToArray())}");
             }
         }
 

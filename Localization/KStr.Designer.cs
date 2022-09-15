@@ -104,5 +104,108 @@ namespace Klyte._commons.Localization {
                 return ResourceManager.GetString("comm_releaseNotes", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Current Version:.
+        /// </summary>
+        internal static string comm_releaseNotes_CurrentVersion {
+            get {
+                return ResourceManager.GetString("comm_releaseNotes_CurrentVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Follow Kwytto at Twitter to get update news!.
+        /// </summary>
+        internal static string comm_releaseNotes_FollowKwytto {
+            get {
+                return ResourceManager.GetString("comm_releaseNotes_FollowKwytto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Okay!.
+        /// </summary>
+        internal static string comm_releaseNotes_Ok {
+            get {
+                return ResourceManager.GetString("comm_releaseNotes_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a See news at Workshop Page!.
+        /// </summary>
+        internal static string comm_releaseNotes_ToWorkshop {
+            get {
+                return ResourceManager.GetString("comm_releaseNotes_ToWorkshop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} was updated! Release notes:.
+        /// </summary>
+        internal static string comm_releaseNotes_WasUpdatedTitle {
+            get {
+                return ResourceManager.GetString("comm_releaseNotes_WasUpdatedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Report-a-bug helper.
+        /// </summary>
+        internal static string comm_reportABugBtn {
+            get {
+                return ResourceManager.GetString("comm_reportABugBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
+        ///Additionally, you can find the mod log at the leftmost button below.
+        ///
+        ///There&apos;s a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you&apos;re using.
+        ///Feel free to create a topic at Workshop or just leave a comment link [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        internal static string comm_reportABugContent {
+            get {
+                return ResourceManager.GetString("comm_reportABugContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Go to the guide.
+        /// </summary>
+        internal static string comm_reportABugOpt_GoToGuide {
+            get {
+                return ResourceManager.GetString("comm_reportABugOpt_GoToGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Go to mod log.
+        /// </summary>
+        internal static string comm_reportABugOpt_GoToModLog {
+            get {
+                return ResourceManager.GetString("comm_reportABugOpt_GoToModLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Go to mod page.
+        /// </summary>
+        internal static string comm_reportABugOpt_GoToModPage {
+            get {
+                return ResourceManager.GetString("comm_reportABugOpt_GoToModPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Okay....
+        /// </summary>
+        internal static string comm_reportABugOpt_Ok {
+            get {
+                return ResourceManager.GetString("comm_reportABugOpt_Ok", resourceCulture);
+            }
+        }
     }
 }

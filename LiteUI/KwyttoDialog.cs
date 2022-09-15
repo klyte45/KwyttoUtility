@@ -1,4 +1,5 @@
-﻿using ColossalFramework.UI;
+﻿using ColossalFramework;
+using ColossalFramework.UI;
 using System;
 using UnityEngine;
 
@@ -8,7 +9,11 @@ namespace Kwytto.LiteUI
     {
         private BindProperties properties;
         protected override bool ShowCloseButton => properties.showClose;
-        protected override float FontSizeMultiplier => 2f;
+        protected override float FontSizeMultiplier => 1.5f;
+
+
+        private Vector2 scrollPosition;
+
         public static KwyttoDialog ShowModal(BindProperties properties)
         {
             var parent = UIView.GetAView();
@@ -32,15 +37,30 @@ namespace Kwytto.LiteUI
             var area = new Rect(5, TitleBarHeight, WindowRect.width - 10, WindowRect.height - TitleBarHeight);
             using (new GUILayout.AreaScope(area))
             {
-                var textArea = new Rect(0, 0, area.size.x, area.size.y - 60 * ResolutionMultiplier); ;
-                var buttonsArea = new Rect(0, area.size.y - 60 * ResolutionMultiplier, area.size.x, 60 * ResolutionMultiplier);
+                var textArea = new Rect(0, 0, area.size.x, area.size.y - 30 * ResolutionMultiplier); ;
+                var buttonsArea = new Rect(0, area.size.y - 30 * ResolutionMultiplier, area.size.x, 30 * ResolutionMultiplier);
                 using (new GUILayout.AreaScope(textArea))
                 {
-                    GUILayout.Label(properties.message, new GUIStyle(GUI.skin.label)
+                    using (new GUILayout.VerticalScope())
                     {
-                        alignment = properties.messageAlign
-                    });
-
+                        GUILayout.Label((properties.messageTextSizeMultiplier > 0 ? $"<size={Mathf.RoundToInt(properties.messageTextSizeMultiplier * DefaultSize)}>" : "") + properties.message + (properties.messageTextSizeMultiplier > 0 ? "</size>" : ""), new GUIStyle(GUI.skin.label)
+                        {
+                            alignment = properties.messageAlign
+                        }, GUILayout.ExpandHeight(properties.scrollText.IsNullOrWhiteSpace()), GUILayout.ExpandWidth(true));
+                        if (!properties.scrollText.IsNullOrWhiteSpace())
+                        {
+                            using (var view = new GUILayout.ScrollViewScope(scrollPosition))
+                            {
+                                GUILayout.Label((properties.scrollTextSizeMultiplier > 0 ? $"<size={Mathf.RoundToInt(properties.scrollTextSizeMultiplier * DefaultSize)}>" : "") + properties.scrollText + (properties.scrollTextSizeMultiplier > 0 ? "</size>" : ""),
+                                    new GUIStyle(GUI.skin.label)
+                                    {
+                                        alignment = properties.scrollTextAlign
+                                    },
+                                    GUILayout.ExpandWidth(true));
+                                scrollPosition = view.scrollPosition;
+                            }
+                        }
+                    }
                 }
                 using (new GUILayout.AreaScope(buttonsArea))
                 {
@@ -48,17 +68,24 @@ namespace Kwytto.LiteUI
                     {
                         foreach (var button in properties.buttons)
                         {
-                            if (button.IsSpace)
+                            if (button.isSpace)
                             {
                                 GUILayout.FlexibleSpace();
                             }
                             else if (button.onClick is null)
                             {
-                                GUILayout.Label(button.title, GUILayout.ExpandHeight(true));
+                                GUILayout.Label(button.title, new GUIStyle(GUI.skin.label)
+                                {
+                                    alignment = TextAnchor.MiddleCenter,
+                                },
+                                GUILayout.ExpandHeight(true));
                             }
                             else
                             {
-                                if (GUILayout.Button(button.title, GUILayout.ExpandHeight(true)))
+                                if (GUILayout.Button(button.title, new GUIStyle(GetButtonStyleGui(button.style))
+                                {
+                                    alignment = TextAnchor.MiddleCenter,
+                                }))
                                 {
                                     if (button.onClick())
                                     {
@@ -84,17 +111,46 @@ namespace Kwytto.LiteUI
         {
             public string title;
             public Func<bool> onClick;
-            public bool IsSpace;
-
+            public bool isSpace;
+            public ButtonStyle style;
         }
+
+        internal enum ButtonStyle
+        {
+            Default,
+            White,
+            Green,
+            Red
+        }
+
+        private GUIStyle GetButtonStyleGui(ButtonStyle style)
+        {
+            switch (style)
+            {
+                case ButtonStyle.White:
+                    return WhiteButton;
+                case ButtonStyle.Green:
+                    return GreenButton;
+                case ButtonStyle.Red:
+                    return RedButton;
+                default:
+                case ButtonStyle.Default:
+                    return GUI.skin.button;
+            }
+        }
+
         internal struct BindProperties
         {
             public string title;
             // public string icon;
             public bool showClose;
+            public float messageTextSizeMultiplier;
             public string message;
             public TextAnchor messageAlign;
             public ButtonDefinition[] buttons;
+            public float scrollTextSizeMultiplier;
+            public string scrollText;
+            public TextAnchor scrollTextAlign;
             // public bool showTextField;
             // public bool showDropDown;
             // public string[] dropDownOptions;
@@ -102,6 +158,87 @@ namespace Kwytto.LiteUI
             //   public string defaultTextFieldContent;
 
         }
+        #endregion
+
+        #region Styles
+
+
+        private GUIStyle m_greenButton;
+        private GUIStyle m_redButton;
+        private GUIStyle m_whiteButton;
+        internal GUIStyle GreenButton
+        {
+            get
+            {
+                if (m_greenButton is null)
+                {
+                    m_greenButton = new GUIStyle(Skin.button)
+                    {
+                        normal = new GUIStyleState()
+                        {
+                            background = GUIKlyteCommons.darkGreenTexture,
+                            textColor = Color.white
+                        },
+                        hover = new GUIStyleState()
+                        {
+                            background = GUIKlyteCommons.greenTexture,
+                            textColor = Color.black
+                        },
+                    };
+                }
+                return m_greenButton;
+            }
+        }
+
+
+
+        internal GUIStyle RedButton
+        {
+            get
+            {
+                if (m_redButton is null)
+                {
+                    m_redButton = new GUIStyle(Skin.button)
+                    {
+                        normal = new GUIStyleState()
+                        {
+                            background = GUIKlyteCommons.darkRedTexture,
+                            textColor = Color.white
+                        },
+                        hover = new GUIStyleState()
+                        {
+                            background = GUIKlyteCommons.redTexture,
+                            textColor = Color.white
+                        },
+                    };
+                }
+                return m_redButton;
+            }
+        }
+        internal GUIStyle WhiteButton
+        {
+            get
+            {
+                if (m_whiteButton is null)
+                {
+                    m_whiteButton = new GUIStyle(Skin.button)
+                    {
+                        normal = new GUIStyleState()
+                        {
+                            background = GUIKlyteCommons.almostWhiteTexture,
+                            textColor = Color.black
+                        },
+                        hover = new GUIStyleState()
+                        {
+                            background = GUIKlyteCommons.whiteTexture,
+                            textColor = Color.black
+                        },
+                    };
+                }
+                return m_whiteButton;
+            }
+        }
+
         #endregion
     }
 }

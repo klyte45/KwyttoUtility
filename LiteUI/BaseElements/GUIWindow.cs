@@ -41,6 +41,7 @@ namespace Kwytto.LiteUI
         protected virtual bool ShowCloseButton { get; } = true;
 
         public static GUIStyle HighlightStyle => GUIStyle.none;
+        public int DefaultSize => Mathf.RoundToInt(12 * EffectiveFontSizeMultiplier);
 
         internal void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default)
         {
@@ -101,7 +102,7 @@ namespace Kwytto.LiteUI
         {
             if (Skin.font is null)
             {
-                Skin.font = Font.CreateDynamicFontFromOSFont(new string[0], Mathf.RoundToInt(12 * EffectiveFontSizeMultiplier));
+                Skin.font = Font.CreateDynamicFontFromOSFont(new string[0], DefaultSize);
             }
         }
 
@@ -319,7 +320,7 @@ namespace Kwytto.LiteUI
                     DrawCloseButton(mouse);
                 }
             }
-
+             
             if (Resizable)
             {
                 DrawResizeHandle(mouse);
@@ -432,7 +433,7 @@ namespace Kwytto.LiteUI
             {
                 closeTex = CloseHoverTexture;
 
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButtonDown(0))
                 {
                     resizingWindow = null;
                     movingWindow = null;
