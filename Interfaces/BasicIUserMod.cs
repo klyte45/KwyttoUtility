@@ -24,7 +24,7 @@ namespace Kwytto.Interfaces
         where C : BaseController<U, C>
     {
         public abstract string SimpleName { get; }
-        public virtual string IconName { get; } = $"K45_{CommonProperties.Acronym}_Icon";
+        public virtual string IconName { get; } = "ModIcon";
         public virtual bool UseGroup9 => true;
         public virtual void DoLog(string fmt, params object[] args) => LogUtils.DoLog(fmt, args);
         public virtual void DoErrorLog(string fmt, params object[] args) => LogUtils.DoErrorLog(fmt, args);

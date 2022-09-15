@@ -57,6 +57,10 @@ namespace Kwytto.LiteUI
         {
             Panel = gameObject.AddComponent<UIPanel>();
             Panel.zOrder = int.MaxValue;
+            if (requireModal)
+            {
+                UIView.PushModal(Panel);
+            }
         }
 
         public Rect WindowRect => windowRect;
@@ -113,6 +117,7 @@ namespace Kwytto.LiteUI
             {
                 UIView.GetAView().panelsLibraryModalEffect.isVisible = oldModalState;
                 UIView.GetAView().panelsLibraryModalEffect.zOrder = oldModalZorder;
+                UIView.PopModal();
             }
             Windows.Remove(this);
         }
@@ -256,6 +261,35 @@ namespace Kwytto.LiteUI
 
         public void MoveResize(Rect newWindowRect) => windowRect = newWindowRect;
 
+        private bool isOnTop;
+
+        private void Update()
+        {
+            if (requireModal)
+            {
+                Visible = UIView.GetModalComponent() == Panel;
+            }
+            else
+            {
+                var mouseOverWindow = Visible && windowRect.Contains(UIScaler.MousePosition);
+                if (mouseOverWindow)
+                {
+                    if (!isOnTop)
+                    {
+                        isOnTop = true;
+                        UIView.PushModal(Panel);
+                    }
+                }
+                else
+                {
+                    if (isOnTop && UIView.GetModalComponent() == Panel)
+                    {
+                        isOnTop = false;
+                        UIView.PopModal();
+                    }
+                }
+            }
+        }
         protected static bool IsMouseOverWindow()
         {
             var mouse = UIScaler.MousePosition;
@@ -415,8 +449,9 @@ namespace Kwytto.LiteUI
                     cachedModIcon.SetPixel(0, 0, Color.clear);
                     cachedModIcon.Apply();
                 }
+                cachedModIcon.filterMode = FilterMode.Trilinear;
             }
-            GUI.DrawTexture(new Rect(3.0f, 0.0f, TitleBarHeight, TitleBarHeight), cachedModIcon, ScaleMode.ScaleToFit);
+            GUI.DrawTexture(new Rect(3.0f, 0.0f, TitleBarHeight, TitleBarHeight), cachedModIcon, ScaleMode.StretchToFill, true);
             GUI.Label(new Rect(18 + 12 * EffectiveFontSizeMultiplier, 0.0f, windowRect.width - 30 + 24 * EffectiveFontSizeMultiplier, TitleBarHeight - 2), Title, new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleLeft
