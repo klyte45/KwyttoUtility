@@ -173,6 +173,7 @@ namespace Kwytto.Interfaces
             }
             KFileUtils.EnsureFolderCreation(CommonProperties.ModRootFolder);
             PatchesApply();
+
             LogUtils.FlushBuffer();
         }
 
@@ -203,7 +204,7 @@ namespace Kwytto.Interfaces
         public bool needShowPopup;
 
         public static SavedBool DebugMode { get; } = new SavedBool(CommonProperties.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
-        private SavedString CurrentSaveVersion { get; } = new SavedString(CommonProperties.Acronym + "SaveVersion", Settings.gameSettingsFile, "null", true);
+        private SavedString CurrentSaveVersion { get; } = new SavedString(CommonProperties.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
         public static bool IsCityLoaded => Singleton<SimulationManager>.instance.m_metaData != null;
 
         public static U m_instance = new U();
@@ -226,12 +227,6 @@ namespace Kwytto.Interfaces
             {
                 GameObject.Destroy(child?.gameObject);
             }
-
-            var newSprites = new List<SpriteInfo>();
-            TextureAtlasUtils.LoadImagesFromResources("_commons.UI.Images", ref newSprites);
-            TextureAtlasUtils.LoadImagesFromResources("UI.Images", ref newSprites);
-            LogUtils.DoLog($"ADDING {newSprites.Count} sprites!");
-            TextureAtlasUtils.RegenerateDefaultTextureAtlas(newSprites);
 
             TopSettingsUI(helper);
 
@@ -385,6 +380,7 @@ namespace Kwytto.Interfaces
                         message = text,
                     });
 
+                    CurrentSaveVersion.value = FullVersion;
                     return true;
                 }
                 catch (Exception e)
@@ -447,7 +443,18 @@ namespace Kwytto.Interfaces
         }
 
         public Dictionary<ulong, Tuple<string, string>> SearchIncompatibilities() => IncompatibleModList.Count == 0 ? null : PluginUtils.VerifyModsEnabled(IncompatibleModList, IncompatibleDllModList);
-        public void OnViewStart() => ExtraOnViewStartActions();
+        public void OnViewStart()
+        {
+            var newSprites = new List<SpriteInfo>();
+            TextureAtlasUtils.LoadImagesFromResources("_commons.UI.Images", ref newSprites);
+            TextureAtlasUtils.LoadImagesFromResources("UI.Images", ref newSprites);
+            LogUtils.DoLog($"ADDING {newSprites.Count} sprites!");
+            TextureAtlasUtils.RegenerateDefaultTextureAtlas(newSprites);
+            LogUtils.FlushBuffer();
+
+            ExtraOnViewStartActions();
+        }
+
         protected virtual void ExtraOnViewStartActions() { }
         protected virtual Dictionary<ulong, string> IncompatibleModList { get; } = new Dictionary<ulong, string>();
         protected virtual List<string> IncompatibleDllModList { get; } = new List<string>();
@@ -459,11 +466,9 @@ namespace Kwytto.Interfaces
 
 
 
-
         public void InitializeMod()
         {
             LocaleManager.eventLocaleChanged += LocaleChanged;
-
         }
 
         public void DestroyMod()
