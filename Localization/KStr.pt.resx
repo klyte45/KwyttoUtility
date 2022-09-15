@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,7 +117,63 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="comm_addItemList" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="comm_betaExtraInfo" xml:space="preserve">
+    <value>Extra informations</value>
+  </data>
+  <data name="comm_currentVersionFormat" xml:space="preserve">
+    <value>Current version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <comment>Keep the formatting; used in default game UI (mod options)</comment>
+  </data>
+  <data name="comm_debugMode" xml:space="preserve">
+    <value>Debug mode</value>
+  </data>
   <data name="comm_releaseNotes" xml:space="preserve">
     <value>Ver notas da versão (em inglês)</value>
+    <comment>Any other language shall inform that the release notes are always in English. 
+PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
+  </data>
+  <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
+    <value>Current Version:</value>
+    <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
+  </data>
+  <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
+    <value>Follow Kwytto at Twitter to get update news!</value>
+    <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
+  </data>
+  <data name="comm_releaseNotes_Ok" xml:space="preserve">
+    <value>Okay!</value>
+  </data>
+  <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
+    <value>See news at Workshop Page!</value>
+  </data>
+  <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
+    <value>{0} was updated! Release notes:</value>
+    <comment>Argument 0 is the mod name</comment>
+  </data>
+  <data name="comm_reportABugBtn" xml:space="preserve">
+    <value>Report-a-bug helper</value>
+    <comment>This is also the title of the window with the information</comment>
+  </data>
+  <data name="comm_reportABugContent" xml:space="preserve">
+    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
+Additionally, you can find the mod log at the leftmost button below.
+
+There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
+Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
+    <value>Go to the guide</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
+    <value>Go to mod log</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
+    <value>Go to mod page</value>
+  </data>
+  <data name="comm_reportABugOpt_Ok" xml:space="preserve">
+    <value>Okay...</value>
   </data>
 </root>
