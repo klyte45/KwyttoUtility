@@ -4,7 +4,7 @@ using ColossalFramework.PlatformServices;
 using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
-using Klyte.Localization;
+using Klyte._commons.Localization;
 using Kwytto.Utils;
 using System;
 using System.Collections;
@@ -238,16 +238,16 @@ namespace Kwytto.Interfaces
 
         protected virtual void CreateGroup9(UIHelper helper)
         {
-            var group9 = helper.AddGroup(Str.comm_betaExtraInfo) as UIHelper;
+            var group9 = helper.AddGroup(KStr.comm_betaExtraInfo) as UIHelper;
             Group9SettingsUI(group9);
 
-            group9.AddCheckbox(Str.comm_debugMode, DebugMode.value, delegate (bool val)
+            group9.AddCheckbox(KStr.comm_debugMode, DebugMode.value, delegate (bool val)
             { DebugMode.value = val; });
-            var uselessGroup = (group9.AddGroup(string.Format(Str.comm_currentVersionFormat, FullVersion)) as UIHelper).self as UIComponent;
+            var uselessGroup = (group9.AddGroup(string.Format(KStr.comm_currentVersionFormat, FullVersion)) as UIHelper).self as UIComponent;
             var versionLabel = (uselessGroup).parent.GetComponentInChildren<UILabel>();
             versionLabel.processMarkup = true;
             GameObject.Destroy(uselessGroup);
-            group9.AddButton(Str.comm_releaseNotes, delegate ()
+            group9.AddButton(KStr.comm_releaseNotes, delegate ()
             {
                 ShowVersionInfoPopup(true);
             });

@@ -1,0 +1,3 @@
+files:
+  - source: /Localization/KStr.resx
+    translation: /Localization/KStr.%two_letters_code%.resx
