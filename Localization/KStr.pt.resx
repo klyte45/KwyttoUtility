@@ -118,17 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="comm_addItemList" xml:space="preserve">
-    <value>Add Item</value>
+    <value>Adicionar Item</value>
   </data>
   <data name="comm_betaExtraInfo" xml:space="preserve">
-    <value>Extra informations</value>
+    <value>Informações extras</value>
   </data>
   <data name="comm_currentVersionFormat" xml:space="preserve">
-    <value>Current version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <value>Versão atual: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
     <comment>Keep the formatting; used in default game UI (mod options)</comment>
   </data>
   <data name="comm_debugMode" xml:space="preserve">
-    <value>Debug mode</value>
+    <value>Modo de debug</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
     <value>Ver notas da versão (em inglês)</value>
@@ -136,44 +136,44 @@
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
   <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
-    <value>Current Version:</value>
+    <value>Versão Atual:</value>
     <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
   </data>
   <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
-    <value>Follow Kwytto at Twitter to get update news!</value>
+    <value>Siga Kwytto no Twitter para receber novidades!</value>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
-    <value>Okay!</value>
+    <value>Certo!</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
-    <value>See news at Workshop Page!</value>
+    <value>Veja notícias na Página da Oficina!</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
-    <value>{0} was updated! Release notes:</value>
+    <value>{0} foi atualizado! Notas de lançamento:</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
-    <value>Report-a-bug helper</value>
+    <value>Como reportar um erro</value>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
-Additionally, you can find the mod log at the leftmost button below.
+    <value>Se você encontrar algum problema com este mod, por favor me envie o output_log.txt (ou player.log no Mac/Linux) na página do mod na Oficina. Se aplicar, uma captura de tela também pode ajudar a entender melhor o que está acontecendo de errado.
+Além disso, você pode encontrar o log deste mod no botão mais à esquerda abaixo.
 
-There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
-Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+Existe um link para um guia na Oficina por &lt;color=#008800&gt;aubergine18&lt;/color&gt; explicando como encontrar o seu arquivo de log, dependendo do sistema operacional que você usa.
+Sinta-se à vontade para criar um tópico na Oficina ou apenas deixar um comentário vinculando seus arquivos.</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
-    <value>Go to the guide</value>
+    <value>Acessar o guia</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
-    <value>Go to mod log</value>
+    <value>Ir ao log do mod</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
-    <value>Go to mod page</value>
+    <value>Ir à página do mod</value>
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
-    <value>Okay...</value>
+    <value>Certo...</value>
   </data>
 </root>
