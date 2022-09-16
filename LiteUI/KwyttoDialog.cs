@@ -100,9 +100,9 @@ namespace Kwytto.LiteUI
                 }
             }
         }
-        protected override void OnWindowClosed()
+        protected override void OnCloseButtonPress()
         {
-            base.OnWindowClosed();
+            base.OnCloseButtonPress();
             Destroy(gameObject);
         }
 

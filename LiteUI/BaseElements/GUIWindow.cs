@@ -478,6 +478,7 @@ namespace Kwytto.LiteUI
                     resizingWindow = null;
                     movingWindow = null;
                     Visible = false;
+                    OnCloseButtonPress();
                 }
             }
             var oldColor = GUI.contentColor;
@@ -489,6 +490,10 @@ namespace Kwytto.LiteUI
             });
             GUI.contentColor = oldColor;
 
+        }
+
+        protected virtual void OnCloseButtonPress()
+        {
         }
 
         private void DrawResizeHandle(Vector3 mouse)
