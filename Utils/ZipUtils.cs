@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace Kwytto.Utils
+namespace Klyte.Commons.Utils
 {
     public class ZipUtils
     {
@@ -22,17 +23,27 @@ namespace Kwytto.Utils
 
         public static byte[] ZipBytes(byte[] bytes)
         {
-            using (var msi = new MemoryStream(bytes))
+            var output = bytes;
+            try
             {
-                using (var mso = new MemoryStream())
+                using (var msi = new MemoryStream(bytes))
                 {
-                    using (var gs = new GZipStream(mso, CompressionMode.Compress))
+                    using (var mso = new MemoryStream())
                     {
-                        CopyTo(msi, gs);
+                        using (var gs = new GZipStream(mso, CompressionMode.Compress))
+                        {
+                            CopyTo(msi, gs);
+                        }
+                        output = mso.ToArray();
                     }
-                    return mso.ToArray();
                 }
             }
+            catch (Exception e)
+            {
+                LogUtils.DoWarnLog($"Failed zipping bytes - returning source: {e}");
+                output = bytes;
+            }
+            return output;
         }
 
         public static string Unzip(byte[] bytes) => Encoding.UTF8.GetString(UnzipBytes(bytes));
