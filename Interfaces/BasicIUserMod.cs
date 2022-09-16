@@ -1,4 +1,6 @@
-﻿using ColossalFramework;
+﻿extern alias UUI;
+
+using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.Packaging;
 using ColossalFramework.PlatformServices;
@@ -6,6 +8,7 @@ using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
 using Klyte._commons.Localization;
+using Kwytto.LiteUI;
 using Kwytto.Utils;
 using System;
 using System.Collections;
@@ -13,6 +16,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
+using UUI::UnifiedUI.Helpers;
 using static Kwytto.LiteUI.KwyttoDialog;
 
 namespace Kwytto.Interfaces
@@ -452,17 +456,20 @@ namespace Kwytto.Interfaces
         protected virtual List<ulong> AutomaticUnsubMods { get; } = new List<ulong>();
         public IEnumerable<KeyValuePair<ulong, string>> IncompatibleModListAll => IncompatibleModListCommons.Union(IncompatibleModList);
         public IEnumerable<string> IncompatibleDllModListAll => IncompatibleDllModListCommons.Union(IncompatibleDllModList);
+        public virtual UUIButtonContainerPlaceholder[] UUIButtons { get; } = new UUIButtonContainerPlaceholder[0];
 
 
 
         public void InitializeMod()
         {
             LocaleManager.eventLocaleChanged += LocaleChanged;
+            UUIButtons.ForEach(x => x.Create());
         }
 
         public void DestroyMod()
         {
             LocaleManager.eventLocaleChanged -= LocaleChanged;
+            UUIButtons.ForEach(x => x.Destroy());
         }
         protected abstract void SetLocaleCulture(CultureInfo culture);
         internal static CultureInfo Culture => new CultureInfo(SingletonLite<LocaleManager>.instance.language == "zh" ? "zh-cn" : SingletonLite<LocaleManager>.instance.language);
@@ -474,6 +481,66 @@ namespace Kwytto.Interfaces
             Instance.SetLocaleCulture(newCulture);
         }
 
+        public class UUIButtonContainerPlaceholder
+        {
+            public readonly string buttonName;
+            public readonly string iconPath;
+            public readonly string tooltip;
+            public readonly Func<GUIWindow> windowGetter;
+            private UUIButtonContainer m_button;
+
+            public void Create()
+            {
+                m_button = new UUIButtonContainer(buttonName, iconPath, tooltip, windowGetter());
+            }
+            public void Destroy()
+            {
+                m_button = null;
+            }
+            public void Open() => m_button?.Open();
+            public void Close() => m_button?.Close();
+        }
+
+        protected class UUIButtonContainer
+        {
+            private readonly GUIWindow window;
+
+
+            private readonly UUICustomButton m_modButton;
+
+            public UUIButtonContainer(string buttonName, string iconPath, string tooltip, GUIWindow window)
+            {
+                this.window = window;
+                m_modButton = UUIHelpers.RegisterCustomButton(
+                 name: buttonName,
+                 groupName: "Klyte45",
+                 tooltip: tooltip,
+                 onToggle: (value) => { if (value) { Open(); } else { Close(); } },
+                 onToolChanged: null,
+                 icon: KResourceLoader.LoadTexture(iconPath),
+                 hotkeys: new UUIHotKeys { }
+
+                 );
+                Close();
+            }
+
+            internal void Close()
+            {
+                m_modButton.IsPressed = false;
+                window.Visible = false;
+                m_modButton.Button?.Unfocus();
+                ApplyButtonColor();
+            }
+
+            private void ApplyButtonColor() => m_modButton.Button.color = Color.Lerp(Color.gray, m_modButton.IsPressed ? Color.white : Color.black, 0.5f);
+            internal void Open()
+            {
+                m_modButton.IsPressed = true;
+                window.Visible = true;
+                window.transform.position = new Vector3(25, 50);
+                ApplyButtonColor();
+            }
+        }
     }
 
 }
