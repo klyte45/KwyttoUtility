@@ -50,18 +50,16 @@ namespace Kwytto.LiteUI
             Resizable = resizable;
             HasTitlebar = hasTitlebar;
             this.minSize = minSize == default ? new Vector2(64.0f, 64.0f) : minSize;
-            Windows.Add(this);
-        }
 
-        private void Start()
-        {
             Panel = gameObject.AddComponent<UIPanel>();
             Panel.zOrder = int.MaxValue;
             if (requireModal)
             {
                 UIView.PushModal(Panel);
             }
+            Windows.Add(this);
         }
+
 
         public Rect WindowRect => windowRect;
         protected GUISkin Skin { get; private set; }
@@ -74,10 +72,17 @@ namespace Kwytto.LiteUI
             {
                 var wasVisible = visible;
                 visible = value;
-                if (visible && !wasVisible)
+                if (visible != wasVisible)
                 {
-                    GUI.BringWindowToFront(Id);
-                    OnWindowOpened();
+                    if (visible)
+                    {
+                        GUI.BringWindowToFront(Id);
+                        OnWindowOpened();
+                    }
+                    else
+                    {
+                        OnWindowClosed();
+                    }
                 }
             }
         }
@@ -473,7 +478,6 @@ namespace Kwytto.LiteUI
                     resizingWindow = null;
                     movingWindow = null;
                     Visible = false;
-                    OnWindowClosed();
                 }
             }
             var oldColor = GUI.contentColor;

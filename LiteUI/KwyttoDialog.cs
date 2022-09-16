@@ -111,9 +111,11 @@ namespace Kwytto.LiteUI
         {
             public string title;
             public Func<bool> onClick;
-            public bool isSpace;
+            internal bool isSpace;
             public ButtonStyle style;
         }
+
+        public static readonly ButtonDefinition SpaceBtn = new ButtonDefinition { isSpace = true };
 
         public enum ButtonStyle
         {

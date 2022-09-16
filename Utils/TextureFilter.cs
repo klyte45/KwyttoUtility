@@ -22,7 +22,7 @@ namespace Kwytto.Utils
             try { inPixels = inTex.GetPixels(); }
             catch (UnityException e)
             {
-                Debug.LogError("Error while reading the texture : " + e);
+                LogUtils.DoErrorLog("Error while reading the texture : " + e);
                 return inTex;
             }
             Color[] outPixels = ApplyFilter(inTex.width, inTex.height, method, startTime, inPixels, parameters);
@@ -115,7 +115,7 @@ namespace Kwytto.Utils
             }
             else
             {
-                Debug.LogWarning("Kernel is already normalized");
+                LogUtils.DoWarnLog("Kernel is already normalized");
             }
 
             return kernel;

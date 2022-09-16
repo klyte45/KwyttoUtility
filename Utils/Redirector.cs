@@ -51,7 +51,7 @@ namespace Kwytto.Utils
         {
 
             LogUtils.DoLog($"Adding patch! {oldMethod.DeclaringType} {oldMethod}");
-            m_detourList.Add(GetHarmonyInstance().Patch(oldMethod.GetBaseDefinition(), newMethodPre != null ? new HarmonyMethod(newMethodPre) : null, newMethodPost != null ? new HarmonyMethod(newMethodPost) : null, transpiler != null ? new HarmonyMethod(transpiler) : null));
+            m_detourList.Add(GetHarmonyInstance().Patch(oldMethod, newMethodPre != null ? new HarmonyMethod(newMethodPre) : null, newMethodPost != null ? new HarmonyMethod(newMethodPost) : null, transpiler != null ? new HarmonyMethod(transpiler) : null));
             m_patches.Add(oldMethod);
         }
         public void AddUnpatchAction(Action unpatchAction) => m_onUnpatchActions.Add(unpatchAction);

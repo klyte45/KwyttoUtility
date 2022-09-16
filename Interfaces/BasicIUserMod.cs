@@ -165,7 +165,6 @@ namespace Kwytto.Interfaces
 
         public void OnEnabled()
         {
-            LocaleChanged();
             if (CurrentSaveVersion.value != FullVersion)
             {
                 needShowPopup = true;
@@ -214,7 +213,7 @@ namespace Kwytto.Interfaces
 
         public void OnSettingsUI(UIHelperBase helperDefault)
         {
-
+            LocaleChanged();
             m_onSettingsUiComponent = ((UIHelper)helperDefault).self as UIComponent;
 
             DoWithSettingsUI((UIHelper)helperDefault);
@@ -469,7 +468,7 @@ namespace Kwytto.Interfaces
         internal static void LocaleChanged()
         {
             var newCulture = Culture;
-            Debug.Log($"{CommonProperties.ModName} Locale changed {Str.Culture?.Name}->{newCulture.Name}");
+            LogUtils.DoLog($"{CommonProperties.ModName} Locale changed {Str.Culture?.Name}->{newCulture.Name}");
             KStr.Culture = newCulture;
             Instance.SetLocaleCulture(newCulture);
         }
