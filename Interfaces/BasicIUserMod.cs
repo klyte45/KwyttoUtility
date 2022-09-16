@@ -6,7 +6,6 @@ using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
 using Klyte._commons.Localization;
-using Klyte.Localization;
 using Kwytto.Utils;
 using System;
 using System.Collections;
@@ -171,9 +170,11 @@ namespace Kwytto.Interfaces
             }
             KFileUtils.EnsureFolderCreation(CommonProperties.ModRootFolder);
             PatchesApply();
-
+            DoOnEnable();
             LogUtils.FlushBuffer();
         }
+
+        protected virtual void DoOnEnable() { }
 
         public void OnDisabled() => Redirector.UnpatchAll();
 
@@ -468,7 +469,7 @@ namespace Kwytto.Interfaces
         internal static void LocaleChanged()
         {
             var newCulture = Culture;
-            LogUtils.DoLog($"{CommonProperties.ModName} Locale changed {Str.Culture?.Name}->{newCulture.Name}");
+            LogUtils.DoLog($"{CommonProperties.ModName} Locale changed {KStr.Culture?.Name}->{newCulture.Name}");
             KStr.Culture = newCulture;
             Instance.SetLocaleCulture(newCulture);
         }

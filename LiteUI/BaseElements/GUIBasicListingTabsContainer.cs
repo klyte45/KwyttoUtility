@@ -1,6 +1,4 @@
-﻿using ColossalFramework.Globalization;
-using Klyte._commons.Localization;
-using Klyte.Localization;
+﻿using Klyte._commons.Localization;
 using Kwytto.LiteUI;
 using System;
 using System.Linq;
