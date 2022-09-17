@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using static ColossalFramework.Packaging.Package;
 
 namespace Kwytto.Utils
@@ -183,7 +182,7 @@ namespace Kwytto.Utils
         public static string[] GetAllFilesEmbeddedAtFolder(string packageDirectory, string extension)
         {
 
-            var executingAssembly = Assembly.GetExecutingAssembly();
+            var executingAssembly = KResourceLoader.RefAssembly;
             string folderName = $"Klyte.{packageDirectory}";
             return executingAssembly
                 .GetManifestResourceNames()

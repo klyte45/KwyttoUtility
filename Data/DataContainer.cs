@@ -1,7 +1,7 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Threading;
 using ICities;
-using Klyte._commons.Localization;
+using Kwytto.Localization;
 using Kwytto.Interfaces;
 using Kwytto.LiteUI;
 using Kwytto.Utils;

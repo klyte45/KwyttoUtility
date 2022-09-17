@@ -1,4 +1,4 @@
-﻿using Klyte._commons.Localization;
+﻿using Kwytto.Localization;
 using Kwytto.LiteUI;
 using System;
 using System.Linq;

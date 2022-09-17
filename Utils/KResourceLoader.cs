@@ -1,4 +1,5 @@
-﻿using Kwytto.UI;
+﻿using Kwytto.Interfaces;
+using Kwytto.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,12 +12,13 @@ namespace Kwytto.Utils
     {
         public static string Prefix { get; } = "Klyte";
 
+        public static Assembly RefAssembly => BasicIUserMod.Instance.GetType().Assembly;
 
         public static byte[] LoadResourceData(string name)
         {
             name = $"{Prefix}.{name}";
 
-            var stream = (UnmanagedMemoryStream)Assembly.GetExecutingAssembly().GetManifestResourceStream(name);
+            var stream = (UnmanagedMemoryStream)RefAssembly.GetManifestResourceStream(name);
             if (stream == null)
             {
                 LogUtils.DoLog("Could not find resource: " + name);
@@ -31,7 +33,7 @@ namespace Kwytto.Utils
         {
             name = $"{Prefix}.{name}";
 
-            var stream = (UnmanagedMemoryStream)Assembly.GetExecutingAssembly().GetManifestResourceStream(name);
+            var stream = (UnmanagedMemoryStream)RefAssembly.GetManifestResourceStream(name);
             if (stream == null)
             {
                 LogUtils.DoLog("Could not find resource: " + name);
@@ -45,7 +47,7 @@ namespace Kwytto.Utils
         {
             name = $"{Prefix}.{name}";
 
-            using (var stream = (UnmanagedMemoryStream)Assembly.GetExecutingAssembly().GetManifestResourceStream(name))
+            using (var stream = (UnmanagedMemoryStream)RefAssembly.GetManifestResourceStream(name))
             {
                 if (stream == null)
                 {

@@ -1,6 +1,6 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
-using Klyte._commons.Localization;
+using Kwytto.Localization;
 using System;
 using UnityEngine;
 

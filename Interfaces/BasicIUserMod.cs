@@ -7,7 +7,7 @@ using ColossalFramework.PlatformServices;
 using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
-using Klyte._commons.Localization;
+using Kwytto.Localization;
 using Kwytto.LiteUI;
 using Kwytto.Utils;
 using System;
@@ -26,6 +26,7 @@ namespace Kwytto.Interfaces
         where C : BaseController<U, C>
     {
         private static C controller;
+
         protected override void OnLevelLoadedInherit(LoadMode mode)
         {
             if (IsValidLoadMode(mode))
@@ -60,13 +61,6 @@ namespace Kwytto.Interfaces
     }
     public abstract class BasicIUserMod : IUserMod, ILoadingExtension, IViewStartActions
     {
-        public BasicIUserMod()
-        {
-            if (m_instance is null)
-            {
-                m_instance = this;
-            }
-        }
 
         public abstract string SimpleName { get; }
         public virtual string IconName { get; } = "ModIcon";
@@ -213,25 +207,56 @@ namespace Kwytto.Interfaces
         protected virtual void DoOnEnable() { }
 
         public void OnDisabled() => Redirector.UnpatchAll();
-
-        public static string MinorVersion => MajorVersion + "." + Instance.GetType().Assembly.GetName().Version.Build;
-        public static string MajorVersion => Instance.GetType().Assembly.GetName().Version.Major + "." + Instance.GetType().Assembly.GetName().Version.Minor;
-        public static string FullVersion => MinorVersion + " r" + Instance.GetType().Assembly.GetName().Version.Revision;
-        public static string Version =>
-           Instance.GetType().Assembly.GetName().Version.Minor == 0 && Instance.GetType().Assembly.GetName().Version.Build == 0
-                    ? Instance.GetType().Assembly.GetName().Version.Major.ToString()
-                    : Instance.GetType().Assembly.GetName().Version.Build > 0
+        public static string MinorVersion => Instance.MinorVersion_;
+        public static string MajorVersion => Instance.MajorVersion_;
+        public static string FullVersion => Instance.FullVersion_;
+        public static string Version => Instance.Version_;
+        private string MinorVersion_ => MajorVersion + "." + GetType().Assembly.GetName().Version.Build;
+        private string MajorVersion_ => GetType().Assembly.GetName().Version.Major + "." + GetType().Assembly.GetName().Version.Minor;
+        private string FullVersion_ => MinorVersion + " r" + GetType().Assembly.GetName().Version.Revision;
+        private string Version_ =>
+           GetType().Assembly.GetName().Version.Minor == 0 && GetType().Assembly.GetName().Version.Build == 0
+                    ? GetType().Assembly.GetName().Version.Major.ToString()
+                    : GetType().Assembly.GetName().Version.Build > 0
                         ? MinorVersion
                         : MajorVersion;
 
         public bool needShowPopup;
 
-        public static SavedBool DebugMode { get; } = new SavedBool(Instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
-        private SavedString CurrentSaveVersion { get; } = new SavedString(Instance.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
+        public static SavedBool DebugMode { get; }
+        public static SavedString CurrentSaveVersion { get; }
         public static bool IsCityLoaded => Singleton<SimulationManager>.instance.m_metaData != null;
 
-        public static BasicIUserMod m_instance;
-        public static BasicIUserMod Instance => m_instance;
+        public static BasicIUserMod Instance
+        {
+            get
+            {
+                return m_instance;
+            }
+        }
+        protected static readonly BasicIUserMod m_instance;
+        static BasicIUserMod()
+        {
+            Debug.Log("Calling Static BasicIUserMod: " + Environment.StackTrace);
+            try
+            {
+                m_instance = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
+                             pi.assemblyCount > 0
+                             && pi.isEnabled
+                             && pi.GetAssemblies().Where(x => x == typeof(BasicIUserMod).Assembly).Count() > 0
+                         ).SelectMany(pi => pi.GetAssemblies().SelectMany(x => x.GetExportedTypes()))
+                        .GroupBy(x => x).Select(x => x.Key).Where(t => t.IsClass && typeof(BasicIUserMod).IsAssignableFrom(t) && !t.IsAbstract)
+                        .FirstOrDefault()
+                        .GetConstructor(new Type[0])
+                        .Invoke(new object[0]) as BasicIUserMod;
+                DebugMode = new SavedBool(m_instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
+                CurrentSaveVersion = new SavedString(m_instance.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
 
         private static BaseController controller;
 

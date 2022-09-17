@@ -17,13 +17,13 @@ namespace Kwytto.Utils
         #region Extract Properties
         public static void GetPropertyDelegates<CL, PT>(string propertyName, out Action<CL, PT> setter, out Func<CL, PT> getter)
         {
-            setter = (Action<CL, PT>) Delegate.CreateDelegate(typeof(Action<CL, PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).GetSetMethod());
-            getter = (Func<CL, PT>) Delegate.CreateDelegate(typeof(Func<CL, PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).GetGetMethod());
+            setter = (Action<CL, PT>)Delegate.CreateDelegate(typeof(Action<CL, PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).GetSetMethod());
+            getter = (Func<CL, PT>)Delegate.CreateDelegate(typeof(Func<CL, PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).GetGetMethod());
         }
         public static void GetStaticPropertyDelegates<CL, PT>(string propertyName, out Action<PT> setter, out Func<PT> getter)
         {
-            setter = (Action<PT>) Delegate.CreateDelegate(typeof(Action<PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).GetSetMethod());
-            getter = (Func<PT>) Delegate.CreateDelegate(typeof(Func<PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).GetGetMethod());
+            setter = (Action<PT>)Delegate.CreateDelegate(typeof(Action<PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).GetSetMethod());
+            getter = (Func<PT>)Delegate.CreateDelegate(typeof(Func<PT>), null, typeof(CL).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).GetGetMethod());
         }
 
         #endregion
@@ -34,7 +34,7 @@ namespace Kwytto.Utils
                 MethodInfo method = o.GetType().GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
                 if (method != null)
                 {
-                    return (T) method.Invoke(o, paramList);
+                    return (T)method.Invoke(o, paramList);
                 }
             }
             return default;
@@ -48,7 +48,7 @@ namespace Kwytto.Utils
                 MethodInfo method = t.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
                 if (method != null)
                 {
-                    return (T) method.Invoke(null, paramList);
+                    return (T)method.Invoke(null, paramList);
                 }
             }
             return default;
@@ -96,7 +96,7 @@ namespace Kwytto.Utils
             LambdaExpression lambda =
                 Expression.Lambda(typeof(Func<TSource, TValue>), resultExpression, sourceParameter);
 
-            var compiled = (Func<TSource, TValue>) lambda.Compile();
+            var compiled = (Func<TSource, TValue>)lambda.Compile();
             return compiled;
         }
 
@@ -179,7 +179,7 @@ namespace Kwytto.Utils
             LambdaExpression lambda = Expression.Lambda(typeof(Action<TSource, TValue>),
                                                         setFieldMethodCallExpression, sourceParameter, valueParameter);
 
-            var result = (Action<TSource, TValue>) lambda.Compile();
+            var result = (Action<TSource, TValue>)lambda.Compile();
             return result;
         }
 
@@ -237,7 +237,7 @@ namespace Kwytto.Utils
             LambdaExpression lambda = Expression.Lambda(typeof(Action<TSource, TValue>),
                                                         setFieldMethodCallExpression, sourceParameter, valueParameter);
 
-            var result = (Action<TSource, TValue>) lambda.Compile();
+            var result = (Action<TSource, TValue>)lambda.Compile();
             return result;
         }
 
@@ -278,7 +278,7 @@ namespace Kwytto.Utils
             return result;
         }
 
-        public static T GetPrivateField<T>(object prefabAI, string v) => (T) prefabAI.GetType().GetField(v).GetValue(prefabAI);
+        public static T GetPrivateField<T>(object prefabAI, string v) => (T)prefabAI.GetType().GetField(v).GetValue(prefabAI);
         public static object GetPrivateStaticField(string v, Type type) => type.GetField(v).GetValue(null);
 
 
@@ -404,12 +404,16 @@ namespace Kwytto.Utils
 
         public static List<Type> GetInterfaceImplementations(Type interfaceType, Type refType)
         {
+            return GetInterfaceImplementations(interfaceType, refType is null ? null : new[] { refType.Assembly });
+        }
+        public static List<Type> GetInterfaceImplementations(Type interfaceType, IEnumerable<Assembly> assembly)
+        {
             if (BasicIUserMod.DebugMode)
             {
                 LogUtils.DoLog($"interfaceType = {interfaceType}");
             }
 
-            IEnumerable<Type> classes = (from t in AppDomain.CurrentDomain.GetAssemblies().Where(x => refType == null || x == refType.Assembly)?.SelectMany(x =>
+            IEnumerable<Type> classes = (from t in AppDomain.CurrentDomain.GetAssemblies().Where(x => assembly == null || assembly.Contains(x))?.SelectMany(x =>
             {
                 try
                 { return x?.GetTypes(); }
@@ -419,7 +423,6 @@ namespace Kwytto.Utils
                                          where t.IsClass && y.Contains(interfaceType) && !t.IsAbstract
                                          select t);
 
-            var result = new List<Type>();
             if (BasicIUserMod.DebugMode)
             {
                 LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
@@ -436,7 +439,7 @@ namespace Kwytto.Utils
                                            select t);
             if (instances.Count() != 1)
             {
-                throw new Exception($"Defininções inválidas para [{ string.Join(", ", typeArgs.Select(x => x.ToString()).ToArray()) }] no tipo genérico {typeOr}");
+                throw new Exception($"Defininções inválidas para [{string.Join(", ", typeArgs.Select(x => x.ToString()).ToArray())}] no tipo genérico {typeOr}");
             }
 
             Type targetType = instances.First();
