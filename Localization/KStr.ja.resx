@@ -131,16 +131,17 @@
     <value>デバッグモード</value>
   </data>
   <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
-    <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+    <value>&lt;color=yellow&gt;{0}&lt;/color&gt; からデータのロード中にエラーが発生しました。</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Raw data:</value>
+    <value>Rawデータ:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
+    <value>GitHubでissueを開いて、ゲームのログと見ている画面のスクリーンショットを一緒に添付して、Mod開発者に報告して下さい。
+ゲームログの取得方法の詳細については、MODオプションメニューの &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; ボタンで確認してください。</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
-    <value>Error loading '{0}' data</value>
+    <value>データ '{0}' のロードエラー</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
     <value>リリースノートを見る</value>
