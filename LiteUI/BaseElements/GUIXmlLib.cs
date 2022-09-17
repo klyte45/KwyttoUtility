@@ -74,7 +74,7 @@ namespace Kwytto.LiteUI
                 switch (Status)
                 {
                     case FooterBarStatus.AskingToRemove:
-                        GUILayout.Label(string.Format(Locale.Get(DeleteQuestionI18n), getCurrent().SaveName));
+                        GUILayout.Label(string.Format(DeleteQuestionI18n, getCurrent().SaveName));
                         GUILayout.FlexibleSpace();
                         if (GUILayout.Button(Locale.Get("YES"), removeButtonStyle))
                         {
@@ -93,7 +93,7 @@ namespace Kwytto.LiteUI
                         }
                         break;
                     case FooterBarStatus.AskingToExport:
-                        GUILayout.Label(Locale.Get(NameAskingI18n));
+                        GUILayout.Label(NameAskingI18n);
                         footerInputVal = GUILayout.TextField(footerInputVal, GUILayout.Width(150));
                         GUILayout.FlexibleSpace();
                         if (GUILayout.Button(Locale.Get("SAVE")))
@@ -115,7 +115,7 @@ namespace Kwytto.LiteUI
                         }
                         break;
                     case FooterBarStatus.AskingToExportOverwrite:
-                        GUILayout.Label(string.Format(Locale.Get(NameAskingOverwriteI18n)));
+                        GUILayout.Label(string.Format(NameAskingOverwriteI18n));
                         GUILayout.FlexibleSpace();
                         if (GUILayout.Button(Locale.Get("YES"), removeButtonStyle))
                         {
@@ -171,10 +171,10 @@ namespace Kwytto.LiteUI
             switch (m_currentHover)
             {
                 case FooterBarStatus.AskingToImport:
-                    GUILayout.Label(Locale.Get(ImportI18n), GUILayout.Width(300), GUILayout.ExpandHeight(true));
+                    GUILayout.Label(ImportI18n, GUILayout.Width(300), GUILayout.ExpandHeight(true));
                     break;
                 case FooterBarStatus.AskingToExport:
-                    GUILayout.Label(Locale.Get(ExportI18n), GUILayout.Width(300), GUILayout.ExpandHeight(true));
+                    GUILayout.Label(ExportI18n, GUILayout.Width(300), GUILayout.ExpandHeight(true));
                     break;
                 default:
                     GUILayout.Label("", GUILayout.Width(300), GUILayout.ExpandHeight(true));
@@ -187,7 +187,7 @@ namespace Kwytto.LiteUI
         private void DrawRemoveButton(GUIStyle removeButtonStyle)
         {
             GUILayout.FlexibleSpace();
-            if (GUILayout.Button(Locale.Get(DeleteButtonI18n), removeButtonStyle))
+            if (GUILayout.Button(DeleteButtonI18n, removeButtonStyle))
             {
                 GoToRemove();
             }

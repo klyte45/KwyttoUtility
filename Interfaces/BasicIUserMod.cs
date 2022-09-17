@@ -30,7 +30,7 @@ namespace Kwytto.Interfaces
             {
                 if (!typeof(C).IsGenericType)
                 {
-                    m_topObj = GameObject.Find(typeof(U).Name) ?? new GameObject(typeof(U).Name);
+                    m_topObj = GameObject.Find(Name) ?? new GameObject(Name);
                     Controller = m_topObj.AddComponent<C>();
                 }
                 SimulationManager.instance.StartCoroutine(LevelUnloadBinds());

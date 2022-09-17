@@ -1,6 +1,7 @@
-﻿using ColossalFramework.Globalization;
+﻿using ColossalFramework.UI;
 using Kwytto.Utils;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Kwytto.LiteUI
@@ -34,14 +35,14 @@ namespace Kwytto.LiteUI
             texture.Apply();
             return texture;
         }
-        // public static Texture GetByNameFromDefaultAtlas(string name) => UIView.GetAView().defaultAtlas.sprites.Where(x => x.name == name).FirstOrDefault().texture;
+        public static Texture GetByNameFromDefaultAtlas(string name) => UIView.GetAView().defaultAtlas.sprites.Where(x => x.name == name).FirstOrDefault().texture;
 
         #region Vector inputs
-        public static bool AddVector2Field(float totalWidth, Vector2Xml input, string i18nEntry, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
+        public static bool AddVector2Field(float totalWidth, Vector2Xml input, string title, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nEntry), GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
                 GUILayout.FlexibleSpace();
                 if (isEditable)
                 {
@@ -60,11 +61,11 @@ namespace Kwytto.LiteUI
                 }
             };
         }
-        public static bool AddVector3Field(float totalWidth, Vector3Xml input, string i18nEntry, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
+        public static bool AddVector3Field(float totalWidth, Vector3Xml input, string title, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nEntry), GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
                 GUILayout.FlexibleSpace();
                 if (isEditable)
                 {
@@ -86,11 +87,11 @@ namespace Kwytto.LiteUI
                 }
             };
         }
-        public static bool AddVector4Field(float totalWidth, Vector4Xml input, string i18nEntry, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
+        public static bool AddVector4Field(float totalWidth, Vector4Xml input, string title, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nEntry), GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
                 GUILayout.FlexibleSpace();
                 if (isEditable)
                 {
@@ -116,11 +117,11 @@ namespace Kwytto.LiteUI
             };
         }
 
-        public static bool AddVector3Field(float totalWidth, ref Vector3 input, string i18nEntry, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
+        public static bool AddVector3Field(float totalWidth, ref Vector3 input, string title, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nEntry), GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
                 GUILayout.FlexibleSpace();
                 if (isEditable)
                 {
@@ -218,12 +219,12 @@ namespace Kwytto.LiteUI
                 GUILayout.Label(value ?? v_null);
             };
         }
-        public static bool AddColorPicker(string i18nId, GUIColorPicker picker, ref Color value, bool enabled = true)
+        public static bool AddColorPicker(string title, GUIColorPicker picker, ref Color value, bool enabled = true)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nId));
-                var newVal = picker.PresentColor(i18nId, value, enabled);
+                GUILayout.Label(title);
+                var newVal = picker.PresentColor(title, value, enabled);
                 if (enabled && newVal != value)
                 {
                     value = newVal;
@@ -264,10 +265,10 @@ namespace Kwytto.LiteUI
                 onClick();
             }
         }
-        public static bool AddToggle(string i18nLocale, ref bool currentVal, bool editable = true, bool condition = true)
+        public static bool AddToggle(string title, ref bool currentVal, bool editable = true, bool condition = true)
         {
             bool newVal;
-            if (condition && currentVal != (newVal = GUILayout.Toggle(currentVal, Locale.Get(i18nLocale))) && editable)
+            if (condition && currentVal != (newVal = GUILayout.Toggle(currentVal, title)) && editable)
             {
                 currentVal = newVal;
                 return true;
@@ -281,17 +282,17 @@ namespace Kwytto.LiteUI
             newVal = value;
             return result;
         }
-        public static bool AddSlider(float totalWidth, string i18nLocale, ref float value, float min, float max, bool isEnabled = true)
+        public static bool AddSlider(float totalWidth, string title, ref float value, float min, float max, bool isEnabled = true)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nLocale), GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
                 GUILayout.Space(totalWidth / 3);
                 if (isEnabled)
                 {
                     var rect = GUILayoutUtility.GetLastRect();
                     var newValue = GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max);
-                    newValue = GUIFloatField.FloatField(i18nLocale, newValue, min, max);
+                    newValue = GUIFloatField.FloatField(title, newValue, min, max);
                     if (newValue != value)
                     {
                         value = newValue;
@@ -312,15 +313,15 @@ namespace Kwytto.LiteUI
             return res;
         }
 
-        public static bool AddFloatField(float totalWidth, string i18nLocale, ref float value, bool isEnabled = true, float min = float.MinValue, float max = float.MaxValue)
+        public static bool AddFloatField(float totalWidth, string title, ref float value, bool isEnabled = true, float min = float.MinValue, float max = float.MaxValue)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nLocale), GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
                 GUILayout.FlexibleSpace();
                 if (isEnabled)
                 {
-                    var newValue = GUIFloatField.FloatField(i18nLocale, value, min, max);
+                    var newValue = GUIFloatField.FloatField(title, value, min, max);
                     if (newValue != value)
                     {
                         value = newValue;
@@ -352,14 +353,14 @@ namespace Kwytto.LiteUI
             return changed;
         }
 
-        public static bool AddComboBox(float totalWidth, string i18nLocale, ref int selectedIndex, string[] options, GUIRootWindowBase root, bool isEditable = true)
+        public static bool AddComboBox(float totalWidth, string title, ref int selectedIndex, string[] options, GUIRootWindowBase root, bool isEditable = true)
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(Locale.Get(i18nLocale), GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
                 if (isEditable)
                 {
-                    var newVal = GUIComboBox.Box(selectedIndex, options, i18nLocale, root);
+                    var newVal = GUIComboBox.Box(selectedIndex, options, title, root);
                     if (newVal != selectedIndex)
                     {
                         selectedIndex = newVal;
