@@ -2,7 +2,7 @@
 
 namespace Kwytto.LiteUI
 {
-    internal static class GUIComboBox
+    public static class GUIComboBox
     {
         private const string ExpandDownButtonText = " ▼ ";
         private static PopupWindow popupWindow;

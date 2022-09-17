@@ -112,7 +112,7 @@ namespace Kwytto.LiteUI
         {
             public string title;
             public Func<bool> onClick;
-            internal bool isSpace;
+            public bool isSpace;
             public ButtonStyle style;
         }
 
@@ -179,7 +179,7 @@ namespace Kwytto.LiteUI
         private GUIStyle m_greenButton;
         private GUIStyle m_redButton;
         private GUIStyle m_whiteButton;
-        internal GUIStyle GreenButton
+        public GUIStyle GreenButton
         {
             get
             {
@@ -205,7 +205,7 @@ namespace Kwytto.LiteUI
 
 
 
-        internal GUIStyle RedButton
+        public GUIStyle RedButton
         {
             get
             {
@@ -228,7 +228,7 @@ namespace Kwytto.LiteUI
                 return m_redButton;
             }
         }
-        internal GUIStyle WhiteButton
+        public GUIStyle WhiteButton
         {
             get
             {

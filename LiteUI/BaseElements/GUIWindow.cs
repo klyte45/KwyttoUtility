@@ -43,7 +43,7 @@ namespace Kwytto.LiteUI
         public static GUIStyle HighlightStyle => GUIStyle.none;
         public int DefaultSize => Mathf.RoundToInt(12 * EffectiveFontSizeMultiplier);
 
-        internal void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default)
+        protected void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default)
         {
             Id = UnityEngine.Random.Range(1024, int.MaxValue);
             Title = title;
@@ -263,7 +263,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        internal static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadCommonsTexture(UI.CommonsSpriteNames.highlight);
+        public static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadCommonsTexture(UI.CommonsSpriteNames.highlight);
 
         public void MoveResize(Rect newWindowRect) => windowRect = newWindowRect;
 

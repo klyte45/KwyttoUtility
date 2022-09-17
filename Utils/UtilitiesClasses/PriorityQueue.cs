@@ -14,7 +14,7 @@ namespace Kwytto.Utils
     /// Push and Pop are each O(log N). Pushing N objects and them popping
     /// them all is equivalent to performing a heap sort and is O(N log N).
     /// </remarks>
-    internal class PriorityQueue<T>
+    public class PriorityQueue<T>
     {
         //
         // The _heap array represents a binary tree with the "shape" property.
@@ -55,7 +55,7 @@ namespace Kwytto.Utils
 
         #region constructors
 
-        internal PriorityQueue(IComparer<T> comparer, int capacity = 0)
+        public PriorityQueue(IComparer<T> comparer, int capacity = 0)
         {
             _heap = new T[capacity > 0 ? capacity : DefaultCapacity];
             _count = 0;
@@ -64,18 +64,18 @@ namespace Kwytto.Utils
 
         #endregion
 
-        #region internal members
+        #region public members
 
         /// <summary>
         /// Gets the number of items in the priority queue.
         /// </summary>
-        internal int Count => _count;
+        public int Count => _count;
 
         /// <summary>
         /// Gets the first or topmost object in the priority queue, which is the
         /// object with the minimum value.
         /// </summary>
-        internal T Top
+        public T Top
         {
             get {
                 Debug.Assert(_count > 0);
@@ -91,7 +91,7 @@ namespace Kwytto.Utils
         /// <summary>
         /// Adds an object to the priority queue.
         /// </summary>
-        internal void Push(T value)
+        public void Push(T value)
         {
             // Increase the size of the array if necessary.
             if (_count == _heap.Length)
@@ -118,7 +118,7 @@ namespace Kwytto.Utils
         /// <summary>
         /// Removes the first node (i.e., the logical root) from the heap.
         /// </summary>
-        internal T Pop()
+        public T Pop()
         {
             Debug.Assert(_count != 0);
             if (!_isHeap)

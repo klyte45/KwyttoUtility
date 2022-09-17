@@ -74,8 +74,8 @@ namespace Kwytto.Interfaces
         public abstract string Acronym { get; }
         public abstract Color ModColor { get; }
         public virtual float UIScale { get; } = 1;
-        internal virtual string[] AssetExtraDirectoryNames { get; } = new string[0];
-        internal virtual string[] AssetExtraFileNames { get; } = new string[] { };
+        public virtual string[] AssetExtraDirectoryNames { get; } = new string[0];
+        public virtual string[] AssetExtraFileNames { get; } = new string[] { };
 
         public virtual string ModRootFolder => KFileUtils.BASE_FOLDER_PATH + SimpleName;
         public virtual bool UseGroup9 => true;
@@ -490,8 +490,8 @@ namespace Kwytto.Interfaces
             UUIButtons.ForEach(x => x.Destroy());
         }
         protected abstract void SetLocaleCulture(CultureInfo culture);
-        internal static CultureInfo Culture => new CultureInfo(SingletonLite<LocaleManager>.instance.language == "zh" ? "zh-cn" : SingletonLite<LocaleManager>.instance.language);
-        internal static void LocaleChanged()
+        public static CultureInfo Culture => new CultureInfo(SingletonLite<LocaleManager>.instance.language == "zh" ? "zh-cn" : SingletonLite<LocaleManager>.instance.language);
+        public static void LocaleChanged()
         {
             var newCulture = Culture;
             LogUtils.DoLog($"{Instance.SimpleName} Locale changed {KStr.Culture?.Name}->{newCulture.Name}");
@@ -542,7 +542,7 @@ namespace Kwytto.Interfaces
                 Close();
             }
 
-            internal void Close()
+            public void Close()
             {
                 m_modButton.IsPressed = false;
                 window.Visible = false;
@@ -551,7 +551,7 @@ namespace Kwytto.Interfaces
             }
 
             private void ApplyButtonColor() => m_modButton.Button.color = Color.Lerp(Color.gray, m_modButton.IsPressed ? Color.white : Color.black, 0.5f);
-            internal void Open()
+            public void Open()
             {
                 m_modButton.IsPressed = true;
                 window.Visible = true;

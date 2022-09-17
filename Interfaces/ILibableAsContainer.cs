@@ -8,7 +8,7 @@ namespace Kwytto.Interfaces
     public class ILibableAsContainer<D> : ILibable
     {
         [XmlIgnore]
-        internal D[] m_dataArray = new D[0];
+        public D[] m_dataArray = new D[0];
 
         public ListWrapper<D> Data
         {

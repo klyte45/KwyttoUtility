@@ -133,7 +133,7 @@ namespace Kwytto.Utils
         }
 
 
-        internal static string ParseOperand(IEnumerable<CodeInstruction> instr, object operand)
+        public static string ParseOperand(IEnumerable<CodeInstruction> instr, object operand)
         {
             if (operand is null)
             {

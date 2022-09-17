@@ -70,7 +70,7 @@ namespace Kwytto.UI
             m_onSetItemAt = onSetItemAt;
         }
 
-        public static bool LockSelection { get; internal set; } = true;
+        public static bool LockSelection { get; set; } = true;
 
         public void DrawListTabs(Rect area, bool allowAdd = true)
         {
@@ -113,7 +113,7 @@ namespace Kwytto.UI
             }
         }
 
-        internal void Reset() => ListSel = -1;
+        public void Reset() => ListSel = -1;
     }
     public interface IGUITab<T>
     {

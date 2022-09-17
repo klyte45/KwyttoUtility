@@ -2,7 +2,7 @@
 
 namespace Kwytto.LiteUI
 {
-    internal static class GUITextField
+    public static class GUITextField
     {
         private static string lastFocusedFieldId;
         private static string lastValue;

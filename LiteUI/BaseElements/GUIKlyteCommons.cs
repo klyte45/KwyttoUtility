@@ -220,7 +220,7 @@ namespace Kwytto.LiteUI
                 GUILayout.Label(value ?? v_null);
             };
         }
-        internal static bool AddColorPicker(string i18nId, GUIColorPicker picker, ref Color value, bool enabled = true)
+        public static bool AddColorPicker(string i18nId, GUIColorPicker picker, ref Color value, bool enabled = true)
         {
             using (new GUILayout.HorizontalScope())
             {

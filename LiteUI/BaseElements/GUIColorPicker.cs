@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kwytto.LiteUI
 {
-    internal sealed class GUIColorPicker : GUIWindow
+    public sealed class GUIColorPicker : GUIWindow
     {
         private readonly Dictionary<string, Texture2D> TextureCache = new Dictionary<string, Texture2D>();
         private readonly Color LineColor = Color.white;

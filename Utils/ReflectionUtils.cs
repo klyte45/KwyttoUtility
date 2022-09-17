@@ -278,8 +278,8 @@ namespace Kwytto.Utils
             return result;
         }
 
-        internal static T GetPrivateField<T>(object prefabAI, string v) => (T) prefabAI.GetType().GetField(v).GetValue(prefabAI);
-        internal static object GetPrivateStaticField(string v, Type type) => type.GetField(v).GetValue(null);
+        public static T GetPrivateField<T>(object prefabAI, string v) => (T) prefabAI.GetType().GetField(v).GetValue(prefabAI);
+        public static object GetPrivateStaticField(string v, Type type) => type.GetField(v).GetValue(null);
 
 
         #region Called by reflection - Don't delete.

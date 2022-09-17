@@ -4,26 +4,26 @@
     public class MutableTuple<T1, T2, T3, T4, T5> : MutableTuple<T1, T2, T3, T4>
     {
         public T5 Fifth { get; set; }
-        internal MutableTuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth, ref T5 fifth) : base(ref first, ref second, ref third, ref fourth) => Fifth = fifth;
+        public MutableTuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth, ref T5 fifth) : base(ref first, ref second, ref third, ref fourth) => Fifth = fifth;
     }
 
     public class MutableTuple<T1, T2, T3, T4> : MutableTuple<T1, T2, T3>
     {
         public T4 Fourth { get; set; }
-        internal MutableTuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth) : base(ref first, ref second, ref third) => Fourth = fourth;
+        public MutableTuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth) : base(ref first, ref second, ref third) => Fourth = fourth;
     }
 
     public class MutableTuple<T1, T2, T3> : MutableTuple<T1, T2>
     {
         public T3 Third { get; set; }
-        internal MutableTuple(ref T1 first, ref T2 second, ref T3 third) : base(ref first, ref second) => Third = third;
+        public MutableTuple(ref T1 first, ref T2 second, ref T3 third) : base(ref first, ref second) => Third = third;
     }
 
     public class MutableTuple<T1, T2>
     {
         public T1 First { get; set; }
         public T2 Second { get; set; }
-        internal MutableTuple(ref T1 first, ref T2 second)
+        public MutableTuple(ref T1 first, ref T2 second)
         {
             First = first;
             Second = second;

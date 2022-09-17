@@ -4,26 +4,26 @@
     public class Tuple<T1, T2, T3, T4, T5> : Tuple<T1, T2, T3, T4>
     {
         public T5 Fifth { get; protected set; }
-        internal Tuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth, ref T5 fifth) : base(ref first, ref second, ref third, ref fourth) => Fifth = fifth;
+        public Tuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth, ref T5 fifth) : base(ref first, ref second, ref third, ref fourth) => Fifth = fifth;
     }
 
     public class Tuple<T1, T2, T3, T4> : Tuple<T1, T2, T3>
     {
         public T4 Fourth { get; protected set; }
-        internal Tuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth) : base(ref first, ref second, ref third) => Fourth = fourth;
+        public Tuple(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth) : base(ref first, ref second, ref third) => Fourth = fourth;
     }
 
     public class Tuple<T1, T2, T3> : Tuple<T1, T2>
     {
         public T3 Third { get; protected set; }
-        internal Tuple(ref T1 first, ref T2 second, ref T3 third) : base(ref first, ref second) => Third = third;
+        public Tuple(ref T1 first, ref T2 second, ref T3 third) : base(ref first, ref second) => Third = third;
     }
 
     public class Tuple<T1, T2>
     {
         public T1 First { get; protected set; }
         public T2 Second { get; protected set; }
-        internal Tuple(ref T1 first, ref T2 second)
+        public Tuple(ref T1 first, ref T2 second)
         {
             First = first;
             Second = second;
@@ -35,21 +35,21 @@
     {
         private T5 m_fifth;
         public ref T5 Fifth => ref m_fifth;
-        internal TupleRef(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth, ref T5 fifth) : base(ref first, ref second, ref third, ref fourth) => m_fifth = fifth;
+        public TupleRef(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth, ref T5 fifth) : base(ref first, ref second, ref third, ref fourth) => m_fifth = fifth;
     }
 
     public class TupleRef<T1, T2, T3, T4> : TupleRef<T1, T2, T3>
     {
         private T4 m_fourth;
         public ref T4 Fourth => ref m_fourth;
-        internal TupleRef(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth) : base(ref first, ref second, ref third) => m_fourth = fourth;
+        public TupleRef(ref T1 first, ref T2 second, ref T3 third, ref T4 fourth) : base(ref first, ref second, ref third) => m_fourth = fourth;
     }
 
     public class TupleRef<T1, T2, T3> : TupleRef<T1, T2>
     {
         private T3 m_third;
         public ref T3 Third => ref m_third;
-        internal TupleRef(ref T1 first, ref T2 second, ref T3 third) : base(ref first, ref second) => m_third = third;
+        public TupleRef(ref T1 first, ref T2 second, ref T3 third) : base(ref first, ref second) => m_third = third;
     }
 
     public class TupleRef<T1, T2>
@@ -58,7 +58,7 @@
         public ref T1 First => ref m_first;
         private T2 m_second;
         public ref T2 Second => ref m_second;
-        internal TupleRef(ref T1 first, ref T2 second)
+        public TupleRef(ref T1 first, ref T2 second)
         {
             m_first = first;
             m_second = second;

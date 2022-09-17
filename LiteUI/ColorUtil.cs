@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Kwytto.LiteUI
 {
-    internal static class ColorUtil
+    public static class ColorUtil
     {
         public struct HSV
         {

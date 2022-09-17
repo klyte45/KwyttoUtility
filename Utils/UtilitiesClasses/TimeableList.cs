@@ -100,14 +100,14 @@ namespace Kwytto.Utils
 
         public int Count => m_items?.Count ?? 0;
 
-        internal void Add(TValue entry)
+        public void Add(TValue entry)
         {
             entry.OnEntryChanged -= CleanCache;
             m_items.Add(entry);
             entry.OnEntryChanged += CleanCache;
         }
 
-        internal TValue this[int idx] => m_items[idx];
+        public TValue this[int idx] => m_items[idx];
 
         private void Remove(TValue entry)
         {
@@ -115,7 +115,7 @@ namespace Kwytto.Utils
             m_items.Remove(entry);
             entry.OnEntryChanged += CleanCache;
         }
-        internal void RemoveAtHour(int hour)
+        public void RemoveAtHour(int hour)
         {
             if (hour < 0 || hour > 23)
             {

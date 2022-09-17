@@ -22,21 +22,21 @@ namespace Klyte._commons.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class KStr {
+    public class KStr {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal KStr() {
+        public KStr() {
         }
         
         /// <summary>
         ///   Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Klyte._commons.Localization.KStr", typeof(KStr).Assembly);
@@ -51,7 +51,7 @@ namespace Klyte._commons.Localization {
         ///   pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Add Item.
         /// </summary>
-        internal static string comm_addItemList {
+        public static string comm_addItemList {
             get {
                 return ResourceManager.GetString("comm_addItemList", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Extra informations.
         /// </summary>
-        internal static string comm_betaExtraInfo {
+        public static string comm_betaExtraInfo {
             get {
                 return ResourceManager.GetString("comm_betaExtraInfo", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Current version: &lt;color yellow&gt;{0}&lt;/color&gt;.
         /// </summary>
-        internal static string comm_currentVersionFormat {
+        public static string comm_currentVersionFormat {
             get {
                 return ResourceManager.GetString("comm_currentVersionFormat", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Debug mode.
         /// </summary>
-        internal static string comm_debugMode {
+        public static string comm_debugMode {
             get {
                 return ResourceManager.GetString("comm_debugMode", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;..
         /// </summary>
-        internal static string comm_errLoadingDataWindow_Header {
+        public static string comm_errLoadingDataWindow_Header {
             get {
                 return ResourceManager.GetString("comm_errLoadingDataWindow_Header", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Raw data:.
         /// </summary>
-        internal static string comm_errLoadingDataWindow_HeaderRawData {
+        public static string comm_errLoadingDataWindow_HeaderRawData {
             get {
                 return ResourceManager.GetString("comm_errLoadingDataWindow_HeaderRawData", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log..
         /// </summary>
-        internal static string comm_errLoadingDataWindow_HeaderReportABug {
+        public static string comm_errLoadingDataWindow_HeaderReportABug {
             get {
                 return ResourceManager.GetString("comm_errLoadingDataWindow_HeaderReportABug", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Error loading &apos;{0}&apos; data.
         /// </summary>
-        internal static string comm_errLoadingDataWindow_Title {
+        public static string comm_errLoadingDataWindow_Title {
             get {
                 return ResourceManager.GetString("comm_errLoadingDataWindow_Title", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a See release notes.
         /// </summary>
-        internal static string comm_releaseNotes {
+        public static string comm_releaseNotes {
             get {
                 return ResourceManager.GetString("comm_releaseNotes", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Current Version:.
         /// </summary>
-        internal static string comm_releaseNotes_CurrentVersion {
+        public static string comm_releaseNotes_CurrentVersion {
             get {
                 return ResourceManager.GetString("comm_releaseNotes_CurrentVersion", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Follow Kwytto at Twitter to get update news!.
         /// </summary>
-        internal static string comm_releaseNotes_FollowKwytto {
+        public static string comm_releaseNotes_FollowKwytto {
             get {
                 return ResourceManager.GetString("comm_releaseNotes_FollowKwytto", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Okay!.
         /// </summary>
-        internal static string comm_releaseNotes_Ok {
+        public static string comm_releaseNotes_Ok {
             get {
                 return ResourceManager.GetString("comm_releaseNotes_Ok", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a See news at Workshop Page!.
         /// </summary>
-        internal static string comm_releaseNotes_ToWorkshop {
+        public static string comm_releaseNotes_ToWorkshop {
             get {
                 return ResourceManager.GetString("comm_releaseNotes_ToWorkshop", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a {0} was updated! Release notes:.
         /// </summary>
-        internal static string comm_releaseNotes_WasUpdatedTitle {
+        public static string comm_releaseNotes_WasUpdatedTitle {
             get {
                 return ResourceManager.GetString("comm_releaseNotes_WasUpdatedTitle", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Report-a-bug helper.
         /// </summary>
-        internal static string comm_reportABugBtn {
+        public static string comm_reportABugBtn {
             get {
                 return ResourceManager.GetString("comm_reportABugBtn", resourceCulture);
             }
@@ -202,7 +202,7 @@ namespace Klyte._commons.Localization {
         ///There&apos;s a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you&apos;re using.
         ///Feel free to create a topic at Workshop or just leave a comment link [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
-        internal static string comm_reportABugContent {
+        public static string comm_reportABugContent {
             get {
                 return ResourceManager.GetString("comm_reportABugContent", resourceCulture);
             }
@@ -211,7 +211,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Go to the guide.
         /// </summary>
-        internal static string comm_reportABugOpt_GoToGuide {
+        public static string comm_reportABugOpt_GoToGuide {
             get {
                 return ResourceManager.GetString("comm_reportABugOpt_GoToGuide", resourceCulture);
             }
@@ -220,7 +220,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Go to mod log.
         /// </summary>
-        internal static string comm_reportABugOpt_GoToModLog {
+        public static string comm_reportABugOpt_GoToModLog {
             get {
                 return ResourceManager.GetString("comm_reportABugOpt_GoToModLog", resourceCulture);
             }
@@ -229,7 +229,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Go to mod page.
         /// </summary>
-        internal static string comm_reportABugOpt_GoToModPage {
+        public static string comm_reportABugOpt_GoToModPage {
             get {
                 return ResourceManager.GetString("comm_reportABugOpt_GoToModPage", resourceCulture);
             }
@@ -238,7 +238,7 @@ namespace Klyte._commons.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Okay....
         /// </summary>
-        internal static string comm_reportABugOpt_Ok {
+        public static string comm_reportABugOpt_Ok {
             get {
                 return ResourceManager.GetString("comm_reportABugOpt_Ok", resourceCulture);
             }

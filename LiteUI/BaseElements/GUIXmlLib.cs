@@ -209,7 +209,7 @@ namespace Kwytto.LiteUI
             RestartLibraryFilterCoroutine();
         }
 
-        internal void ResetStatus() => Status = FooterBarStatus.Normal;
+        public void ResetStatus() => Status = FooterBarStatus.Normal;
 
         private string footerInputVal = "";
     }

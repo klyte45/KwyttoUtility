@@ -12,7 +12,7 @@
         public object Value;
     }
 
-    internal static class GUIMultiSelectComboBox<RootGUI> where RootGUI : GUIRootWindowBase
+    public static class GUIMultiSelectComboBox<RootGUI> where RootGUI : GUIRootWindowBase
     {
         private const string ExpandDownButtonText = " ▼ ";
         private static MultiPopupWindow popupWindow;
