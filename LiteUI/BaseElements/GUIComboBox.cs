@@ -30,7 +30,7 @@ namespace Kwytto.LiteUI
 
             var popupSize = GetPopupDimensions(items);
 
-            GUILayout.Box(itemIndex < 0 ? GUIKlyteCommons.v_null : itemIndex >= items.Length ? GUIKlyteCommons.v_invalid : items[itemIndex]);
+            GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex]);
             var lastRect = GUILayoutUtility.GetLastRect();
             var popupPosition = GUIUtility.GUIToScreenPoint(lastRect.position);
             if (lastRect.width > popupSize.x)
@@ -162,11 +162,11 @@ namespace Kwytto.LiteUI
             {
                 var result = new GUIStyle(GUI.skin.label);
                 result.hover.textColor = Color.black;
-                result.hover.background = GUIKlyteCommons.greenTexture;
+                result.hover.background = GUIKwyttoCommons.greenTexture;
                 result.font = GUI.skin.font;
 
                 result.focused.textColor = Color.yellow;
-                result.focused.background = GUIKlyteCommons.darkGreenTexture;
+                result.focused.background = GUIKwyttoCommons.darkGreenTexture;
 
 
                 return result;

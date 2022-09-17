@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.UI;
+using Kwytto.Interfaces;
 using Kwytto.Utils;
 using System;
 using System.Collections.Generic;
@@ -134,9 +135,9 @@ namespace Kwytto.LiteUI
         {
             if (Skin == null)
             {
-                bgColor = CommonProperties.ModColor.SetBrightness(.30f);
-                titleBar = CommonProperties.ModColor.SetBrightness(.60f);
-                titleBarHover = CommonProperties.ModColor.SetBrightness(1);
+                bgColor = BasicIUserMod.Instance.ModColor.SetBrightness(.30f);
+                titleBar = BasicIUserMod.Instance.ModColor.SetBrightness(.60f);
+                titleBarHover = BasicIUserMod.Instance.ModColor.SetBrightness(1);
 
                 BgTexture = new Texture2D(1, 1);
                 BgTexture.SetPixel(0, 0, new Color(bgColor.r, bgColor.g, bgColor.b, 1));
@@ -262,7 +263,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        internal static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadTexture("_commons.UI.Images.highlight.png");
+        internal static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadCommonsTexture(UI.CommonsSpriteNames.highlight);
 
         public void MoveResize(Rect newWindowRect) => windowRect = newWindowRect;
 
@@ -447,7 +448,7 @@ namespace Kwytto.LiteUI
             GUI.DrawTexture(new Rect(0.0f, 0.0f, windowRect.width, TitleBarHeight), moveTex, ScaleMode.StretchToFill);
             if (cachedModIcon is null)
             {
-                cachedModIcon = KResourceLoader.LoadTexture($"UI.Images.{CommonProperties.ModIcon}.png");
+                cachedModIcon = KResourceLoader.LoadModTexture(BasicIUserMod.Instance.IconName);
                 if (cachedModIcon is null)
                 {
                     cachedModIcon = new Texture2D(1, 1);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kwytto.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -367,7 +368,7 @@ namespace Kwytto.Utils
         }
         public static List<Type> GetSubtypesRecursive(Type typeTarg, Type refType)
         {
-            if (CommonProperties.DebugMode)
+            if (BasicIUserMod.DebugMode)
             {
                 LogUtils.DoLog($"typeTarg = {typeTarg} | IsGenType={typeTarg.IsGenericType} ");
             }
@@ -382,7 +383,7 @@ namespace Kwytto.Utils
                                          where t.IsClass && y != null && ((!typeTarg.IsGenericType && y == typeTarg) || (y.IsGenericType && y.GetGenericTypeDefinition() == typeTarg))
                                          select t);
             var result = new List<Type>();
-            if (CommonProperties.DebugMode)
+            if (BasicIUserMod.DebugMode)
             {
                 LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
             }
@@ -403,7 +404,7 @@ namespace Kwytto.Utils
 
         public static List<Type> GetInterfaceImplementations(Type interfaceType, Type refType)
         {
-            if (CommonProperties.DebugMode)
+            if (BasicIUserMod.DebugMode)
             {
                 LogUtils.DoLog($"interfaceType = {interfaceType}");
             }
@@ -419,7 +420,7 @@ namespace Kwytto.Utils
                                          select t);
 
             var result = new List<Type>();
-            if (CommonProperties.DebugMode)
+            if (BasicIUserMod.DebugMode)
             {
                 LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
             }

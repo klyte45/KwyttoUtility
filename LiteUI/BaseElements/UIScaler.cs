@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.UI;
+using Kwytto.Interfaces;
 using UnityEngine;
 
 namespace Kwytto.LiteUI
@@ -60,7 +61,7 @@ namespace Kwytto.LiteUI
                     false ?// Config.ScaleToResolution ?
                     BaseResolutionX :
                     Screen.width;
-                return ret / CommonProperties.UIScale;
+                return ret / BasicIUserMod.Instance.UIScale;
             }
         }
 
@@ -72,7 +73,7 @@ namespace Kwytto.LiteUI
                   false ?//  Config.ScaleToResolution ?
                     BaseResolutionY :
                     Screen.height;
-                return ret / CommonProperties.UIScale;
+                return ret / BasicIUserMod.Instance.UIScale;
             }
         }
 

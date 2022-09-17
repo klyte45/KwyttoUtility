@@ -9,8 +9,8 @@ namespace Kwytto.Utils
     public class XmlUtils
     {
         #region XML Utils
-
         public static T CloneViaXml<T>(T input) => XmlUtils.DefaultXmlDeserialize<T>(XmlUtils.DefaultXmlSerialize(input));
+        public static U TransformViaXml<T, U>(T input) => XmlUtils.DefaultXmlDeserialize<U>(XmlUtils.DefaultXmlSerialize(input));
         public static T DefaultXmlDeserialize<T>(string s, Action<string, Exception> OnException = null)
         { 
             var xmlser = new XmlSerializer(typeof(T));

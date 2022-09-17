@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kwytto.UI;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -10,19 +11,6 @@ namespace Kwytto.Utils
     {
         public static string Prefix { get; } = "Klyte";
 
-        public static string GetDefaultSpriteNameFor<E>(E value, bool noBorder = false) where E : Enum => GetDefaultSpriteNameFor(value.ToString(), noBorder);
-        public static string GetDefaultSpriteNameFor(string value, bool noBorder = false)
-        {
-            if (value.StartsWith("__"))
-            {
-                return $"{value.ToString().Substring(2)}{(noBorder ? TextureAtlasUtils.NoBorderSuffix : "")}";
-            }
-            if (value.StartsWith("K45_"))
-            {
-                return $"{value}{(noBorder ? TextureAtlasUtils.NoBorderSuffix : "")}";
-            }
-            return $"K45_{Prefix}_{value}{(noBorder ? TextureAtlasUtils.NoBorderSuffix : "")}";
-        }
 
         public static byte[] LoadResourceData(string name)
         {
@@ -76,6 +64,20 @@ namespace Kwytto.Utils
             }
         }
 
+        public static Texture2D LoadCommonsTexture(CommonsSpriteNames sprite)
+        {
+            return LoadTexture(GetCommonsTexturePath(sprite));
+        }
+
+        public static string GetCommonsTexturePath(CommonsSpriteNames sprite)
+        {
+            return $"_commons.UI.Images.{sprite}.png";
+        }
+
+        public static Texture2D LoadModTexture(string filename, string folder = "Images")
+        {
+            return LoadTexture($"UI.{folder}.{filename}.png");
+        }
         public static Texture2D LoadTexture(string filename)
         {
             try

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Kwytto.UI
 {
-    internal class GUIBasicListingTabsContainer<T>
+    public class GUIBasicListingTabsContainer<T>
     {
         private int m_tabSel = 0;
         private int m_listSel = -1;
@@ -14,7 +14,7 @@ namespace Kwytto.UI
         private readonly Action<int, T> m_onSetItemAt;
         private readonly Func<string[]> m_listGetter;
         private readonly Func<int, T> m_currentItemGetter;
-        internal event Action<int> EventListItemChanged;
+        public event Action<int> EventListItemChanged;
         public int ListSel
         {
             get => m_listSel;
@@ -43,12 +43,12 @@ namespace Kwytto.UI
                     {
                         normal = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.darkGreenTexture,
+                            background = GUIKwyttoCommons.darkGreenTexture,
                             textColor = Color.white
                         },
                         hover = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.greenTexture,
+                            background = GUIKwyttoCommons.greenTexture,
                             textColor = Color.black
                         },
                     };
@@ -79,7 +79,7 @@ namespace Kwytto.UI
                 var sideListArea = new Rect(0, 0, 120, area.height);
                 var sideList = m_listGetter();
                 var addItemText = KStr.comm_addItemList;
-                if (GUIKlyteCommons.CreateItemVerticalList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel))
+                if (GUIKwyttoCommons.CreateItemVerticalList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel))
                 {
                     m_onAdd();
                 }

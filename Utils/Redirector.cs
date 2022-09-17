@@ -1,5 +1,6 @@
 ﻿using CitiesHarmony.API;
 using HarmonyLib;
+using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +21,7 @@ namespace Kwytto.Utils
     public class Redirector : MonoBehaviour
     {
         #region Class Base
-        private static readonly Harmony m_harmony = new Harmony($"com.klyte.redirectors.{CommonProperties.Acronym}");
+        private static readonly Harmony m_harmony = new Harmony($"com.klyte.redirectors.{BasicIUserMod.Instance.Acronym}");
         private static readonly List<MethodInfo> m_patches = new List<MethodInfo>();
         private static readonly List<Action> m_onUnpatchActions = new List<Action>();
 
@@ -106,12 +107,12 @@ namespace Kwytto.Utils
                 //K45DialogControl.ShowModal(new K45DialogControl.BindProperties
                 //{
                 //    title = "AN ERROR HAS OCCURRED!",
-                //    message = $"An error happened while trying to patch all code needed to make the <color yellow>{CommonProperties.ModName}</color> work properly. Check output_log.txt file to see details." +
-                //    (CommonProperties.GitHubRepoPath.IsNullOrWhiteSpace() ? "" : "\nPlease open a issue in GitHub with the output file attached on it to help to fix this problem. Thanks!") +
+                //    message = $"An error happened while trying to patch all code needed to make the <color yellow>{BasicIUserMod.Instance.ModName}</color> work properly. Check output_log.txt file to see details." +
+                //    (BasicIUserMod.Instance.GitHubRepoPath.IsNullOrWhiteSpace() ? "" : "\nPlease open a issue in GitHub with the output file attached on it to help to fix this problem. Thanks!") +
                 //    $"\n\n<color #FF00FF>{logString}</color>\n{stackTrace}",
                 //    showButton1 = true,
                 //    showButton2 = true,
-                //    showButton3 = !CommonProperties.GitHubRepoPath.IsNullOrWhiteSpace(),
+                //    showButton3 = !BasicIUserMod.Instance.GitHubRepoPath.IsNullOrWhiteSpace(),
                 //    textButton1 = "OK",
                 //    textButton2 = "Go to output_log.txt file (WIN)",
                 //    textButton3 = "GitHub: open an issue to fix this",
@@ -125,7 +126,7 @@ namespace Kwytto.Utils
                 //    }
                 //    if (x == 3)
                 //    {
-                //        FileSystemUtils.OpenURLInOverlayOrBrowser($"https://github.com/{CommonProperties.GitHubRepoPath}/issues/new");
+                //        FileSystemUtils.OpenURLInOverlayOrBrowser($"https://github.com/{BasicIUserMod.Instance.GitHubRepoPath}/issues/new");
                 //        return false;
                 //    }
                 //    return true;

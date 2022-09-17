@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +29,7 @@ namespace Kwytto.Utils
 
             string folderPath = Path.Combine(KFileUtils.BASE_FOLDER_PATH, "_LOGS");
             KFileUtils.EnsureFolderCreation(folderPath);
-            LogPath = Path.Combine(folderPath, CommonProperties.Acronym + ".log.txt");
+            LogPath = Path.Combine(folderPath, BasicIUserMod.Instance.Acronym + ".log.txt");
 
         }
         private static void LogBuffered(string format, params object[] args)
@@ -76,13 +77,13 @@ namespace Kwytto.Utils
                     streamWriter.WriteLine(IndentString() + string.Format(format, args));
             }
         }
-        private static string LogLineStart(string level) => $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}][{CommonProperties.Acronym,-4}][v{CommonProperties.FullVersion,-12}][{level,-8}] ";
+        private static string LogLineStart(string level) => $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}][{BasicIUserMod.Instance.Acronym,-4}][v{BasicIUserMod.FullVersion,-12}][{level,-8}] ";
 
         public static void DoLog(string format, params object[] args)
         {
             try
             {
-                if (CommonProperties.DebugMode)
+                if (BasicIUserMod.DebugMode)
                 {
                     LogBuffered(string.Format(LogLineStart("DEBUG") + format, args));
                 }
@@ -118,7 +119,7 @@ namespace Kwytto.Utils
 
         public static void PrintMethodIL(IEnumerable<CodeInstruction> inst, bool force = false)
         {
-            if (force || CommonProperties.DebugMode)
+            if (force || BasicIUserMod.DebugMode)
             {
                 int j = 0;
                 LogBuffered($"{LogLineStart("TRANSPILLED")}\n\t{string.Join("\n\t", inst.Select(x => $"{(j++).ToString("D8")} {x.opcode.ToString().PadRight(10)} {ParseOperand(inst, x.operand)}").ToArray())}");

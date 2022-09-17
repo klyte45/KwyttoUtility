@@ -55,7 +55,7 @@ namespace Kwytto.Utils
             }
             else
             {
-                generatedSpriteName = KResourceLoader.GetDefaultSpriteNameFor(textureName);
+                generatedSpriteName = textureName;
             }
             borderDescriptors.TryGetValue(generatedSpriteName, out Tuple<RectOffset, bool> border);
             var res = new SpriteInfo
@@ -153,7 +153,7 @@ namespace Kwytto.Utils
                 sprites.Add(new SpriteInfo()
                 {
                     texture = textureQuad,
-                    name = KResourceLoader.GetDefaultSpriteNameFor(spriteValues.GetValue(i) as Enum)
+                    name = spriteValues.GetValue(i).ToString(),
                 });
             }
         }

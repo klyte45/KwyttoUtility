@@ -21,19 +21,69 @@ using static Kwytto.LiteUI.KwyttoDialog;
 
 namespace Kwytto.Interfaces
 {
-
-    public abstract class BasicIUserMod<U, C> : IUserMod, ILoadingExtension, IViewStartActions
+    public abstract class BasicIUserMod<U, C> : BasicIUserMod
         where U : BasicIUserMod<U, C>, new()
         where C : BaseController<U, C>
     {
+        private static C controller;
+        protected override void OnLevelLoadedInherit(LoadMode mode)
+        {
+            if (IsValidLoadMode(mode))
+            {
+                if (!typeof(C).IsGenericType)
+                {
+                    m_topObj = GameObject.Find(typeof(U).Name) ?? new GameObject(typeof(U).Name);
+                    Controller = m_topObj.AddComponent<C>();
+                }
+                SimulationManager.instance.StartCoroutine(LevelUnloadBinds());
+                ShowVersionInfoPopup();
+                SearchIncompatibilitiesModal();
+            }
+            else
+            {
+                LogUtils.DoWarnLog($"Invalid load mode: {mode}. The mod will not be loaded!");
+                Redirector.UnpatchAll();
+            }
+        }
+        public new static C Controller
+        {
+            get
+            {
+                if (controller is null && LoadingManager.instance.m_currentlyLoading)
+                {
+                    LogUtils.DoLog($"Trying to access controller while loading. NOT ALLOWED!\nAsk at Klyte45's GitHub to fix this. Stacktrace:\n{Environment.StackTrace}");
+                }
+                return controller;
+            }
+            private set => controller = value;
+        }
+    }
+    public abstract class BasicIUserMod : IUserMod, ILoadingExtension, IViewStartActions
+    {
+        public BasicIUserMod()
+        {
+            if (m_instance is null)
+            {
+                m_instance = this;
+            }
+        }
+
         public abstract string SimpleName { get; }
         public virtual string IconName { get; } = "ModIcon";
+        public virtual string GitHubRepoPath { get; } = "";
+        public abstract string Acronym { get; }
+        public abstract Color ModColor { get; }
+        public virtual float UIScale { get; } = 1;
+        internal virtual string[] AssetExtraDirectoryNames { get; } = new string[0];
+        internal virtual string[] AssetExtraFileNames { get; } = new string[] { };
+
+        public virtual string ModRootFolder => KFileUtils.BASE_FOLDER_PATH + SimpleName;
         public virtual bool UseGroup9 => true;
         public virtual void DoLog(string fmt, params object[] args) => LogUtils.DoLog(fmt, args);
         public virtual void DoErrorLog(string fmt, params object[] args) => LogUtils.DoErrorLog(fmt, args);
         public virtual void TopSettingsUI(UIHelper ext) { }
 
-        private GameObject m_topObj;
+        protected GameObject m_topObj;
         public Transform RefTransform => m_topObj?.transform;
 
         private static ulong m_modId;
@@ -47,7 +97,7 @@ namespace Kwytto.Interfaces
                     m_modId = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
                  pi.assemblyCount > 0
                  && pi.isEnabled
-                 && pi.GetAssemblies().Where(x => x == typeof(U).Assembly).Count() > 0
+                 && pi.GetAssemblies().Where(x => x == Instance.GetType().Assembly).Count() > 0
              ).Select(x => x?.publishedFileID.AsUInt64 ?? ulong.MaxValue).Min();
                 }
                 return m_modId;
@@ -65,7 +115,7 @@ namespace Kwytto.Interfaces
                     m_rootFolder = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
                  pi.assemblyCount > 0
                  && pi.isEnabled
-                 && pi.GetAssemblies().Where(x => x == typeof(U).Assembly).Count() > 0
+                 && pi.GetAssemblies().Where(x => x == Instance.GetType().Assembly).Count() > 0
              ).FirstOrDefault()?.modPath;
                 }
                 return m_rootFolder;
@@ -73,7 +123,7 @@ namespace Kwytto.Interfaces
         }
         public string Name => $"{SimpleName} {Version}";
         public abstract string Description { get; }
-        public static C Controller
+        public static BaseController Controller
         {
             get
             {
@@ -102,27 +152,9 @@ namespace Kwytto.Interfaces
             InitializeMod();
         }
 
-        protected virtual void OnLevelLoadedInherit(LoadMode mode)
-        {
-            if (IsValidLoadMode(mode))
-            {
-                if (!typeof(C).IsGenericType)
-                {
-                    m_topObj = GameObject.Find(typeof(U).Name) ?? new GameObject(typeof(U).Name);
-                    Controller = m_topObj.AddComponent<C>();
-                }
-                SimulationManager.instance.StartCoroutine(LevelUnloadBinds());
-                ShowVersionInfoPopup();
-                SearchIncompatibilitiesModal();
-            }
-            else
-            {
-                LogUtils.DoWarnLog($"Invalid load mode: {mode}. The mod will not be loaded!");
-                Redirector.UnpatchAll();
-            }
-        }
+        protected abstract void OnLevelLoadedInherit(LoadMode mode);
 
-        private IEnumerator LevelUnloadBinds()
+        protected IEnumerator LevelUnloadBinds()
         {
             yield return 0;
             UIButton toMainMenuButton = GameObject.Find("ToMainMenu")?.GetComponent<UIButton>();
@@ -172,7 +204,7 @@ namespace Kwytto.Interfaces
             {
                 needShowPopup = true;
             }
-            KFileUtils.EnsureFolderCreation(CommonProperties.ModRootFolder);
+            KFileUtils.EnsureFolderCreation(ModRootFolder);
             PatchesApply();
             DoOnEnable();
             LogUtils.FlushBuffer();
@@ -182,44 +214,30 @@ namespace Kwytto.Interfaces
 
         public void OnDisabled() => Redirector.UnpatchAll();
 
-        public static string MinorVersion => MajorVersion + "." + typeof(U).Assembly.GetName().Version.Build;
-        public static string MajorVersion => typeof(U).Assembly.GetName().Version.Major + "." + typeof(U).Assembly.GetName().Version.Minor;
-        public static string FullVersion => MinorVersion + " r" + typeof(U).Assembly.GetName().Version.Revision;
-        public static string Version
-        {
-            get
-            {
-                if (typeof(U).Assembly.GetName().Version.Minor == 0 && typeof(U).Assembly.GetName().Version.Build == 0)
-                {
-                    return typeof(U).Assembly.GetName().Version.Major.ToString();
-                }
-                if (typeof(U).Assembly.GetName().Version.Build > 0)
-                {
-                    return MinorVersion;
-                }
-                else
-                {
-                    return MajorVersion;
-                }
-            }
-        }
+        public static string MinorVersion => MajorVersion + "." + Instance.GetType().Assembly.GetName().Version.Build;
+        public static string MajorVersion => Instance.GetType().Assembly.GetName().Version.Major + "." + Instance.GetType().Assembly.GetName().Version.Minor;
+        public static string FullVersion => MinorVersion + " r" + Instance.GetType().Assembly.GetName().Version.Revision;
+        public static string Version =>
+           Instance.GetType().Assembly.GetName().Version.Minor == 0 && Instance.GetType().Assembly.GetName().Version.Build == 0
+                    ? Instance.GetType().Assembly.GetName().Version.Major.ToString()
+                    : Instance.GetType().Assembly.GetName().Version.Build > 0
+                        ? MinorVersion
+                        : MajorVersion;
 
         public bool needShowPopup;
 
-        public static SavedBool DebugMode { get; } = new SavedBool(CommonProperties.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
-        private SavedString CurrentSaveVersion { get; } = new SavedString(CommonProperties.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
+        public static SavedBool DebugMode { get; } = new SavedBool(Instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
+        private SavedString CurrentSaveVersion { get; } = new SavedString(Instance.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
         public static bool IsCityLoaded => Singleton<SimulationManager>.instance.m_metaData != null;
 
-        public static U m_instance = new U();
-        public static U Instance => m_instance;
+        public static BasicIUserMod m_instance;
+        public static BasicIUserMod Instance => m_instance;
 
-        private UIComponent m_onSettingsUiComponent;
-        private static C controller;
+        private static BaseController controller;
 
         public void OnSettingsUI(UIHelperBase helperDefault)
         {
             LocaleChanged();
-            m_onSettingsUiComponent = ((UIHelper)helperDefault).self as UIComponent;
 
             DoWithSettingsUI((UIHelper)helperDefault);
         }
@@ -476,7 +494,7 @@ namespace Kwytto.Interfaces
         internal static void LocaleChanged()
         {
             var newCulture = Culture;
-            LogUtils.DoLog($"{CommonProperties.ModName} Locale changed {KStr.Culture?.Name}->{newCulture.Name}");
+            LogUtils.DoLog($"{Instance.SimpleName} Locale changed {KStr.Culture?.Name}->{newCulture.Name}");
             KStr.Culture = newCulture;
             Instance.SetLocaleCulture(newCulture);
         }

@@ -1,5 +1,6 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
+using Klyte._commons.Localization;
 using System;
 using UnityEngine;
 
@@ -141,6 +142,16 @@ namespace Kwytto.LiteUI
             }
         }
 
+        public static readonly ButtonDefinition[] basicOkButtonBar = new ButtonDefinition[]
+        {
+            SpaceBtn,
+            new ButtonDefinition
+            {
+                title = KStr.comm_releaseNotes_Ok,
+                onClick = ()=>true
+            }
+        };
+
         public struct BindProperties
         {
             public string title;
@@ -178,12 +189,12 @@ namespace Kwytto.LiteUI
                     {
                         normal = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.darkGreenTexture,
+                            background = GUIKwyttoCommons.darkGreenTexture,
                             textColor = Color.white
                         },
                         hover = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.greenTexture,
+                            background = GUIKwyttoCommons.greenTexture,
                             textColor = Color.black
                         },
                     };
@@ -204,12 +215,12 @@ namespace Kwytto.LiteUI
                     {
                         normal = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.darkRedTexture,
+                            background = GUIKwyttoCommons.darkRedTexture,
                             textColor = Color.white
                         },
                         hover = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.redTexture,
+                            background = GUIKwyttoCommons.redTexture,
                             textColor = Color.white
                         },
                     };
@@ -227,12 +238,12 @@ namespace Kwytto.LiteUI
                     {
                         normal = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.almostWhiteTexture,
+                            background = GUIKwyttoCommons.almostWhiteTexture,
                             textColor = Color.black
                         },
                         hover = new GUIStyleState()
                         {
-                            background = GUIKlyteCommons.whiteTexture,
+                            background = GUIKwyttoCommons.whiteTexture,
                             textColor = Color.black
                         },
                     };

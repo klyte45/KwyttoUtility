@@ -97,6 +97,42 @@ namespace Klyte._commons.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;..
+        /// </summary>
+        internal static string comm_errLoadingDataWindow_Header {
+            get {
+                return ResourceManager.GetString("comm_errLoadingDataWindow_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Raw data:.
+        /// </summary>
+        internal static string comm_errLoadingDataWindow_HeaderRawData {
+            get {
+                return ResourceManager.GetString("comm_errLoadingDataWindow_HeaderRawData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log..
+        /// </summary>
+        internal static string comm_errLoadingDataWindow_HeaderReportABug {
+            get {
+                return ResourceManager.GetString("comm_errLoadingDataWindow_HeaderReportABug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Error loading &apos;{0}&apos; data.
+        /// </summary>
+        internal static string comm_errLoadingDataWindow_Title {
+            get {
+                return ResourceManager.GetString("comm_errLoadingDataWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a See release notes.
         /// </summary>
         internal static string comm_releaseNotes {

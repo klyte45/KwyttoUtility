@@ -412,7 +412,7 @@ namespace Kwytto.Utils
             return x;
         }
 
-        internal static void MergeTextures(Texture2D tex, Color[] colors, int startX, int startY, int sizeX, int sizeY, bool swapXY = false, bool flipVertical = false, bool flipHorizontal = false, bool plain = false)
+        public static void MergeTextures(Texture2D tex, Color[] colors, int startX, int startY, int sizeX, int sizeY, bool swapXY = false, bool flipVertical = false, bool flipHorizontal = false, bool plain = false)
         {
             for (int i = 0; i < sizeX; i++)
             {
@@ -430,7 +430,7 @@ namespace Kwytto.Utils
                 }
             }
         }
-        internal static void MergeColorArrays(Color[] colorOr, int widthOr, Color[] colors, int startX, int startY, int sizeX, int sizeY, bool swapXY = false, bool flipVertical = false, bool flipHorizontal = false, bool plain = false)
+        public static void MergeColorArrays(Color[] colorOr, int widthOr, Color[] colors, int startX, int startY, int sizeX, int sizeY, bool swapXY = false, bool flipVertical = false, bool flipHorizontal = false, bool plain = false)
         {
             for (int i = 0; i < sizeX; i++)
             {
@@ -449,7 +449,7 @@ namespace Kwytto.Utils
             }
         }
 
-        internal static Vector4 RenderSprite(UITextureAtlas atlas, string spriteName, Color color, Texture2D tex, float? targetScale, int? targetHeight = null, Vector2? position = null, Vector2 positionOffset = default, Func<Color, Color, Color> blendFunction = null)
+        public static Vector4 RenderSprite(UITextureAtlas atlas, string spriteName, Color color, Texture2D tex, float? targetScale, int? targetHeight = null, Vector2? position = null, Vector2 positionOffset = default, Func<Color, Color, Color> blendFunction = null)
         {
             UITextureAtlas.SpriteInfo spriteInfo = atlas[spriteName];
             if (targetScale == null)
@@ -476,7 +476,7 @@ namespace Kwytto.Utils
             return new Vector4(targetPosition.x, targetPosition.y, width, height);
         }
 
-        internal static readonly Vector2[] kOutlineOffsets = new Vector2[]
+        public static readonly Vector2[] kOutlineOffsets = new Vector2[]
             {
                 new Vector2(-1f, -1f),
                 new Vector2(-1f, 0),

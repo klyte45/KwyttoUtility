@@ -62,8 +62,8 @@ namespace Kwytto.LiteUI
             m_searchText = "";
             RestartFilterCoroutine();
         }
-        public void DrawButton(float width, string value) => GUIKlyteCommons.AddButtonSelector(width, m_title, value, () => SetFocus(true));
-        public void DrawButtonDisabled(float width, string value) => GUIKlyteCommons.AddButtonSelector(width, m_title, value, null, false);
+        public void DrawButton(float width, string value) => GUIKwyttoCommons.AddButtonSelector(width, m_title, value, () => SetFocus(true));
+        public void DrawButtonDisabled(float width, string value) => GUIKwyttoCommons.AddButtonSelector(width, m_title, value, null, false);
         public void DrawSelectorView(float height)
         {
             bool dirtyInput = false;
@@ -114,12 +114,12 @@ namespace Kwytto.LiteUI
             };
             using (new GUILayout.HorizontalScope(GUILayout.Height(12)))
             {
-                if (m_acceptsNull && GUILayout.Button(GUIKlyteCommons.v_null))
+                if (m_acceptsNull && GUILayout.Button(GUIKwyttoCommons.v_null))
                 {
                     OnSelect(-2, null);
                     SetFocus(false);
                 }
-                if (m_acceptsEmpty && GUILayout.Button(GUIKlyteCommons.v_empty))
+                if (m_acceptsEmpty && GUILayout.Button(GUIKwyttoCommons.v_empty))
                 {
                     OnSelect(-3, "");
                     SetFocus(false);

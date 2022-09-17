@@ -1,5 +1,6 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Math;
+using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -217,7 +218,7 @@ namespace Kwytto.Utils
 
                 return -centerX.x.CompareTo(centerY.x);
             });
-            if (CommonProperties.DebugMode)
+            if (BasicIUserMod.DebugMode)
             {
                 LogUtils.DoLog($"{buildingInfo.name} PLAT ORDER:\n{string.Join("\n", result.Select((x, y) => $"{y}=> {x.ToString()}").ToArray())}");
             }
