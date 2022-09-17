@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.Globalization;
+using Kwytto.Utils;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -96,7 +97,6 @@ namespace Kwytto.LiteUI
             var usedHeight = m_otherFilters?.Invoke(out hasChanged) ?? 0;
             if (dirtyInput || hasChanged)
             {
-
                 RestartFilterCoroutine();
             }
             using (var scroll = new GUILayout.ScrollViewScope(m_searchResultPanelScroll, GUILayout.Height(height - 72 - usedHeight)))

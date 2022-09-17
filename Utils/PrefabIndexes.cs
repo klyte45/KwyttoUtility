@@ -2,8 +2,8 @@ using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.Packaging;
 using ColossalFramework.PlatformServices;
-using System.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -29,19 +29,6 @@ namespace Kwytto.Utils
                 return m_authorList;
             }
         }
-        private Dictionary<string, T> m_propsLoaded;
-        [Obsolete("Use the list with full details")]
-        public Dictionary<string, T> PrefabsLoaded
-        {
-            get
-            {
-                if (m_propsLoaded == null)
-                {
-                    m_propsLoaded = GetInfos().Where(x => x?.name != null).GroupBy(x => GetListName(x)).Select(x => Tuple.New(x.Key, x.FirstOrDefault())).ToDictionary(x => x.First, x => x.Second);
-                }
-                return m_propsLoaded;
-            }
-        }
 
         private Dictionary<string, IIndexedPrefabData> m_prefabsData;
         public Dictionary<string, IIndexedPrefabData> PrefabsData
@@ -50,7 +37,7 @@ namespace Kwytto.Utils
             {
                 if (m_prefabsData is null)
                 {
-                    var prefabMapping = PackageManager.FilterAssets(new Package.AssetType[] { UserAssetType.CustomAssetMetaData }).Select(x => Tuple.New(x.fullName, x)).ToDictionary(x => x.First, x => x.Second);
+                    var prefabMapping = PackageManager.FilterAssets(new Package.AssetType[] { UserAssetType.CustomAssetMetaData }).Select(x => Tuple.New(x.fullName, x)).GroupBy(x => x).ToDictionary(x => x.Key.First, x => x.Key.Second);
                     m_prefabsData = GetInfos().Where(x => x?.name != null).Select(x => new IndexedPrefabData<T>(prefabMapping.TryGetValue(x.name, out Package.Asset asset) ? asset : null, x)).ToDictionary(x => x.PrefabName, x => (IIndexedPrefabData)x);
                 }
                 return m_prefabsData;
@@ -94,19 +81,11 @@ namespace Kwytto.Utils
             return list;
         }
 
-        public IEnumerator BasicInputFiltering(string input, Wrapper<string[]> result)
-        {
-            yield return result.Value = PrefabsData.Values
-              .Where((x) => input.IsNullOrWhiteSpace() ? true : LocaleManager.cultureInfo.CompareInfo.IndexOf($"{x.DisplayName}\n{x.Author?.personaName}\n{x.PrefabName}", input, CompareOptions.IgnoreCase) >= 0)
-              .Select(x => x.DisplayName)
-              .OrderBy((x) => x)
-              .ToArray();
-        }
 
-        public IEnumerator BasicInputFilteringDetailed(string input, Wrapper<IIndexedPrefabData[]> result)
+        public IEnumerator BasicInputFiltering(string input, Wrapper<IIndexedPrefabData[]> result)
         {
             yield return result.Value = PrefabsData.Values
-              .Where((x) => input.IsNullOrWhiteSpace() ? true : LocaleManager.cultureInfo.CompareInfo.IndexOf($"{x.DisplayName}\n{x.Author?.personaName}\n{x.PrefabName}", input, CompareOptions.IgnoreCase) >= 0)
+              .Where((x) => input.IsNullOrWhiteSpace() || LocaleManager.cultureInfo.CompareInfo.IndexOf($"{x.DisplayName}\n{x.Author?.personaName}\n{x.PrefabName}", input, CompareOptions.IgnoreCase) >= 0)
               .ToArray();
         }
 

@@ -21,8 +21,8 @@ namespace Kwytto.Tools
         }
         protected override void OnDisable()
         {
-            base.OnDisable();
             EventEnableChanged?.Invoke(false);
+            base.OnDisable();
         }
 
         protected override void OnToolUpdate()
