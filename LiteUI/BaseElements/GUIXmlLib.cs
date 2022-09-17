@@ -17,8 +17,8 @@ namespace Kwytto.LiteUI
         private readonly Wrapper<string[]> librarySearchResults = new Wrapper<string[]>();
         private Coroutine librarySearchCoroutine;
 
-        private readonly Texture ImportTex = KResourceLoader.LoadCommonsTexture(CommonsSpriteNames.K45_Import);
-        private readonly Texture ExportTex = KResourceLoader.LoadCommonsTexture(CommonsSpriteNames.K45_Export);
+        private readonly Texture ImportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Import);
+        private readonly Texture ExportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Export);
 
         public string DeleteQuestionI18n { get; set; } = "";
         public string ImportI18n { get; set; } = "";

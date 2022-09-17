@@ -10,15 +10,15 @@ namespace Kwytto.Utils
 {
     public static class KResourceLoader
     {
-        public static string Prefix { get; } = "Klyte";
+        public static Assembly RefAssemblyMod => BasicIUserMod.Instance.GetType().Assembly;
+        private static string NamespaceMod => "Klyte.";
+        public static Assembly RefAssemblyKwytto => typeof(KResourceLoader).Assembly;
 
-        public static Assembly RefAssembly => BasicIUserMod.Instance.GetType().Assembly;
-
-        public static byte[] LoadResourceData(string name)
+        public static byte[] LoadResourceDataMod(string name) => LoadResourceData(NamespaceMod + name, RefAssemblyMod);
+        public static byte[] LoadResourceDataKwytto(string name) => LoadResourceData("Kwytto." + name, RefAssemblyKwytto);
+        private static byte[] LoadResourceData(string name, Assembly refAssembly)
         {
-            name = $"{Prefix}.{name}";
-
-            var stream = (UnmanagedMemoryStream)RefAssembly.GetManifestResourceStream(name);
+            var stream = (UnmanagedMemoryStream)refAssembly.GetManifestResourceStream(name);
             if (stream == null)
             {
                 LogUtils.DoLog("Could not find resource: " + name);
@@ -29,11 +29,11 @@ namespace Kwytto.Utils
             return read.ReadBytes((int)stream.Length);
         }
 
-        public static string LoadResourceString(string name)
+        public static string LoadResourceStringMod(string name) => LoadResourceString(NamespaceMod + name, RefAssemblyMod);
+        public static string LoadResourceStringKwytto(string name) => LoadResourceString("Kwytto." + name, RefAssemblyKwytto);
+        private static string LoadResourceString(string name, Assembly refAssembly)
         {
-            name = $"{Prefix}.{name}";
-
-            var stream = (UnmanagedMemoryStream)RefAssembly.GetManifestResourceStream(name);
+            var stream = (UnmanagedMemoryStream)refAssembly.GetManifestResourceStream(name);
             if (stream == null)
             {
                 LogUtils.DoLog("Could not find resource: " + name);
@@ -43,11 +43,11 @@ namespace Kwytto.Utils
             var read = new StreamReader(stream);
             return read.ReadToEnd();
         }
-        public static IEnumerable<string> LoadResourceStringLines(string name)
+        public static IEnumerable<string> LoadResourceStringLinesMod(string name) => LoadResourceStringLines(NamespaceMod + name, RefAssemblyMod);
+        public static IEnumerable<string> LoadResourceStringLinesKwytto(string name) => LoadResourceStringLines("Kwytto." + name, RefAssemblyKwytto);
+        private static IEnumerable<string> LoadResourceStringLines(string name, Assembly refAssembly)
         {
-            name = $"{Prefix}.{name}";
-
-            using (var stream = (UnmanagedMemoryStream)RefAssembly.GetManifestResourceStream(name))
+            using (var stream = (UnmanagedMemoryStream)refAssembly.GetManifestResourceStream(name))
             {
                 if (stream == null)
                 {
@@ -66,26 +66,26 @@ namespace Kwytto.Utils
             }
         }
 
-        public static Texture2D LoadCommonsTexture(CommonsSpriteNames sprite)
+        public static Texture2D LoadTextureKwytto(CommonsSpriteNames sprite)
         {
-            return LoadTexture(GetCommonsTexturePath(sprite));
+            return LoadTexture(GetCommonsTexturePath(sprite), RefAssemblyKwytto);
         }
 
         public static string GetCommonsTexturePath(CommonsSpriteNames sprite)
         {
-            return $"_commons.UI.Images.{sprite}.png";
+            return $"Kwytto.UI.Images.{sprite}.png";
         }
 
-        public static Texture2D LoadModTexture(string filename, string folder = "Images")
+        public static Texture2D LoadTextureMod(string filename, string folder = "Images")
         {
-            return LoadTexture($"UI.{folder}.{filename}.png");
+            return LoadTexture(NamespaceMod + $"UI.{folder}.{filename}.png", RefAssemblyMod);
         }
-        public static Texture2D LoadTexture(string filename)
+        private static Texture2D LoadTexture(string filename, Assembly refAssembly)
         {
             try
             {
                 var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-                texture.LoadImage(LoadResourceData(filename));
+                texture.LoadImage(LoadResourceData(filename, refAssembly));
                 return texture;
             }
             catch (Exception e)
@@ -100,7 +100,7 @@ namespace Kwytto.Utils
         {
             try
             {
-                return AssetBundle.LoadFromMemory(LoadResourceData(filename));
+                return AssetBundle.LoadFromMemory(LoadResourceData(NamespaceMod + filename, RefAssemblyMod));
             }
             catch (Exception e)
             {

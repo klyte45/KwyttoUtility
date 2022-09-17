@@ -263,7 +263,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        public static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadCommonsTexture(UI.CommonsSpriteNames.highlight);
+        public static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.highlight);
 
         public void MoveResize(Rect newWindowRect) => windowRect = newWindowRect;
 
@@ -448,7 +448,7 @@ namespace Kwytto.LiteUI
             GUI.DrawTexture(new Rect(0.0f, 0.0f, windowRect.width, TitleBarHeight), moveTex, ScaleMode.StretchToFill);
             if (cachedModIcon is null)
             {
-                cachedModIcon = KResourceLoader.LoadModTexture(BasicIUserMod.Instance.IconName);
+                cachedModIcon = KResourceLoader.LoadTextureMod(BasicIUserMod.Instance.IconName);
                 if (cachedModIcon is null)
                 {
                     cachedModIcon = new Texture2D(1, 1);

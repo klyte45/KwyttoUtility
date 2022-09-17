@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -10,6 +11,19 @@ namespace Kwytto.Tools
         private long m_rightClickTime;
 
         private long m_leftClickTime;
+
+        public event Action<bool> EventEnableChanged;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            EventEnableChanged?.Invoke(true);
+        }
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            EventEnableChanged?.Invoke(false);
+        }
 
         protected override void OnToolUpdate()
         {

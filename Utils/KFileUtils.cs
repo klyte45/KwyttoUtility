@@ -182,7 +182,7 @@ namespace Kwytto.Utils
         public static string[] GetAllFilesEmbeddedAtFolder(string packageDirectory, string extension)
         {
 
-            var executingAssembly = KResourceLoader.RefAssembly;
+            var executingAssembly = KResourceLoader.RefAssemblyMod;
             string folderName = $"Klyte.{packageDirectory}";
             return executingAssembly
                 .GetManifestResourceNames()

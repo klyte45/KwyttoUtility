@@ -1,5 +1,4 @@
 ﻿using ColossalFramework.UI;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -84,19 +83,7 @@ namespace Kwytto.Utils
 
         public static readonly string NoBorderSuffix = "_NOBORDER";
 
-        public static void LoadImagesFromResources(string path, ref List<SpriteInfo> newSprites)
-        {
-            string[] imagesFiles = KFileUtils.GetAllFilesEmbeddedAtFolder(path, ".png");
-            ParseBorderDescriptors(KResourceLoader.LoadResourceStringLines($"{path}.{BORDER_FILENAME}"), out Dictionary<string, Tuple<RectOffset, bool>> borderDescriptor);
-            foreach (string file in imagesFiles)
-            {
-                Texture2D tex = KResourceLoader.LoadTexture($"{path}.{file}");
-                if (tex != null)
-                {
-                    newSprites.AddRange(TextureAtlasUtils.CreateSpriteInfo(borderDescriptor, file, tex));
-                }
-            }
-        }
+
 
         public static void ParseBorderDescriptors(IEnumerable<string> lines, out Dictionary<string, Tuple<RectOffset, bool>> borderDescriptors)
         {
@@ -142,21 +129,5 @@ namespace Kwytto.Utils
             textureAtlas.RebuildIndexes();
             UIView.RefreshAll(false);
         }
-        public static void ParseImageIntoDefaultTextureAtlas(Type enumType, string resourceName, int width, int height, ref List<SpriteInfo> sprites)
-        {
-            Array spriteValues = Enum.GetValues(enumType);
-            Texture2D image = KResourceLoader.LoadTexture(resourceName);
-            for (int i = 0; i < spriteValues.Length && i * width < image.width; i++)
-            {
-                var textureQuad = new Texture2D(width, height, TextureFormat.RGBA32, false);
-                textureQuad.SetPixels(image.GetPixels(i * width, 0, width, height));
-                sprites.Add(new SpriteInfo()
-                {
-                    texture = textureQuad,
-                    name = spriteValues.GetValue(i).ToString(),
-                });
-            }
-        }
-        public static void ParseImageIntoDefaultTextureAtlas<E>(string resourceName, int width, int height, ref List<SpriteInfo> sprites) where E : Enum => ParseImageIntoDefaultTextureAtlas(typeof(E), resourceName, width, height, ref sprites);
     }
 }
