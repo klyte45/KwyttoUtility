@@ -1,4 +1,6 @@
-﻿using Kwytto.Interfaces;
+﻿using ColossalFramework;
+using ColossalFramework.Plugins;
+using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -402,33 +404,34 @@ namespace Kwytto.Utils
             return result.Distinct().ToList();
         }
 
-        public static List<Type> GetInterfaceImplementations(Type interfaceType, Type refType)
+        public static List<Type> GetInterfaceImplementations(Type interfaceType, IEnumerable<Assembly> assembly = null)
         {
-            return GetInterfaceImplementations(interfaceType, refType is null ? null : new[] { refType.Assembly });
-        }
-        public static List<Type> GetInterfaceImplementations(Type interfaceType, IEnumerable<Assembly> assembly)
-        {
-            if (BasicIUserMod.DebugMode)
+            LogUtils.DoLog($"interfaceType = {interfaceType}");
+
+            if (assembly == null)
             {
-                LogUtils.DoLog($"interfaceType = {interfaceType}");
+                return Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
+                                pi.assemblyCount > 0
+                                && pi.isEnabled
+                                && pi.GetAssemblies().Where(x => x == typeof(ReflectionUtils).Assembly).Count() > 0
+                            ).SelectMany(pi => pi.GetAssemblies().SelectMany(x => x.GetExportedTypes()))
+                           .GroupBy(x => x).Select(x => x.Key).Where(t => t.IsClass && !t.IsAbstract && (t.GetInterfaces().Contains(interfaceType) || interfaceType.IsAssignableFrom(t)) ).ToList();
             }
-
-            IEnumerable<Type> classes = (from t in AppDomain.CurrentDomain.GetAssemblies().Where(x => assembly == null || assembly.Contains(x))?.SelectMany(x =>
+            else
             {
-                try
-                { return x?.GetTypes(); }
-                catch { return new Type[0]; }
-            })
-                                         let y = t.GetInterfaces()
-                                         where t.IsClass && y.Contains(interfaceType) && !t.IsAbstract
-                                         select t);
+                IEnumerable<Type> classes = (from t in assembly.SelectMany(x =>
+                {
+                    try
+                    { return x?.GetTypes(); }
+                    catch { return new Type[0]; }
+                })
+                                             let y = t.GetInterfaces()
+                                             where t.IsClass && !t.IsAbstract && (y.Contains(interfaceType) || interfaceType.IsAssignableFrom(t))
+                                             select t);
 
-            if (BasicIUserMod.DebugMode)
-            {
                 LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
+                return classes.ToList();
             }
-
-            return classes.ToList();
         }
         public static Type GetImplementationForGenericType(Type typeOr, params Type[] typeArgs)
         {

@@ -81,7 +81,7 @@ namespace Kwytto.Utils
                 LogUtils.DoWarnLog($"Patching all: {m_harmony.Id}");
                 GameObject m_topObj = GameObject.Find("k45_Redirectors") ?? new GameObject("k45_Redirectors");
                 Type typeTarg = typeof(IRedirectable);
-                List<Type> instances = ReflectionUtils.GetInterfaceImplementations(typeTarg, typeTarg);
+                List<Type> instances = ReflectionUtils.GetInterfaceImplementations(typeTarg);
                 LogUtils.DoLog($"Found Redirectors: {instances.Count}");
                 Application.logMessageReceived += ErrorPatchingHandler;
                 try

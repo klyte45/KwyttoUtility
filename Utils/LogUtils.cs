@@ -85,13 +85,13 @@ namespace Kwytto.Utils
             {
                 if (BasicIUserMod.DebugMode)
                 {
-                    LogBuffered(string.Format(LogLineStart("DEBUG") + format, args));
+                    Log(string.Format(LogLineStart("DEBUG") + format, args));
                 }
 
             }
             catch
             {
-                LogBuffered($"{LogLineStart("SEVERE")} Erro ao fazer log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
+                Log($"{LogLineStart("SEVERE")} Erro ao fazer log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
             }
         }
         public static void DoWarnLog(string format, params object[] args)

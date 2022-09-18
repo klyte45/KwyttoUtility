@@ -1,9 +1,9 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Threading;
 using ICities;
-using Kwytto.Localization;
 using Kwytto.Interfaces;
 using Kwytto.LiteUI;
+using Kwytto.Localization;
 using Kwytto.Utils;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace Kwytto.Data
         {
             LogUtils.DoLog($"LOADING DATA {GetType()}");
             instance.Instances = new Dictionary<Type, IDataExtension>();
-            List<Type> instancesExt = ReflectionUtils.GetInterfaceImplementations(typeof(IDataExtension), GetType());
+            List<Type> instancesExt = ReflectionUtils.GetInterfaceImplementations(typeof(IDataExtension));//, new Assembly[] { GetType().Assembly, BasicIUserMod.Instance.GetType().Assembly });
             LogUtils.DoLog($"SUBTYPE COUNT: {instancesExt.Count};");
             foreach (Type type in instancesExt)
             {
