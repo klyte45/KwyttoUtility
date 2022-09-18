@@ -1,5 +1,5 @@
-﻿using Kwytto.Localization;
-using Kwytto.LiteUI;
+﻿using Kwytto.LiteUI;
+using Kwytto.Localization;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -77,7 +77,7 @@ namespace Kwytto.UI
             using (new GUILayout.AreaScope(area))
             {
                 var sideListArea = new Rect(0, 0, 120, area.height);
-                var sideList = m_listGetter();
+                var sideList = m_listGetter() ?? new string[0];
                 var addItemText = KStr.comm_addItemList;
                 if (GUIKwyttoCommons.CreateItemVerticalList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel))
                 {

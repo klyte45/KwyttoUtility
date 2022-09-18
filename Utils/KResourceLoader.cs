@@ -11,7 +11,7 @@ namespace Kwytto.Utils
     public static class KResourceLoader
     {
         public static Assembly RefAssemblyMod => BasicIUserMod.Instance.GetType().Assembly;
-        private static string NamespaceMod => "Klyte.";
+        private static string NamespaceMod => $"{BasicIUserMod.Instance.SafeName}.";
         public static Assembly RefAssemblyKwytto => typeof(KResourceLoader).Assembly;
 
         public static byte[] LoadResourceDataMod(string name) => LoadResourceData(NamespaceMod + name, RefAssemblyMod);

@@ -117,6 +117,7 @@ namespace Kwytto.Interfaces
         #region Old CommonProperties Overridable
         public abstract string SimpleName { get; }
         public virtual string IconName { get; } = "ModIcon";
+        public abstract string SafeName { get; }
         public virtual string GitHubRepoPath { get; } = "";
         public abstract string Acronym { get; }
         public abstract Color ModColor { get; }
