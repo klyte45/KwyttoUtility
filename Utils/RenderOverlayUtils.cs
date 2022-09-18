@@ -1,9 +1,8 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Math;
-using Kwytto.Utils;
 using UnityEngine;
 
-namespace Kwytto
+namespace Kwytto.Utils
 {
     public static class RenderOverlayUtils
     {
@@ -26,6 +25,6 @@ namespace Kwytto
             bezier.d = nodeBuffer[endNode].m_position;
             NetSegment.CalculateMiddlePoints(bezier.a, segmentBuffer[netSegment].m_startDirection, bezier.d, segmentBuffer[netSegment].m_endDirection, smoothStart, smoothEnd, out bezier.b, out bezier.c);
             Singleton<RenderManager>.instance.OverlayEffect.DrawBezier(cameraInfo, toolColor, bezier, info.m_halfWidth * 4f / 3f, 100000f, -100000f, -1f, 1280f, false, true);
-        }      
+        }
     }
 }
