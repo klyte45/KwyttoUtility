@@ -335,7 +335,39 @@ namespace Kwytto.LiteUI
                 return false;
             };
         }
+        public static bool AddIntField(float totalWidth, string title, ref int value, bool isEnabled = true, int min = int.MinValue, int max = int.MaxValue)
+        {
+            using (new GUILayout.HorizontalScope())
+            {
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.FlexibleSpace();
+                if (isEnabled)
+                {
+                    var newValue = GUIIntField.IntField(title, value, min, max);
+                    if (newValue != value)
+                    {
+                        value = newValue;
+                        return true;
+                    }
+                }
+                else
+                {
+                    GUILayout.Label(value.ToString("0"));
+                }
+                return false;
+            };
+        }
 
+        public static bool AddComboBox<T>(float totalWidth, string i18nLocale, T selectedVal, string[] options, T[] values, GUIRootWindowBase root, Action<T> onChange, bool isEditable = true)
+        {
+            var selIdx = Array.IndexOf(values, selectedVal);
+            var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable);
+            if (selIdx >= 0)
+            {
+                onChange(values[selIdx]);
+            }
+            return changed;
+        }
         public static bool AddComboBox<T>(float totalWidth, string i18nLocale, ref T selectedVal, string[] options, T[] values, GUIRootWindowBase root, bool isEditable = true)
         {
             var selIdx = Array.IndexOf(values, selectedVal);
