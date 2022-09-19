@@ -51,14 +51,10 @@ namespace Kwytto.LiteUI
             Resizable = resizable;
             HasTitlebar = hasTitlebar;
             this.minSize = minSize == default ? new Vector2(64.0f, 64.0f) : minSize;
-
             Panel = gameObject.AddComponent<UIPanel>();
             Panel.zOrder = int.MaxValue;
-            if (requireModal)
-            {
-                UIView.PushModal(Panel);
-            }
             Windows.Add(this);
+            Visible = true;
         }
 
 
@@ -77,11 +73,22 @@ namespace Kwytto.LiteUI
                 {
                     if (visible)
                     {
+                        if (requireModal)
+                        {
+                            UIView.PushModal(Panel);
+                        }
                         GUI.BringWindowToFront(Id);
                         OnWindowOpened();
+
                     }
                     else
                     {
+                        if (requireModal)
+                        {
+                            UIView.PopModal();
+                            UIView.GetAView().panelsLibraryModalEffect.isVisible = oldModalState;
+                            UIView.GetAView().panelsLibraryModalEffect.zOrder = oldModalZorder;
+                        }
                         OnWindowClosed();
                     }
                 }
