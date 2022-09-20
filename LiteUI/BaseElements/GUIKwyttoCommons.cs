@@ -146,7 +146,7 @@ namespace Kwytto.LiteUI
         #endregion
         #region Utility UI structures
 
-        public static void AddButtonSelector(float totalWidth, string label, string buttonText, Action action, bool enabled = true)
+        public static void AddButtonSelector(float totalWidth, string label, string buttonText, Action action, bool enabled = true, GUIStyle style = null)
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -155,37 +155,37 @@ namespace Kwytto.LiteUI
             };
         }
 
-        public static void AddButtonSelector(string buttonText, Action action, bool enabled)
+        public static void AddButtonSelector(string buttonText, Action action, bool enabled, GUIStyle style = null)
         {
             if (!enabled)
             {
-                AddButtonSelectorDisabled(buttonText);
+                AddButtonSelectorDisabled(buttonText, style);
             }
             else
             {
-                AddButtonSelector(buttonText, action);
+                AddButtonSelector(buttonText, action, style);
             }
         }
 
-        private static void AddButtonSelector(string buttonText, Action action)
+        private static void AddButtonSelector(string buttonText, Action action, GUIStyle style)
         {
             if (buttonText == "")
             {
                 buttonText = v_empty;
             }
-            if (GUILayout.Button(buttonText ?? v_null))
+            if (GUILayout.Button(buttonText ?? v_null, style ?? GUI.skin.button))
             {
                 action();
             }
         }
 
-        private static string AddButtonSelectorDisabled(string buttonText)
+        private static string AddButtonSelectorDisabled(string buttonText, GUIStyle style)
         {
             if (buttonText == "")
             {
                 buttonText = v_empty;
             }
-            GUILayout.Label(buttonText ?? v_null);
+            GUILayout.Label(buttonText ?? v_null, style ?? GUI.skin.button);
             return buttonText;
         }
 
@@ -273,6 +273,15 @@ namespace Kwytto.LiteUI
                 currentVal = newVal;
                 return true;
             }
+            return false;
+        }
+        public static bool AddToggle(string title, bool currentVal, out bool newVal, bool editable = true, bool condition = true)
+        {
+            if (condition && currentVal != (newVal = GUILayout.Toggle(currentVal, title)) && editable)
+            {
+                return true;
+            }
+            newVal = currentVal;
             return false;
         }
 
