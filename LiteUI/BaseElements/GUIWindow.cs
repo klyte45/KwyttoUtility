@@ -27,8 +27,8 @@ namespace Kwytto.LiteUI
         private Rect windowRect = new Rect(0, 0, 64, 64);
 
         private bool visible;
-        protected bool showOverModals;
-        protected bool requireModal;
+        protected abstract bool showOverModals { get; }
+        protected abstract bool requireModal { get; }
         private Texture2D cachedModIcon;
 
         private bool oldModalState;
@@ -54,6 +54,7 @@ namespace Kwytto.LiteUI
             Panel = gameObject.AddComponent<UIPanel>();
             Panel.zOrder = int.MaxValue;
             Windows.Add(this);
+            visible = false;
             Visible = true;
         }
 

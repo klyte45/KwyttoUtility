@@ -50,6 +50,10 @@ namespace Kwytto.LiteUI
 
         private Texture2D LineTex => lineTexTexture ?? (lineTexTexture = DrawLineTex());
 
+        protected override bool showOverModals => true;
+
+        protected override bool requireModal => false;
+
         public Texture2D GetColorTexture(string id, Color color)
         {
             if (!TextureCache.TryGetValue(id, out var texture))

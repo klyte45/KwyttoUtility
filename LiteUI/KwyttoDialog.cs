@@ -26,7 +26,6 @@ namespace Kwytto.LiteUI
         }
         public void Init(BindProperties properties)
         {
-            requireModal = true;
             this.properties = properties;
             base.Init(properties.title, new Rect(200, (Screen.height / 2) - 250, Screen.width - 400, 500), false, true, new Vector2(500, 500));
             properties.showClose |= properties.buttons is null || properties.buttons.Length == 0;
@@ -251,6 +250,10 @@ namespace Kwytto.LiteUI
                 return m_whiteButton;
             }
         }
+
+        protected override bool showOverModals => true;
+
+        protected override bool requireModal => true;
 
         #endregion
     }
