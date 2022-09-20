@@ -1,4 +1,5 @@
-﻿using ColossalFramework.Globalization;
+﻿using ColossalFramework;
+using ColossalFramework.Globalization;
 using Kwytto.Interfaces;
 using Kwytto.Libraries;
 using Kwytto.UI;
@@ -17,12 +18,14 @@ namespace Kwytto.LiteUI
         private readonly Wrapper<string[]> librarySearchResults = new Wrapper<string[]>();
         private Coroutine librarySearchCoroutine;
 
+        private readonly Texture ImportAdd = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Plus);
         private readonly Texture ImportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Import);
         private readonly Texture ExportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Export);
 
         public string DeleteQuestionI18n { get; set; } = "";
         public string ImportI18n { get; set; } = "";
         public string ExportI18n { get; set; } = "";
+        public string ImportAdditiveI18n { get; set; } = "";
         public string DeleteButtonI18n { get; set; } = "";
         public string NameAskingI18n { get; set; } = "";
         public string NameAskingOverwriteI18n { get; set; } = "";
@@ -32,16 +35,16 @@ namespace Kwytto.LiteUI
         {
             if (librarySearchCoroutine != null)
             {
-                BasicIUserMod.Controller.StopCoroutine(librarySearchCoroutine);
+                BasicIUserMod.Instance.GetController().StopCoroutine(librarySearchCoroutine);
             }
-            librarySearchCoroutine = BasicIUserMod.Controller.StartCoroutine(OnFilterLib());
+            librarySearchCoroutine = BasicIUserMod.Instance.GetController().StartCoroutine(OnFilterLib());
         }
         private IEnumerator OnFilterLib()
         {
             yield return LibBaseFile<L, S>.Instance.BasicInputFiltering(libraryFilter, librarySearchResults);
         }
 
-        public void DrawImportView(Action<T> OnSelect)
+        public void DrawImportView(Action<T, bool> OnSelect)
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -58,7 +61,7 @@ namespace Kwytto.LiteUI
                 var selectLayout = GUILayout.SelectionGrid(-1, librarySearchResults.Value, 1);
                 if (selectLayout >= 0)
                 {
-                    OnSelect(XmlUtils.TransformViaXml<S, T>(LibBaseFile<L, S>.Instance.Get(librarySearchResults.Value[selectLayout])));
+                    OnSelect(XmlUtils.TransformViaXml<S, T>(LibBaseFile<L, S>.Instance.Get(librarySearchResults.Value[selectLayout])), Status == FooterBarStatus.AskingToImportAdditive);
                     Status = FooterBarStatus.Normal;
                 }
                 libraryScroll = scroll.scrollPosition;
@@ -87,6 +90,7 @@ namespace Kwytto.LiteUI
                         }
                         break;
                     case FooterBarStatus.AskingToImport:
+                    case FooterBarStatus.AskingToImportAdditive:
                         if (GUILayout.Button(Locale.Get("CANCEL")))
                         {
                             Status = FooterBarStatus.Normal;
@@ -139,6 +143,19 @@ namespace Kwytto.LiteUI
         public void FooterDraw(GUIStyle removeButtonStyle)
         {
             var hoverSomething = false;
+            if (!ImportAdditiveI18n.IsNullOrWhiteSpace())
+            {
+                GUI.SetNextControlName(GetHashCode() + "_IMPORT_ADD");
+                if (GUILayout.Button(ImportAdd, GUILayout.MaxHeight(20)))
+                {
+                    GoToImportAdditive();
+                }
+                if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+                {
+                    m_currentHover = FooterBarStatus.AskingToImportAdditive;
+                    hoverSomething = true;
+                }
+            }
             GUI.SetNextControlName(GetHashCode() + "_IMPORT");
             if (GUILayout.Button(ImportTex, GUILayout.MaxHeight(20)))
             {
@@ -172,6 +189,9 @@ namespace Kwytto.LiteUI
             {
                 case FooterBarStatus.AskingToImport:
                     GUILayout.Label(ImportI18n, GUILayout.Width(300), GUILayout.ExpandHeight(true));
+                    break;
+                case FooterBarStatus.AskingToImportAdditive:
+                    GUILayout.Label(ImportAdditiveI18n, GUILayout.Width(300), GUILayout.ExpandHeight(true));
                     break;
                 case FooterBarStatus.AskingToExport:
                     GUILayout.Label(ExportI18n, GUILayout.Width(300), GUILayout.ExpandHeight(true));
@@ -208,6 +228,13 @@ namespace Kwytto.LiteUI
             librarySearchResults.Value = new string[0];
             RestartLibraryFilterCoroutine();
         }
+        public void GoToImportAdditive()
+        {
+            Status = FooterBarStatus.AskingToImportAdditive;
+            libraryFilter = "";
+            librarySearchResults.Value = new string[0];
+            RestartLibraryFilterCoroutine();
+        }
 
         public void ResetStatus() => Status = FooterBarStatus.Normal;
 
@@ -219,6 +246,7 @@ namespace Kwytto.LiteUI
         AskingToRemove,
         AskingToExport,
         AskingToExportOverwrite,
-        AskingToImport
+        AskingToImport,
+        AskingToImportAdditive
     }
 }

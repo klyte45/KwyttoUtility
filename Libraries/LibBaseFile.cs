@@ -26,10 +26,15 @@ namespace Kwytto.Libraries
         protected abstract string XmlName { get; }
         
         public static void Reload() => m_instance = null;
-        private static string DefaultXmlFileBasePath => BasicIUserMod.RootFolder;
+        private static string DefaultXmlFileBasePath => BasicIUserMod.ModSettingsRootFolder;
         public string DefaultXmlFileBaseFullPath => $"{DefaultXmlFileBasePath}{Path.DirectorySeparatorChar}{XmlName}.xml";
-        protected sealed override void Save() => EnsureFileExists();
-        public void EnsureFileExists() => File.WriteAllText(DefaultXmlFileBaseFullPath, XmlUtils.DefaultXmlSerialize<LIB>((LIB)this));
+        protected sealed override void Save()
+        {
+            EnsureFileExists();
+            Reload();
+        }
+
+        public void EnsureFileExists() => File.WriteAllText(DefaultXmlFileBaseFullPath, XmlUtils.DefaultXmlSerialize(this));
         protected static LIB LoadInstance()
         {
             var newVal = new LIB();

@@ -43,7 +43,8 @@ namespace Kwytto.Interfaces
                 Redirector.UnpatchAll();
             }
         }
-        public new static C Controller
+        public override BaseController GetController() => Controller;
+        public static C Controller
         {
             get
             {
@@ -92,19 +93,32 @@ namespace Kwytto.Interfaces
 
         private static string m_rootFolder;
 
-        public static string RootFolder
+        public static string ModSettingsRootFolder
         {
             get
             {
                 if (m_rootFolder == null)
                 {
-                    m_rootFolder = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
-                 pi.assemblyCount > 0
-                 && pi.isEnabled
-                 && pi.GetAssemblies().Where(x => x == Instance.GetType().Assembly).Count() > 0
-             ).FirstOrDefault()?.modPath;
+                    m_rootFolder = KFileUtils.BASE_FOLDER_PATH + Instance.SafeName;
                 }
                 return m_rootFolder;
+            }
+        }
+        private static string m_modWsRootFolder;
+
+        public static string ModWsRootFolder
+        {
+            get
+            {
+                if (m_modWsRootFolder == null)
+                {
+                    m_modWsRootFolder = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
+                         pi.assemblyCount > 0
+                         && pi.isEnabled
+                         && pi.GetAssemblies().Where(x => x == Instance.GetType().Assembly).Count() > 0
+                     ).FirstOrDefault()?.modPath;
+                }
+                return m_modWsRootFolder;
             }
         }
         public static bool IsCityLoaded => Singleton<SimulationManager>.instance.m_metaData != null;
@@ -133,18 +147,7 @@ namespace Kwytto.Interfaces
         #region Old CommonProperties Fixed
         public string Name => $"{SimpleName} {Version}";
         public string GeneralName => $"{SimpleName} (v{Version})";
-        public static BaseController Controller
-        {
-            get
-            {
-                if (controller is null && LoadingManager.instance.m_currentlyLoading)
-                {
-                    LogUtils.DoLog($"Trying to access controller while loading. NOT ALLOWED!\nAsk at Klyte45's GitHub to fix this. Stacktrace:\n{Environment.StackTrace}");
-                }
-                return controller;
-            }
-            private set => controller = value;
-        }
+        public abstract BaseController GetController();
         private string MinorVersion_ => MajorVersion + "." + GetType().Assembly.GetName().Version.Build;
         private string MajorVersion_ => GetType().Assembly.GetName().Version.Major + "." + GetType().Assembly.GetName().Version.Minor;
         private string FullVersion_ => MinorVersion + " r" + GetType().Assembly.GetName().Version.Revision;
@@ -204,7 +207,6 @@ namespace Kwytto.Interfaces
 
         public void OnLevelUnloading()
         {
-            Controller = null;
             Redirector.UnpatchAll();
             PatchesApply();
             DestroyMod();
