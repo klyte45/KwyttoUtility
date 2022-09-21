@@ -225,11 +225,12 @@ namespace Kwytto.LiteUI
             {
                 GUILayout.Label(title);
                 var newVal = picker.PresentColor(title, value, enabled);
-                if (enabled && newVal != value)
+                var changed = enabled && newVal != value;
+                if (changed)
                 {
                     value = newVal;
                 }
-                return enabled && value != newVal;
+                return changed;
             };
         }
 

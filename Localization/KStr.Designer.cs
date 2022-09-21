@@ -97,6 +97,150 @@ namespace Kwytto.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a E.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_E {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_E", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ENE.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_ENE {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_ENE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ESE.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_ESE {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_ESE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a N.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_N {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_N", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a NE.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_NE {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_NE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a NNE.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_NNE {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_NNE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a NNW.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_NNW {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_NNW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a NW.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_NW {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_NW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a S.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_S {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_S", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SE.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_SE {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_SE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SSE.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_SSE {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_SSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SSW.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_SSW {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_SSW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SW.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_SW {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_SW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a W.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_W {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_W", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a WNW.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_WNW {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_WNW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a WSW.
+        /// </summary>
+        public static string comm_Enum__Cardinal16_WSW {
+            get {
+                return ResourceManager.GetString("comm_Enum__Cardinal16_WSW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;..
         /// </summary>
         public static string comm_errLoadingDataWindow_Header {

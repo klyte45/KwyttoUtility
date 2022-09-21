@@ -3,27 +3,28 @@
 using Kwytto.Utils;
 using System;
 using UnityEngine;
+using WriteEverywhere.Localization;
 
 public struct CardinalPoint
 {
-    public static readonly string[] m_cardinal16 = new string[]
+    public enum Cardinal16
     {
-        "N",
-        "NNE",
-        "NE",
-        "ENE",
-        "E",
-        "ESE",
-        "SE",
-        "SSE",
-        "S",
-        "SSW",
-        "SW",
-        "WSW",
-        "W",
-        "WNW",
-        "NW",
-        "NNW",
+        N,
+        NNE,
+        NE,
+        ENE,
+        E,
+        ESE,
+        SE,
+        SSE,
+        S,
+        SSW,
+        SW,
+        WSW,
+        W,
+        WNW,
+        NW,
+        NNW,
     };
 
     public static string GetCardinalPoint16(float angle)
@@ -33,14 +34,14 @@ public struct CardinalPoint
         angle += 360;
         angle %= 360;
 
-        for (int i = 1; i < m_cardinal16.Length; i++)
+        for (int i = 1; i < 16; i++)
         {
-            if (Math.Abs(angle - diagSize * i) < diagSize / 2)
+            if (Math.Abs(angle - (diagSize * i)) < diagSize / 2)
             {
-                return m_cardinal16[i];
+                return ((Cardinal16)i).ValueToI18nKwytto();
             }
         }
-        return m_cardinal16[0];
+        return Cardinal16.N.ValueToI18nKwytto();
     }
 
 

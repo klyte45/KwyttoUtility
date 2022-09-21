@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColossalFramework;
+using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -34,6 +35,15 @@ namespace Kwytto.Utils
             if (!Regex.IsMatch(rgb, "^[a-fA-F0-9]{6}$"))
             {
                 throw new ArgumentException($"Invalid input for RGB conversion! Must have 6 digits hexadecimals only! Input : {rgb}");
+            }
+            int value = Convert.ToInt32(rgb, 16);
+            return FromRGB(value);
+        }
+        public static Color32? FromRGBSafe(string rgb)
+        {
+            if (rgb.IsNullOrWhiteSpace() || !Regex.IsMatch(rgb, "^[a-fA-F0-9]{6}$"))
+            {
+                return null;
             }
             int value = Convert.ToInt32(rgb, 16);
             return FromRGB(value);
