@@ -19,16 +19,13 @@ namespace Kwytto.LiteUI
 
             if (lastValue != null)
             {
-                if (string.IsNullOrEmpty(focusedFieldId))
+                if (id == lastFocusedFieldId && lastFocusedFieldId != focusedFieldId)
                 {
-                    if (id == lastFocusedFieldId)
+                    if (float.TryParse(lastValue.Replace(",", "."), out float val))
                     {
-                        if (float.TryParse(lastValue.Replace(",", "."), out float val))
-                        {
-                            value = Mathf.Min(max, Mathf.Max(min, val));
-                        }
-                        lastValue = null;
+                        value = Mathf.Min(max, Mathf.Max(min, val));
                     }
+                    lastValue = null;
                 }
                 else if (EnterPressed() && id == lastFocusedFieldId)
                 {

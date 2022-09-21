@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Kwytto.LiteUI
 {
-    public static class GUIIntField
+    public static class GUIHexField
     {
         private static string lastFocusedFieldId;
         private static string lastValue;
@@ -13,7 +14,7 @@ namespace Kwytto.LiteUI
             return keycode == KeyCode.KeypadEnter || keycode == KeyCode.Return;
         }
 
-        public static int IntField(string id, int value, int min = int.MinValue, int max = int.MaxValue, float? fieldWidth = 50)
+        public static string HexField(string id, string value, int minChars = int.MaxValue, int maxChars = int.MaxValue, float? fieldWidth = 50)
         {
             var focusedFieldId = GUI.GetNameOfFocusedControl();
             GUILayoutOption widthOption = null;
@@ -26,17 +27,29 @@ namespace Kwytto.LiteUI
             {
                 if (id == lastFocusedFieldId && lastFocusedFieldId != focusedFieldId)
                 {
-                    if (int.TryParse(lastValue, out int val))
+                    int targetVal = -1;
+                    try
                     {
-                        value = Mathf.Min(max, Mathf.Max(min, val));
+                        targetVal = (int)Convert.ToUInt64(lastValue.Substring(0, maxChars), 16);
+                    }
+                    catch { }
+                    if (targetVal >= 0)
+                    {
+                        value = targetVal.ToString($"X{minChars}");
                     }
                     lastValue = null;
                 }
                 else if (EnterPressed() && id == lastFocusedFieldId)
                 {
-                    if (int.TryParse(lastValue, out int val))
+                    int targetVal = -1;
+                    try
                     {
-                        value = Mathf.Min(max, Mathf.Max(min, val));
+                        targetVal = (int)Convert.ToUInt64(lastValue.Substring(0, maxChars), 16);
+                    }
+                    catch { }
+                    if (targetVal >= 0)
+                    {
+                        value = targetVal.ToString($"X{minChars}");
                     }
                     lastValue = null;
                     GUI.FocusControl(null);
@@ -50,7 +63,7 @@ namespace Kwytto.LiteUI
 
             if (id == focusedFieldId)
             {
-                lastValue = lastValue ?? value.ToString("0");
+                lastValue = lastValue ?? value;
                 GUI.SetNextControlName(id);
                 lastValue = GUILayout.TextField(lastValue, widthOption);
                 lastFocusedFieldId = focusedFieldId;
@@ -58,30 +71,9 @@ namespace Kwytto.LiteUI
             else
             {
                 GUI.SetNextControlName(id);
-                GUILayout.TextField(value.ToString("0"), widthOption);
+                GUILayout.TextField(value, widthOption);
             }
-            if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition) && Event.current.isScrollWheel)
-            {
-                if (lastFocusedFieldId == focusedFieldId)
-                {
-                    lastValue = null;
-                    GUI.FocusControl(null);
-                }
-                var deltaVal = (int)Mathf.Sign(Event.current.delta.y);
-                if (Event.current.control)
-                {
-                    if (Event.current.shift)
-                    {
-                        deltaVal *= 100;
-                    }
-                }
-                else if (Event.current.shift)
-                {
-                    deltaVal *= 10;
-                }
-                value = Mathf.Min(max, Mathf.Max(min, value - deltaVal));
-                Event.current.Use();
-            }
+
 
             return value;
         }

@@ -189,6 +189,8 @@ namespace Kwytto.LiteUI
 
             if (enabled)
             {
+                var rgbVal = (useAlpha ? value.ToRGBA() : value.ToRGB());
+
                 var r = (int)Mathf.Clamp(value.r * 255.0f, byte.MinValue, byte.MaxValue);
                 var g = (int)Mathf.Clamp(value.g * 255.0f, byte.MinValue, byte.MaxValue);
                 var b = (int)Mathf.Clamp(value.b * 255.0f, byte.MinValue, byte.MaxValue);
@@ -202,10 +204,17 @@ namespace Kwytto.LiteUI
                     a = GUIIntField.IntField(id + ".a", a, fieldWidth: 30);
                 }
 
+
                 value.r = Mathf.Clamp01(r / 255.0f);
                 value.g = Mathf.Clamp01(g / 255.0f);
                 value.b = Mathf.Clamp01(b / 255.0f);
                 value.a = Mathf.Clamp01(a / 255.0f);
+                GUILayout.Space(5);
+                var newRGB = GUIHexField.HexField(id + ".hex", rgbVal, rgbVal.Length, rgbVal.Length, 70);
+                if (newRGB != rgbVal)
+                {
+                    value = useAlpha ? ColorExtensions.FromRGBA(newRGB) : ColorExtensions.FromRGB(newRGB);
+                }
 
                 if (GUILayout.Button(string.Empty, GUILayout.MinWidth(20), GUILayout.MaxWidth(80)))
                 {
@@ -234,15 +243,6 @@ namespace Kwytto.LiteUI
             lastRect.x += 4.0f;
             lastRect.width -= 8.0f;
             GUI.DrawTexture(colorRect, GetColorTexture(id, value), ScaleMode.StretchToFill);
-            GUI.Label(lastRect, "#" + (useAlpha ? value.ToRGBA() : value.ToRGB()), new GUIStyle(GUI.skin.label)
-            {
-                alignment = TextAnchor.MiddleCenter,
-                normal = new GUIStyleState()
-                {
-                    textColor = value.ContrastColor()
-                }
-            });
-
             return value;
         }
     }
