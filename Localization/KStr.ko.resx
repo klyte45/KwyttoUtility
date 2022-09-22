@@ -188,20 +188,58 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
     <value>Okay...</value>
   </data>
-  <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">    <value>NE</value>  </data>
-  <data name="comm_Enum__Cardinal16_N" xml:space="preserve">    <value>N</value>  </data>
-  <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">    <value>NNE</value>  </data>
-  <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">    <value>ENE</value>  </data>
-  <data name="comm_Enum__Cardinal16_E" xml:space="preserve">    <value>E</value>  </data>
-  <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">    <value>ESE</value>  </data>
-  <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">    <value>SE</value>  </data>
-  <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">    <value>SSE</value>  </data>
-  <data name="comm_Enum__Cardinal16_S" xml:space="preserve">    <value>S</value>  </data>
-  <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">    <value>SSW</value>  </data>
-  <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">    <value>SW</value>  </data>
-  <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">    <value>WSW</value>  </data>
-  <data name="comm_Enum__Cardinal16_W" xml:space="preserve">    <value>W</value>  </data>
-  <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">    <value>WNW</value>  </data>
-  <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">    <value>NW</value>  </data>
-  <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">    <value>NNW</value>  </data>
+  <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
+    <value>NE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_N" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">
+    <value>NNE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">
+    <value>ENE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_E" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">
+    <value>ESE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">
+    <value>SE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">
+    <value>SSE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_S" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">
+    <value>SSW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
+    <value>SW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
+    <value>WSW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
+    <value>WNW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
+    <value>NW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">
+    <value>NNW</value>
+  </data>
+  <data name="comm_errorTitle" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="comm_goToFileLocation" xml:space="preserve">
+    <value>Go to file location</value>
+  </data>
 </root>
