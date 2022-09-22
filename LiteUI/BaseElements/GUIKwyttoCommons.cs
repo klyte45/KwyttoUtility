@@ -116,6 +116,37 @@ namespace Kwytto.LiteUI
                 }
             };
         }
+        public static bool AddVector4Field(float totalWidth, Vector4 input, string title, string baseFieldName, out Vector4 newVal, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
+        {
+            using (new GUILayout.HorizontalScope())
+            {
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.FlexibleSpace();
+                if (isEditable)
+                {
+                    var x = GUIFloatField.FloatField(baseFieldName + "_X", input.x, minValue, maxValue);
+                    var y = GUIFloatField.FloatField(baseFieldName + "_Y", input.y, minValue, maxValue);
+                    var z = GUIFloatField.FloatField(baseFieldName + "_Z", input.z, minValue, maxValue);
+                    var w = GUIFloatField.FloatField(baseFieldName + "_W", input.w, minValue, maxValue);
+                    var changed = x != input.x || y != input.y || z != input.z || w != input.w;
+                    input.x = x;
+                    input.y = y;
+                    input.z = z;
+                    input.w = w;
+                    newVal = input;
+                    return changed;
+                }
+                else
+                {
+                    GUILayout.Label(input.x.ToString("F3"));
+                    GUILayout.Label(input.y.ToString("F3"));
+                    GUILayout.Label(input.z.ToString("F3"));
+                    GUILayout.Label(input.w.ToString("F3"));
+                    newVal = input;
+                    return false;
+                }
+            };
+        }
 
         public static bool AddVector3Field(float totalWidth, ref Vector3 input, string title, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)
         {
