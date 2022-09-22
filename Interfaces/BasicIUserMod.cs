@@ -517,16 +517,13 @@ namespace Kwytto.Interfaces
         #region Static Initializer
         static BasicIUserMod()
         {
-            Debug.Log("Calling Static BasicIUserMod: " + Environment.StackTrace);
             try
             {
-                m_instance = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
+                m_instance = Singleton<PluginManager>.instance.GetPluginsInfo().First((PluginManager.PluginInfo pi) =>
                              pi.assemblyCount > 0
-                             && pi.isEnabled
                              && pi.GetAssemblies().Where(x => x == typeof(BasicIUserMod).Assembly).Count() > 0
-                         ).SelectMany(pi => pi.GetAssemblies().SelectMany(x => x.GetExportedTypes()))
-                        .GroupBy(x => x).Select(x => x.Key).Where(t => t.IsClass && typeof(BasicIUserMod).IsAssignableFrom(t) && !t.IsAbstract)
-                        .FirstOrDefault()
+                         ).GetAssemblies().SelectMany(x => x.GetExportedTypes())
+                         .First(t => t.IsClass && typeof(BasicIUserMod).IsAssignableFrom(t) && !t.IsAbstract)
                         .GetConstructor(new Type[0])
                         .Invoke(new object[0]) as BasicIUserMod;
                 DebugMode = new SavedBool(m_instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
