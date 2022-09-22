@@ -13,6 +13,7 @@ namespace Kwytto.UI
         private readonly Action<int, T> m_onSetItemAt;
         private readonly Func<string[]> m_listGetter;
         private readonly Func<int, T> m_currentItemGetter;
+        private readonly Action m_extraButtonsGen;
         public event Action<int> EventListItemChanged;
         public int ListSel
         {
@@ -66,32 +67,33 @@ namespace Kwytto.UI
 
         private readonly IGUITab<T>[] m_tabsImages;
 
-        public GUIBasicListingTabsContainer(IGUITab<T>[] tabsImages, Action onAdd, Func<string[]> listGetter, Func<int, T> currentItemGetter, Action<int, T> onSetItemAt)
+        public GUIBasicListingTabsContainer(IGUITab<T>[] tabsImages, Action onAdd, Func<string[]> listGetter, Func<int, T> currentItemGetter, Action<int, T> onSetItemAt, Action extraButtonsGeneration = null)
         {
             m_onAdd = onAdd;
             m_listGetter = listGetter;
             m_tabsImages = tabsImages;
             m_currentItemGetter = currentItemGetter;
             m_onSetItemAt = onSetItemAt;
+            m_extraButtonsGen = extraButtonsGeneration;
         }
 
-        public void DrawListTabs(Rect area, bool allowAdd = true)
+        public void DrawListTabs(Rect area, bool allowAdd = true, bool horizontal = false)
         {
+            var usedHeight = 0f;
             using (new GUILayout.AreaScope(area))
             {
-                var sideListArea = new Rect(0, 0, 120, area.height);
+                var sideListArea = horizontal ? new Rect(0, 0, area.width, usedHeight += 40) : new Rect(0, 0, 200, area.height);
                 var sideList = m_listGetter() ?? new string[0];
                 var addItemText = KStr.comm_addItemList;
-                if (GUIKwyttoCommons.CreateItemVerticalList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel))
+                if (GUIKwyttoCommons.CreateItemList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel, horizontal, m_extraButtonsGen))
                 {
                     m_onAdd();
                 }
                 ListSel = newSel;
                 if (ListSel >= 0 && ListSel < sideList.Length)
                 {
-                    var usedHeight = 0f;
 
-                    using (new GUILayout.AreaScope(new Rect(125, 0, area.width - 135, usedHeight += 40)))
+                    using (new GUILayout.AreaScope(horizontal ? new Rect(0, usedHeight, area.width, usedHeight += 40) : new Rect(205, 0, area.width - 215, usedHeight += 40)))
                     {
                         CurrentTabIdx = GUILayout.SelectionGrid(CurrentTabIdx, m_tabsImages.Select(x => x.TabIcon).ToArray(), m_tabsImages.Length, new GUIStyle(GUI.skin.button)
                         {
@@ -100,7 +102,7 @@ namespace Kwytto.UI
                         });
                     }
 
-                    var tabAreaRect = new Rect(125, usedHeight, area.width - 130, area.height - usedHeight);
+                    var tabAreaRect = new Rect(horizontal ? 0 : 205, usedHeight, horizontal ? area.width : area.width - 210, area.height - usedHeight);
                     using (new GUILayout.AreaScope(tabAreaRect))
                     {
                         if (CurrentTabIdx >= 0 && CurrentTabIdx < m_tabsImages.Length)

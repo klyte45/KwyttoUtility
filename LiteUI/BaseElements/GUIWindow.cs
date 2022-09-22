@@ -35,6 +35,18 @@ namespace Kwytto.LiteUI
         private int oldModalZorder;
 
         protected virtual float FontSizeMultiplier { get; } = 1;
+        public float BgOpacity
+        {
+            get => bgOpacity; set
+            {
+                bgOpacity = value;
+                if (BgTexture != null)
+                {
+                    BgTexture.SetPixel(0, 0, new Color(bgColor.r, bgColor.g, bgColor.b, bgOpacity));
+                    BgTexture.Apply();
+                }
+            }
+        }
         private float EffectiveFontSizeMultiplier => FontSizeMultiplier * ResolutionMultiplier;
         protected virtual float ResolutionMultiplier => Screen.height / 1080f;
 
@@ -96,7 +108,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        protected static Texture2D BgTexture { get; set; }
+        protected Texture2D BgTexture { get; set; }
 
         protected static Texture2D ResizeNormalTexture { get; set; }
 
@@ -148,7 +160,7 @@ namespace Kwytto.LiteUI
                 titleBarHover = BasicIUserMod.Instance.ModColor.SetBrightness(1);
 
                 BgTexture = new Texture2D(1, 1);
-                BgTexture.SetPixel(0, 0, new Color(bgColor.r, bgColor.g, bgColor.b, 1));
+                BgTexture.SetPixel(0, 0, new Color(bgColor.r, bgColor.g, bgColor.b, bgOpacity));
                 BgTexture.Apply();
 
                 ResizeNormalTexture = new Texture2D(1, 1);
@@ -276,6 +288,7 @@ namespace Kwytto.LiteUI
         public void MoveResize(Rect newWindowRect) => windowRect = newWindowRect;
 
         private bool isOnTop;
+        private float bgOpacity = 1;
 
         private void Update()
         {

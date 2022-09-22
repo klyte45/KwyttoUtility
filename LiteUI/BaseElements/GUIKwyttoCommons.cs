@@ -265,30 +265,59 @@ namespace Kwytto.LiteUI
             };
         }
 
-        public static bool CreateItemVerticalList(Rect sideListArea, ref Vector2 scrollPosition, int currentSelection, string[] sideList, string addButtonText, GUIStyle addButtonStyle, out int newSelection)
+        public static bool CreateItemList(Rect sideListArea, ref Vector2 scrollPosition, int currentSelection, string[] sideList, string addButtonText, GUIStyle addButtonStyle, out int newSelection, bool horizontal = false, Action extraButtonsGeneration = null)
         {
             var result = false;
             using (new GUILayout.AreaScope(sideListArea))
             {
                 using (var scroll = new GUILayout.ScrollViewScope(scrollPosition))
                 {
-                    newSelection = currentSelection;
-                    var newListSel = GUILayout.SelectionGrid(currentSelection, sideList, 1, new GUIStyle(GUI.skin.button) { wordWrap = true });
-                    if (newListSel >= 0 && newListSel < sideList.Length)
+                    if (horizontal)
                     {
-                        newSelection = newListSel;
+                        using (new GUILayout.HorizontalScope())
+                        {
+                            AfterDrawList(sideListArea, currentSelection, sideList, addButtonText, addButtonStyle, out newSelection, extraButtonsGeneration, ref result, horizontal);
+                        }
                     }
-
-                    if (addButtonText != null && GUILayout.Button(addButtonText, addButtonStyle, GUILayout.ExpandWidth(true)))
+                    else
                     {
-                        result = true;
-                        newSelection = sideList.Length;
+                        using (new GUILayout.VerticalScope())
+                        {
+                            AfterDrawList(sideListArea, currentSelection, sideList, addButtonText, addButtonStyle, out newSelection, extraButtonsGeneration, ref result, horizontal);
+                        }
                     }
                     scrollPosition = scroll.scrollPosition;
                 }
             }
             return result;
         }
+
+        private static void AfterDrawList(Rect sideListArea, int currentSelection, string[] sideList, string addButtonText, GUIStyle addButtonStyle, out int newSelection, Action extraButtonsGeneration, ref bool result, bool horizontal)
+        {
+            newSelection = currentSelection;
+            var newListSel = GUILayout.SelectionGrid(currentSelection, sideList, horizontal ? sideList.Length : 1, new GUIStyle(GUI.skin.button)
+            {
+                wordWrap = true,
+                stretchWidth = !horizontal
+            }, GUILayout.MaxWidth(sideListArea.width - 4));
+            if (newListSel >= 0 && newListSel < sideList.Length)
+            {
+                newSelection = newListSel;
+            }
+            if (addButtonText != null && GUILayout.Button(addButtonText, addButtonStyle, GUILayout.ExpandWidth(!horizontal)))
+            {
+                result = true;
+                newSelection = sideList.Length;
+            }
+            if (extraButtonsGeneration != null)
+            {
+
+                GUILayout.Space(10);
+                extraButtonsGeneration();
+
+            }
+        }
+
 
         public static void SquareTextureButton(Texture2D icon, string tooltip, Action onClick, bool condition = true)
         {
