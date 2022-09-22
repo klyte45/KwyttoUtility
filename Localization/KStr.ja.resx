@@ -190,20 +190,58 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
     <value>分かった</value>
   </data>
-  <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">    <value>北東</value>  </data>
-  <data name="comm_Enum__Cardinal16_N" xml:space="preserve">    <value>北</value>  </data>
-  <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">    <value>北北東</value>  </data>
-  <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">    <value>東北東</value>  </data>
-  <data name="comm_Enum__Cardinal16_E" xml:space="preserve">    <value>東</value>  </data>
-  <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">    <value>東南東</value>  </data>
-  <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">    <value>南東</value>  </data>
-  <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">    <value>南南東</value>  </data>
-  <data name="comm_Enum__Cardinal16_S" xml:space="preserve">    <value>南</value>  </data>
-  <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">    <value>南南西</value>  </data>
-  <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">    <value>南西</value>  </data>
-  <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">    <value>西南西</value>  </data>
-  <data name="comm_Enum__Cardinal16_W" xml:space="preserve">    <value>西</value>  </data>
-  <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">    <value>西北西</value>  </data>
-  <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">    <value>北西</value>  </data>
-  <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">    <value>北北西</value>  </data>
+  <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
+    <value>北東</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_N" xml:space="preserve">
+    <value>北</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">
+    <value>北北東</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">
+    <value>東北東</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_E" xml:space="preserve">
+    <value>東</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">
+    <value>東南東</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">
+    <value>南東</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">
+    <value>南南東</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_S" xml:space="preserve">
+    <value>南</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">
+    <value>南南西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
+    <value>南西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
+    <value>西南西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
+    <value>西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
+    <value>西北西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
+    <value>北西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">
+    <value>北北西</value>
+  </data>
+  <data name="comm_errorTitle" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="comm_goToFileLocation" xml:space="preserve">
+    <value>Go to file location</value>
+  </data>
 </root>
