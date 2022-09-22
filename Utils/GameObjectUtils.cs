@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColossalFramework.UI;
+using System;
 using UnityEngine;
 
 namespace Kwytto.Utils
@@ -27,6 +28,21 @@ namespace Kwytto.Utils
             container.transform.parent = parent;
             container.AddComponent(type);
             return container;
+        }
+        public static void CreateUIElement<T>(out T uiItem, Transform parent, string name = null, Vector4 area = default) where T : UIComponent
+        {
+            var container = new GameObject();
+            container.transform.parent = parent;
+            uiItem = container.AddComponent<T>();
+            if (name != null)
+            {
+                uiItem.name = name;
+            }
+            if (area != default)
+            {
+                uiItem.autoSize = false;
+                uiItem.area = area;
+            }
         }
     }
 }
