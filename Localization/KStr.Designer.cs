@@ -277,6 +277,24 @@ namespace Kwytto.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Error!.
+        /// </summary>
+        public static string comm_errorTitle {
+            get {
+                return ResourceManager.GetString("comm_errorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Go to file location.
+        /// </summary>
+        public static string comm_goToFileLocation {
+            get {
+                return ResourceManager.GetString("comm_goToFileLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a See release notes.
         /// </summary>
         public static string comm_releaseNotes {
