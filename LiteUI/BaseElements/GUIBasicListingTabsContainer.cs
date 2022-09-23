@@ -108,7 +108,7 @@ namespace Kwytto.UI
                         if (CurrentTabIdx >= 0 && CurrentTabIdx < m_tabsImages.Length)
                         {
                             var item = m_currentItemGetter(ListSel);
-                            if (m_tabsImages[CurrentTabIdx].DrawArea(tabAreaRect.size, ref item, ListSel))
+                            if (m_tabsImages[CurrentTabIdx].DrawArea(tabAreaRect.size, ref item, ListSel, allowAdd))
                             {
                                 m_onSetItemAt(ListSel, item);
                             }
@@ -122,7 +122,7 @@ namespace Kwytto.UI
     }
     public interface IGUITab<T>
     {
-        bool DrawArea(Vector2 tabAreaSize, ref T currentItem, int currentItemIdx);
+        bool DrawArea(Vector2 tabAreaSize, ref T currentItem, int currentItemIdx, bool isEditable);
         void Reset();
         Texture TabIcon { get; }
     }
