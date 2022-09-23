@@ -239,9 +239,9 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>北北西</value>
   </data>
   <data name="comm_errorTitle" xml:space="preserve">
-    <value>Error!</value>
+    <value>エラー!</value>
   </data>
   <data name="comm_goToFileLocation" xml:space="preserve">
-    <value>Go to file location</value>
+    <value>ファイルの場所へ</value>
   </data>
 </root>
