@@ -45,6 +45,7 @@ namespace Kwytto.LiteUI
                     BgTexture.SetPixel(0, 0, new Color(bgColor.r, bgColor.g, bgColor.b, bgOpacity));
                     BgTexture.Apply();
                 }
+                OnOpacityChanged(bgOpacity);
             }
         }
         private float EffectiveFontSizeMultiplier => FontSizeMultiplier * ResolutionMultiplier;
@@ -58,7 +59,7 @@ namespace Kwytto.LiteUI
         protected void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default)
         {
             Id = UnityEngine.Random.Range(1024, int.MaxValue);
-            Title = title;
+            Title = title ?? BasicIUserMod.Instance.GeneralName;
             windowRect = rect;
             Resizable = resizable;
             HasTitlebar = hasTitlebar;
@@ -69,7 +70,9 @@ namespace Kwytto.LiteUI
             visible = false;
             Visible = true;
         }
-
+        protected virtual void OnOpacityChanged(float newVal)
+        {
+        }
 
         public Rect WindowRect => windowRect;
         protected GUISkin Skin { get; private set; }

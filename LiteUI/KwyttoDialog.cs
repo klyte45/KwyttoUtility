@@ -10,7 +10,7 @@ namespace Kwytto.LiteUI
     {
         private BindProperties properties;
         protected override bool ShowCloseButton => properties.showClose;
-        protected override float FontSizeMultiplier => 1.5f;
+        protected override float FontSizeMultiplier => 1f;
 
 
         private Vector2 scrollPosition;
