@@ -124,6 +124,10 @@ namespace Kwytto.LiteUI
             Green,
             Red
         }
+        public void Update()
+        {
+            Visible = true;
+        }
 
         private GUIStyle GetButtonStyleGui(ButtonStyle style)
         {
