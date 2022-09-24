@@ -33,6 +33,7 @@ namespace Kwytto.LiteUI
 
         private bool oldModalState;
         private int oldModalZorder;
+        public event Action<bool> EventVisibilityChanged;
 
         protected virtual float FontSizeMultiplier { get; } = 1;
         public float BgOpacity
@@ -108,6 +109,7 @@ namespace Kwytto.LiteUI
                         OnWindowClosed();
                     }
                 }
+                EventVisibilityChanged?.Invoke(value);
             }
         }
 

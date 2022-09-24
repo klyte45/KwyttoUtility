@@ -22,9 +22,17 @@ namespace Kwytto.Interfaces
           );
             tool.EventEnableChanged += ApplyButtonColor;
             ApplyButtonColor(false);
-        }
-        private void ApplyButtonColor(bool active) => m_modButton.color = Color.Lerp(Color.gray, active ? Color.white : Color.black, 0.5f);
 
+            if (m_modButton is UIButton btn)
+            {
+                btn.state = UIButton.ButtonState.Normal;
+            }
+        }
+        private void ApplyButtonColor(bool active)
+        {
+            m_modButton.color = Color.Lerp(Color.gray, active ? Color.white : Color.black, 0.5f);
+            m_modButton.Unfocus();
+        }
     }
 
 }
