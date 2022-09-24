@@ -11,9 +11,9 @@ namespace Kwytto.Tools
         protected ushort m_hoverBuilding;
         public bool m_parentOnly = true;
 
-        protected static Color m_hoverColor = new Color32(47, byte.MaxValue, 47, byte.MaxValue);
-        protected static Color m_removeColor = new Color32(byte.MaxValue, 47, 47, 191);
-        protected static Color m_despawnColor = new Color32(byte.MaxValue, 160, 47, 191);
+        public static readonly Color m_hoverColor = new Color32(47, byte.MaxValue, 47, byte.MaxValue);
+        public static readonly Color m_removeColor = new Color32(byte.MaxValue, 47, 47, 191);
+        public static readonly Color m_despawnColor = new Color32(byte.MaxValue, 160, 47, 191);
         protected override void Awake()
         {
             base.Awake();

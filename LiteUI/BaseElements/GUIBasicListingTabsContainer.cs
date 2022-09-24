@@ -18,7 +18,7 @@ namespace Kwytto.UI
         public int ListSel
         {
             get => m_listSel;
-            private set
+            set
             {
                 if (m_listSel != value)
                 {
@@ -26,7 +26,7 @@ namespace Kwytto.UI
                     EventListItemChanged?.Invoke(m_listSel);
                     if (m_listSel >= 0)
                     {
-                        foreach (var x in m_tabsImages)
+                        foreach (var x in m_tabsUI)
                         {
                             x.Reset();
                         }
@@ -65,13 +65,13 @@ namespace Kwytto.UI
 
         private Vector2 m_scrollPosition;
 
-        private readonly IGUITab<T>[] m_tabsImages;
+        private readonly IGUITab<T>[] m_tabsUI;
 
         public GUIBasicListingTabsContainer(IGUITab<T>[] tabsImages, Action onAdd, Func<string[]> listGetter, Func<int, T> currentItemGetter, Action<int, T> onSetItemAt, Action extraButtonsGeneration = null)
         {
             m_onAdd = onAdd;
             m_listGetter = listGetter;
-            m_tabsImages = tabsImages;
+            m_tabsUI = tabsImages;
             m_currentItemGetter = currentItemGetter;
             m_onSetItemAt = onSetItemAt;
             m_extraButtonsGen = extraButtonsGeneration;
@@ -95,7 +95,7 @@ namespace Kwytto.UI
 
                     using (new GUILayout.AreaScope(horizontal ? new Rect(0, usedHeight, area.width, usedHeight += 40) : new Rect(205, 0, area.width - 215, usedHeight += 40)))
                     {
-                        CurrentTabIdx = GUILayout.SelectionGrid(CurrentTabIdx, m_tabsImages.Select(x => x.TabIcon).ToArray(), m_tabsImages.Length, new GUIStyle(GUI.skin.button)
+                        CurrentTabIdx = GUILayout.SelectionGrid(CurrentTabIdx, m_tabsUI.Select(x => x.TabIcon).ToArray(), m_tabsUI.Length, new GUIStyle(GUI.skin.button)
                         {
                             fixedWidth = 32,
                             fixedHeight = 32,
@@ -105,10 +105,10 @@ namespace Kwytto.UI
                     var tabAreaRect = new Rect(horizontal ? 0 : 205, usedHeight, horizontal ? area.width : area.width - 210, area.height - usedHeight);
                     using (new GUILayout.AreaScope(tabAreaRect))
                     {
-                        if (CurrentTabIdx >= 0 && CurrentTabIdx < m_tabsImages.Length)
+                        if (CurrentTabIdx >= 0 && CurrentTabIdx < m_tabsUI.Length)
                         {
                             var item = m_currentItemGetter(ListSel);
-                            if (m_tabsImages[CurrentTabIdx].DrawArea(tabAreaRect.size, ref item, ListSel, allowAdd))
+                            if (m_tabsUI[CurrentTabIdx].DrawArea(tabAreaRect.size, ref item, ListSel, allowAdd))
                             {
                                 m_onSetItemAt(ListSel, item);
                             }
