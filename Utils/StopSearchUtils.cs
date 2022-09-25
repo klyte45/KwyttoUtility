@@ -2,6 +2,7 @@
 using ColossalFramework.Math;
 using Kwytto.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -102,9 +103,10 @@ namespace Kwytto.Utils
             public override string ToString() => $"{platformLine.Position(0.5f)} (w={width} | {vehicleType} | {subbuildingId} | {laneId} | DIR = {directionPath} ({directionPath.GetAngleXZ()}°))";
         }
 
-        public static StopPointDescriptorLanes[] MapStopPoints(BuildingInfo buildingInfo, float thresold)
+        public static IEnumerator MapStopPoints(BuildingInfo buildingInfo, float thresold, Wrapper<StopPointDescriptorLanes[]> resultWrap)
         {
-            var result = new List<StopPointDescriptorLanes>();
+            yield return null;
+            var resultList = new List<StopPointDescriptorLanes>();
 
             if (buildingInfo?.m_paths != null)
             {
@@ -163,7 +165,7 @@ namespace Kwytto.Utils
                         Vector3 normalized = Vector3.Cross(Vector3.up, direction).normalized;
                         positionR += normalized * (MathUtils.SmootherStep(0.5f, 0f, Mathf.Abs(m_defaultStopOffset - 0.5f)) * lane.m_stopOffset);
                         LogUtils.DoLog($"[{buildingInfo}]2positionR = {positionR}; direction = {direction}; {normalized}");
-                        result.Add(new StopPointDescriptorLanes
+                        resultList.Add(new StopPointDescriptorLanes
                         {
                             platformLine = refBezier,
                             width = lane.m_width,
@@ -173,17 +175,18 @@ namespace Kwytto.Utils
                             directionPath = directionPath * (path.m_invertSegments == (refLane.m_finalDirection == NetInfo.Direction.AvoidForward || refLane.m_finalDirection == NetInfo.Direction.Backward) ? 1 : -1)
 
                         });
-
+                        yield return null;
                     }
                 }
             }
             for (int i = 0; i < (buildingInfo.m_subBuildings?.Length ?? 0); i++)
             {
-                StopPointDescriptorLanes[] subPlats = MapStopPoints(buildingInfo.m_subBuildings[i].m_buildingInfo, thresold);
+                Wrapper<StopPointDescriptorLanes[]> subPlats = new Wrapper<StopPointDescriptorLanes[]>();
+                yield return MapStopPoints(buildingInfo.m_subBuildings[i].m_buildingInfo, thresold, subPlats);
                 if (subPlats != null)
                 {
                     var rotationToApply = Quaternion.AngleAxis(buildingInfo.m_subBuildings[i].m_angle, Vector3.up);
-                    result.AddRange(subPlats.Select(x =>
+                    resultList.AddRange(subPlats.Value.Select(x =>
                     {
                         x.platformLine.a = (rotationToApply * x.platformLine.a) + buildingInfo.m_subBuildings[i].m_position;
                         x.platformLine.b = (rotationToApply * x.platformLine.b) + buildingInfo.m_subBuildings[i].m_position;
@@ -195,7 +198,7 @@ namespace Kwytto.Utils
                     }));
                 }
             }
-            result.Sort((x, y) =>
+            resultList.Sort((x, y) =>
             {
                 int priorityX = VehicleToPriority(x.vehicleType);
                 int priorityY = VehicleToPriority(y.vehicleType);
@@ -220,9 +223,9 @@ namespace Kwytto.Utils
             });
             if (BasicIUserMod.DebugMode)
             {
-                LogUtils.DoLog($"{buildingInfo.name} PLAT ORDER:\n{string.Join("\n", result.Select((x, y) => $"{y}=> {x.ToString()}").ToArray())}");
+                LogUtils.DoLog($"{buildingInfo.name} PLAT ORDER:\n{string.Join("\n", resultList.Select((x, y) => $"{y}=> {x.ToString()}").ToArray())}");
             }
-            return result.ToArray();
+            resultWrap.Value = resultList.ToArray();
         }
 
         private static NetInfo.Lane FindNearestVehicleStopLane(NetInfo.Lane[] laneGroup, NetInfo.Lane refLane, out ushort laneId)

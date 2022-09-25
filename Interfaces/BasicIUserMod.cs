@@ -148,6 +148,20 @@ namespace Kwytto.Interfaces
         public string Name => $"{SimpleName} {Version}";
         public string GeneralName => $"{SimpleName} (v{Version})";
         public abstract BaseController GetController();
+
+        public void RequireRunCoroutine(string name, IEnumerator routine)
+        {
+            if (TasksRunningOnController.TryGetValue(name, out var old))
+            {
+                GetController().StopCoroutine(old);
+            }
+            if (GetController() is BaseController bc)
+            {
+                TasksRunningOnController[name] = bc.StartCoroutine(routine);
+            }
+        }
+
+        private readonly Dictionary<string, Coroutine> TasksRunningOnController = new Dictionary<string, Coroutine>();
         private string MinorVersion_ => MajorVersion + "." + GetType().Assembly.GetName().Version.Build;
         private string MajorVersion_ => GetType().Assembly.GetName().Version.Major + "." + GetType().Assembly.GetName().Version.Minor;
         private string FullVersion_ => MinorVersion + " r" + GetType().Assembly.GetName().Version.Revision;

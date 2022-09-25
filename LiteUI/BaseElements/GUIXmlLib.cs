@@ -16,7 +16,6 @@ namespace Kwytto.LiteUI
         private string libraryFilter = "";
         private Vector2 libraryScroll;
         private readonly Wrapper<string[]> librarySearchResults = new Wrapper<string[]>();
-        private Coroutine librarySearchCoroutine;
 
         private readonly Texture ImportAdd = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Plus);
         private readonly Texture ImportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Import);
@@ -33,11 +32,7 @@ namespace Kwytto.LiteUI
         public FooterBarStatus Status { get; private set; }
         private void RestartLibraryFilterCoroutine()
         {
-            if (librarySearchCoroutine != null)
-            {
-                BasicIUserMod.Instance.GetController().StopCoroutine(librarySearchCoroutine);
-            }
-            librarySearchCoroutine = BasicIUserMod.Instance.GetController().StartCoroutine(OnFilterLib());
+            BasicIUserMod.Instance.RequireRunCoroutine($"OnFilterLib {GetType()}", OnFilterLib());
         }
         private IEnumerator OnFilterLib()
         {
