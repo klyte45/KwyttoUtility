@@ -68,6 +68,7 @@
         K45_S08StarIcon,
         K45_CircleIcon,
         K45_RoundedSquareIcon,
-        highlight
+        highlight,
+        K45_Bus
     }
 }
