@@ -1,10 +1,9 @@
-﻿using Kwytto.Localization;
-using Kwytto.Utils;
+﻿using Kwytto.Utils;
 using System;
 using System.Linq;
 using static CardinalPoint;
 
-namespace WriteEverywhere.Localization
+namespace Kwytto.Localization
 {
     public static class EnumI18nExtensionsKwytto
     {

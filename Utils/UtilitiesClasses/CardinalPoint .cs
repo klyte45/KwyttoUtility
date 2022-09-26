@@ -1,9 +1,9 @@
 ﻿
 
+using Kwytto.Localization;
 using Kwytto.Utils;
 using System;
 using UnityEngine;
-using WriteEverywhere.Localization;
 
 public struct CardinalPoint
 {
