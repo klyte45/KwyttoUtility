@@ -13,7 +13,7 @@ namespace Kwytto.UI
         private readonly Action<int, T> m_onSetItemAt;
         private readonly Func<string[]> m_listGetter;
         private readonly Func<int, T> m_currentItemGetter;
-        private readonly Action m_extraButtonsGen;
+        private readonly Action<bool> m_extraButtonsGen;
         public event Action<int> EventListItemChanged;
         public int ListSel
         {
@@ -67,7 +67,7 @@ namespace Kwytto.UI
 
         private readonly IGUITab<T>[] m_tabsUI;
 
-        public GUIBasicListingTabsContainer(IGUITab<T>[] tabsImages, Action onAdd, Func<string[]> listGetter, Func<int, T> currentItemGetter, Action<int, T> onSetItemAt, Action extraButtonsGeneration = null)
+        public GUIBasicListingTabsContainer(IGUITab<T>[] tabsImages, Action onAdd, Func<string[]> listGetter, Func<int, T> currentItemGetter, Action<int, T> onSetItemAt, Action<bool> extraButtonsGeneration = null)
         {
             m_onAdd = onAdd;
             m_listGetter = listGetter;
@@ -85,7 +85,7 @@ namespace Kwytto.UI
                 var sideListArea = horizontal ? new Rect(0, 0, area.width, usedHeight += 40) : new Rect(0, 0, 200, area.height);
                 var sideList = m_listGetter() ?? new string[0];
                 var addItemText = KStr.comm_addItemList;
-                if (GUIKwyttoCommons.CreateItemList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel, horizontal, m_extraButtonsGen))
+                if (GUIKwyttoCommons.CreateItemList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel, horizontal, () => m_extraButtonsGen?.Invoke(allowAdd)))
                 {
                     m_onAdd();
                 }

@@ -402,7 +402,6 @@ namespace Kwytto.Interfaces
                         //icon = IconName,
                         showClose = true,
                         scrollText = notes,
-                        scrollTextSizeMultiplier = 0.75f,
                         scrollTextAlign = TextAnchor.UpperLeft,
                         buttons = new ButtonDefinition[]
                         {
