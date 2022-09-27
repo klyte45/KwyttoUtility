@@ -242,4 +242,7 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
   <data name="comm_goToFileLocation" xml:space="preserve">
     <value>Go to file location</value>
   </data>
+  <data name="comm_uiScale" xml:space="preserve">
+    <value>UI Scale</value>
+  </data>
 </root>
