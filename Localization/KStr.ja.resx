@@ -244,4 +244,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   <data name="comm_goToFileLocation" xml:space="preserve">
     <value>ファイルの場所へ</value>
   </data>
+  <data name="comm_uiScale" xml:space="preserve">
+    <value>UI Scale</value>
+  </data>
 </root>
