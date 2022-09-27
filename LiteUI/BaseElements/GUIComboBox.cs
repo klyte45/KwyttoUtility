@@ -33,9 +33,9 @@ namespace Kwytto.LiteUI
             GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex]);
             var lastRect = GUILayoutUtility.GetLastRect();
             var popupPosition = GUIUtility.GUIToScreenPoint(lastRect.position);
-            if (lastRect.width > popupSize.x)
+            if (lastRect.width / UIScaler.UIScale > popupSize.x)
             {
-                popupSize.x = lastRect.width;
+                popupSize.x = lastRect.width / UIScaler.UIScale;
             }
             popupPosition.y += lastRect.height;
             if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
@@ -112,7 +112,7 @@ namespace Kwytto.LiteUI
                 OwnerId = ownerId;
                 popupItems = items;
                 selectedIndex = currentIndex;
-                popupRect = new Rect(position, new Vector2(popupSize.x, Mathf.Min(MaxPopupHeight, popupSize.y, Screen.height - position.y - 16)));
+                popupRect = new Rect(position * UIScaler.UIScale, UIScaler.UIScale * new Vector2(popupSize.x, Mathf.Min(MaxPopupHeight / UIScaler.UIScale, popupSize.y, Screen.height / UIScaler.UIScale - position.y - 16)));
                 popupScrollPosition = default;
                 mouseClickPoint = null;
                 readyToClose = false;
@@ -215,7 +215,10 @@ namespace Kwytto.LiteUI
                 popupScrollPosition = GUILayout.BeginScrollView(popupScrollPosition, false, false);
 
                 var oldSelectedIndex = selectedIndex;
-                selectedIndex = GUILayout.SelectionGrid(selectedIndex, popupItems, xCount: 1, hoverStyle);
+                selectedIndex = GUILayout.SelectionGrid(selectedIndex, popupItems, xCount: 1, new GUIStyle(hoverStyle)
+                {
+                    fontSize = Mathf.RoundToInt(16 * UIScaler.UIScale)
+                });
 
                 GUILayout.EndScrollView();
 

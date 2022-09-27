@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.UI;
+using Kwytto.LiteUI;
 using System.Linq;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace Kwytto.UI
                 }
                 var usedHeight = 0f;
 
-                var tabAreaRect = new Rect(listWidth + 5, usedHeight, area.width - listWidth - 10, area.height);
+                var tabAreaRect = new Rect(listWidth + 5 * GUIWindow.ResolutionMultiplier, usedHeight, area.width - listWidth - 10 * GUIWindow.ResolutionMultiplier, area.height);
                 using (new GUILayout.AreaScope(tabAreaRect))
                 {
                     m_tabs[CurrentTabIdx].DrawArea(tabAreaRect.size);

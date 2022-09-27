@@ -50,12 +50,12 @@ namespace Kwytto.LiteUI
             }
         }
         private float EffectiveFontSizeMultiplier => FontSizeMultiplier * ResolutionMultiplier;
-        protected virtual float ResolutionMultiplier => Screen.height / 1080f;
+        public static float ResolutionMultiplier => Screen.height / 1080f;
 
         protected virtual bool ShowCloseButton { get; } = true;
 
         public static GUIStyle HighlightStyle => GUIStyle.none;
-        public int DefaultSize => Mathf.RoundToInt(12 * EffectiveFontSizeMultiplier);
+        public int DefaultSize => Mathf.RoundToInt(16 * EffectiveFontSizeMultiplier);
 
         protected void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default)
         {
@@ -328,7 +328,7 @@ namespace Kwytto.LiteUI
             return Windows.FindIndex(window => window.Visible && window.windowRect.Contains(mouse)) >= 0;
         }
 
-        protected abstract void DrawWindow();
+        protected abstract void DrawWindow(Vector2 size);
 
         protected virtual void HandleException(Exception ex)
         {
@@ -365,7 +365,11 @@ namespace Kwytto.LiteUI
 
             try
             {
-                DrawWindow();
+                var effectiveArea = new Rect(0, TitleBarHeight, windowRect.width, windowRect.height - TitleBarHeight);
+                using (new GUILayout.AreaScope(effectiveArea))
+                {
+                    DrawWindow(effectiveArea.size);
+                }
             }
             catch (Exception ex)
             {
@@ -405,8 +409,8 @@ namespace Kwytto.LiteUI
 
         private void FitScreen()
         {
-            windowRect.width = Mathf.Clamp(windowRect.width, minSize.x, UIScaler.MaxWidth);
-            windowRect.height = Mathf.Clamp(windowRect.height, minSize.y, UIScaler.MaxHeight);
+            windowRect.width = Mathf.Clamp(windowRect.width, minSize.x * ResolutionMultiplier, UIScaler.MaxWidth);
+            windowRect.height = Mathf.Clamp(windowRect.height, minSize.y * ResolutionMultiplier, UIScaler.MaxHeight);
             windowRect.x = Mathf.Clamp(windowRect.x, 0, UIScaler.MaxWidth);
             windowRect.y = Mathf.Clamp(windowRect.y, 0, UIScaler.MaxHeight);
             if (windowRect.xMax > UIScaler.MaxWidth)
@@ -420,10 +424,10 @@ namespace Kwytto.LiteUI
             }
         }
 
-        protected float TitleBarHeight => 12 + (12 * EffectiveFontSizeMultiplier);
+        protected float TitleBarHeight => (12 * ResolutionMultiplier) + (16 * EffectiveFontSizeMultiplier);
         private void DrawTitlebar(Vector3 mouse)
         {
-            var moveRect = new Rect(windowRect.x, windowRect.y, windowRect.width - 12 - 12 * EffectiveFontSizeMultiplier, TitleBarHeight);
+            var moveRect = new Rect(windowRect.x, windowRect.y, windowRect.width - TitleBarHeight, TitleBarHeight);
             var moveTex = MoveNormalTexture;
 
             // TODO: reduce nesting
@@ -484,7 +488,7 @@ namespace Kwytto.LiteUI
                 cachedModIcon.filterMode = FilterMode.Trilinear;
             }
             GUI.DrawTexture(new Rect(3.0f, 0.0f, TitleBarHeight, TitleBarHeight), cachedModIcon, ScaleMode.StretchToFill, true);
-            GUI.Label(new Rect(18 + 12 * EffectiveFontSizeMultiplier, 0.0f, windowRect.width - 30 + 24 * EffectiveFontSizeMultiplier, TitleBarHeight - 2), Title, new GUIStyle(GUI.skin.label)
+            GUI.Label(new Rect(18 + 16 * EffectiveFontSizeMultiplier, 0.0f, windowRect.width - 30 + 32 * EffectiveFontSizeMultiplier, TitleBarHeight - 2 * EffectiveFontSizeMultiplier), Title, new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleLeft
             });

@@ -27,14 +27,14 @@ namespace Kwytto.LiteUI
         public void Init(BindProperties properties)
         {
             this.properties = properties;
-            base.Init(properties.title, new Rect(200, (Screen.height / 2) - 250, Screen.width - 400, 500), false, true, new Vector2(500, 500));
-            properties.showClose |= properties.buttons is null || properties.buttons.Length == 0;
+            base.Init(properties.title, new Rect(new Vector2((Screen.width / 2) - 400 * GUIWindow.ResolutionMultiplier, (Screen.height / 2) - 250 * GUIWindow.ResolutionMultiplier) / UIScaler.UIScale, new Vector2(800, 500) * GUIWindow.ResolutionMultiplier / UIScaler.UIScale), false, true, new Vector2(500, 500));
+            properties.showClose = properties.buttons is null || properties.buttons.Length == 0;
             this.Visible = true;
         }
 
-        protected override void DrawWindow()
+        protected override void DrawWindow(Vector2 size)
         {
-            var area = new Rect(5, TitleBarHeight, WindowRect.width - 10, WindowRect.height - TitleBarHeight);
+            var area = new Rect(5 * GUIWindow.ResolutionMultiplier, 0, size.x - 10 * GUIWindow.ResolutionMultiplier, size.y);
             using (new GUILayout.AreaScope(area))
             {
                 var textArea = new Rect(0, 0, area.size.x, area.size.y - 30 * ResolutionMultiplier); ;

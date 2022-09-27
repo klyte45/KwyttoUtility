@@ -80,7 +80,7 @@ namespace Kwytto.LiteUI
 
             mouse.x -= WindowRect.width;
             var windowRect = WindowRect;
-            windowRect.position = mouse;
+            windowRect.position = mouse / UIScaler.UIScale;
             MoveResize(windowRect);
             Visible = true;
         }
@@ -124,7 +124,7 @@ namespace Kwytto.LiteUI
             Visible = false;
         }
 
-        protected override void DrawWindow()
+        protected override void DrawWindow(Vector2 size)
         {
             GUI.DrawTexture(colorPickerRect, Texture);
             GUI.DrawTexture(hueBarRect, HueBar);
@@ -196,12 +196,12 @@ namespace Kwytto.LiteUI
                 var b = (int)Mathf.Clamp(value.b * 255.0f, byte.MinValue, byte.MaxValue);
                 var a = useAlpha ? (int)Mathf.Clamp(value.a * 255.0f, byte.MinValue, byte.MaxValue) : 255;
 
-                r = GUIIntField.IntField(id + ".r", r, fieldWidth: 30);
-                g = GUIIntField.IntField(id + ".g", g, fieldWidth: 30);
-                b = GUIIntField.IntField(id + ".b", b, fieldWidth: 30);
+                r = GUIIntField.IntField(id + ".r", r, fieldWidth: 40);
+                g = GUIIntField.IntField(id + ".g", g, fieldWidth: 40);
+                b = GUIIntField.IntField(id + ".b", b, fieldWidth: 40);
                 if (useAlpha)
                 {
-                    a = GUIIntField.IntField(id + ".a", a, fieldWidth: 30);
+                    a = GUIIntField.IntField(id + ".a", a, fieldWidth: 40);
                 }
 
 
@@ -210,7 +210,7 @@ namespace Kwytto.LiteUI
                 value.b = Mathf.Clamp01(b / 255.0f);
                 value.a = Mathf.Clamp01(a / 255.0f);
                 GUILayout.Space(5);
-                var newRGB = GUIHexField.HexField(id + ".hex", rgbVal, rgbVal.Length, rgbVal.Length, 70);
+                var newRGB = GUIHexField.HexField(id + ".hex", rgbVal, rgbVal.Length, rgbVal.Length, 80);
                 if (newRGB != rgbVal)
                 {
                     value = useAlpha ? ColorExtensions.FromRGBA(newRGB) : ColorExtensions.FromRGB(newRGB);
@@ -230,7 +230,7 @@ namespace Kwytto.LiteUI
             }
             else
             {
-                GUILayout.Box(string.Empty, GUILayout.MinWidth(useAlpha ? 90 : 60), GUILayout.MaxWidth(100));
+                GUILayout.Box(string.Empty, GUILayout.MinWidth(useAlpha ? 120 : 90), GUILayout.MaxWidth(150));
             }
 
 

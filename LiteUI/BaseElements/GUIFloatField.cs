@@ -47,13 +47,13 @@ namespace Kwytto.LiteUI
             {
                 lastValue = lastValue ?? value.ToString("F3");
                 GUI.SetNextControlName(id);
-                lastValue = GUILayout.TextField(lastValue, GUILayout.Width(50));
+                lastValue = GUILayout.TextField(lastValue, GUILayout.Width(65));
                 lastFocusedFieldId = focusedFieldId;
             }
             else
             {
                 GUI.SetNextControlName(id);
-                GUILayout.TextField(value.ToString("F3"), GUILayout.Width(50));
+                GUILayout.TextField(value.ToString("F3"), GUILayout.Width(65));
             }
             if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition) && Event.current.isScrollWheel)
             {

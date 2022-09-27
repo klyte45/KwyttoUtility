@@ -13,7 +13,7 @@ namespace Kwytto.LiteUI
             return keycode == KeyCode.KeypadEnter || keycode == KeyCode.Return;
         }
 
-        public static int IntField(string id, int value, int min = int.MinValue, int max = int.MaxValue, float? fieldWidth = 50)
+        public static int IntField(string id, int value, int min = int.MinValue, int max = int.MaxValue, float? fieldWidth = 65)
         {
             var focusedFieldId = GUI.GetNameOfFocusedControl();
             GUILayoutOption widthOption = null;

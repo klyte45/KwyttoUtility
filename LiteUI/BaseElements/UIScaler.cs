@@ -58,8 +58,6 @@ namespace Kwytto.LiteUI
             get
             {
                 float ret =
-                    false ?// Config.ScaleToResolution ?
-                    BaseResolutionX :
                     Screen.width;
                 return ret / BasicIUserMod.Instance.UIScale;
             }
@@ -70,8 +68,6 @@ namespace Kwytto.LiteUI
             get
             {
                 float ret =
-                  false ?//  Config.ScaleToResolution ?
-                    BaseResolutionY :
                     Screen.height;
                 return ret / BasicIUserMod.Instance.UIScale;
             }
