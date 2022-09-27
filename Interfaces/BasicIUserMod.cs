@@ -535,7 +535,17 @@ namespace Kwytto.Interfaces
                 m_instance = Singleton<PluginManager>.instance.GetPluginsInfo().First((PluginManager.PluginInfo pi) =>
                              pi.assemblyCount > 0
                              && pi.GetAssemblies().Where(x => x == typeof(BasicIUserMod).Assembly).Count() > 0
-                         ).GetAssemblies().SelectMany(x => x.GetExportedTypes())
+                         ).GetAssemblies().SelectMany(x =>
+                         {
+                             try
+                             {
+                                 return x.GetExportedTypes();
+                             }
+                             catch
+                             {
+                                 return new Type[0];
+                             }
+                         })
                          .First(t => t.IsClass && typeof(BasicIUserMod).IsAssignableFrom(t) && !t.IsAbstract)
                         .GetConstructor(new Type[0])
                         .Invoke(new object[0]) as BasicIUserMod;

@@ -413,9 +413,20 @@ namespace Kwytto.Utils
                 return Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
                                 pi.assemblyCount > 0
                                 && pi.isEnabled
-                                && pi.GetAssemblies().Where(x => x == typeof(ReflectionUtils).Assembly).Count() > 0
-                            ).SelectMany(pi => pi.GetAssemblies().SelectMany(x => x.GetExportedTypes()))
-                           .GroupBy(x => x).Select(x => x.Key).Where(t => t.IsClass && !t.IsAbstract && (t.GetInterfaces().Contains(interfaceType) || interfaceType.IsAssignableFrom(t)) ).ToList();
+                                && pi.GetAssemblies().Where(x =>
+                                x == typeof(ReflectionUtils).Assembly).Count() > 0
+                            ).SelectMany(pi => pi.GetAssemblies().SelectMany(x =>
+                            {
+                                try
+                                {
+                                    return x.GetExportedTypes();
+                                }
+                                catch
+                                {
+                                    return new Type[0];
+                                }
+                            }))
+                           .GroupBy(x => x).Select(x => x.Key).Where(t => t.IsClass && !t.IsAbstract && (t.GetInterfaces().Contains(interfaceType) || interfaceType.IsAssignableFrom(t))).ToList();
             }
             else
             {
