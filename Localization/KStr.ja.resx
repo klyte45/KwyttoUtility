@@ -245,6 +245,6 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>ファイルの場所へ</value>
   </data>
   <data name="comm_uiScale" xml:space="preserve">
-    <value>UI Scale</value>
+    <value>UIのスケール</value>
   </data>
 </root>
