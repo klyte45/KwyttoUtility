@@ -1,5 +1,6 @@
 ﻿using ColossalFramework.IO;
 using ColossalFramework.Packaging;
+using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -70,6 +71,13 @@ namespace Kwytto.Utils
                 }
             });
         }
+
+        public static readonly string BASE_STAGING_FOLDER_PATH = Path.Combine(DataLocation.assetsPath, "K45_Staging");
+        public static string GetModStagingBasePath() => Path.Combine(BASE_STAGING_FOLDER_PATH, BasicIUserMod.Instance.SafeName);
+        public static string GetModStagingBasePathForAsset(Asset asset) => Path.Combine(GetModStagingBasePath(), asset.name);
+        public static string GetRootPackageFolderForK45(Asset asset) => asset?.package is null ? null : asset.isWorkshopAsset ? Path.GetDirectoryName(asset.package.packagePath) : GetModStagingBasePathForAsset(asset);
+        public static string GetRootFolderForK45(Asset asset) => asset is null ? null : asset.isWorkshopAsset ? Path.GetDirectoryName(asset.package.packagePath) : GetModStagingBasePathForAsset(asset);
+        public static string GetRootFolderForK45<T>(T info) where T : PrefabInfo => GetRootFolderForK45(PrefabUtils.GetAssetFromPrefab(info));
 
         public static void DoInPrefabFolder(PrefabInfo targetPrefab, Action<string> actionToPerform) => DoInPrefabFolder(targetPrefab.name, actionToPerform);
         public static void DoInPrefabFolder(string prefabName, Action<string> actionToPerform)

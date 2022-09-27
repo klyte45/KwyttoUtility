@@ -7,6 +7,7 @@ using static ColossalFramework.UI.UITextureAtlas;
 
 namespace Kwytto.Utils
 {
+
     public static class TextureAtlasUtils
     {
         public static string BORDER_FILENAME = "bordersDescriptor.txt";
@@ -43,7 +44,12 @@ namespace Kwytto.Utils
                 }
             }
         }
-
+        public static Texture2D LoadTextureFromFile(string filename)
+        {
+            byte[] fileData = File.ReadAllBytes(filename);
+            var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            return tex.LoadImage(fileData) ? tex : null;
+        }
         public static List<SpriteInfo> CreateSpriteInfo(Dictionary<string, Tuple<RectOffset, bool>> borderDescriptors, string filename, Texture2D tex)
         {
             string textureName = Path.GetFileNameWithoutExtension(filename);
