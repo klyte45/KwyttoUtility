@@ -18,7 +18,7 @@ namespace Kwytto.Utils
                 {
                     return null;
                 }
-            }).Where(x => x != null).OrderBy(x => x.Priority).FirstOrDefault();
+            }).Where(x => x?.IsBridgeEnabled ?? false).OrderBy(x => x.Priority).FirstOrDefault();
         }
     }
 }
