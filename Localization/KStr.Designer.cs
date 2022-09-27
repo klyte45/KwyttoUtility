@@ -405,5 +405,14 @@ namespace Kwytto.Localization {
                 return ResourceManager.GetString("comm_reportABugOpt_Ok", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a UI Scale.
+        /// </summary>
+        public static string comm_uiScale {
+            get {
+                return ResourceManager.GetString("comm_uiScale", resourceCulture);
+            }
+        }
     }
 }

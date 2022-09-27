@@ -62,6 +62,7 @@ namespace Kwytto.Interfaces
         #region Saved shared config
         public static SavedBool DebugMode { get; }
         public static SavedString CurrentSaveVersion { get; }
+        private static SavedFloat UIScaleSaved { get; }
         #endregion
 
         #region Old CommonProperties Static
@@ -135,7 +136,7 @@ namespace Kwytto.Interfaces
         public virtual string GitHubRepoPath { get; } = "";
         public abstract string Acronym { get; }
         public abstract Color ModColor { get; }
-        public virtual float UIScale { get; } = 1;
+        public float UIScale => Mathf.Clamp(UIScaleSaved.value, 0.5f, 4);
         public virtual string[] AssetExtraDirectoryNames { get; } = new string[0];
         public virtual string[] AssetExtraFileNames { get; } = new string[] { };
         public virtual string ModRootFolder => KFileUtils.BASE_FOLDER_PATH + SimpleName;
@@ -275,8 +276,6 @@ namespace Kwytto.Interfaces
         public Transform RefTransform => m_topObj?.transform;
 
 
-        private static BaseController controller;
-
         public void OnSettingsUI(UIHelperBase helperDefault)
         {
             LocaleChanged();
@@ -307,7 +306,13 @@ namespace Kwytto.Interfaces
         {
             var group9 = helper.AddGroup(KStr.comm_betaExtraInfo) as UIHelper;
             Group9SettingsUI(group9);
-
+            UILabel label = null;
+            var obj = group9.AddSlider($"{KStr.comm_uiScale} {UIScaleSaved.value:0%}", .3f, 2, .05f, UIScaleSaved.value, (x) =>
+            {
+                UIScaleSaved.value = x;
+                label.text = $"{KStr.comm_uiScale} {UIScaleSaved.value:0%}";
+            }) as UISlider;
+            label = obj.parent.GetComponentInChildren<UILabel>();
             group9.AddCheckbox(KStr.comm_debugMode, DebugMode.value, delegate (bool val)
             { DebugMode.value = val; });
             var uselessGroup = (group9.AddGroup(string.Format(KStr.comm_currentVersionFormat, FullVersion)) as UIHelper).self as UIComponent;
@@ -550,6 +555,7 @@ namespace Kwytto.Interfaces
                         .GetConstructor(new Type[0])
                         .Invoke(new object[0]) as BasicIUserMod;
                 DebugMode = new SavedBool(m_instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
+                UIScaleSaved = new SavedFloat(m_instance.Acronym + "_uiScale", Settings.gameSettingsFile, 1, true);
                 CurrentSaveVersion = new SavedString(m_instance.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
             }
             catch (Exception e)
