@@ -131,10 +131,10 @@
     <value>Modo de debug</value>
   </data>
   <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
-    <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+    <value>Ocorreu um erro ao carregar os dados de &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Raw data:</value>
+    <value>Dado bruto:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
     <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
