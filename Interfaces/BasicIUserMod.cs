@@ -412,7 +412,7 @@ namespace Kwytto.Interfaces
                         {
                             new ButtonDefinition
                             {
-                                title = $"{KStr.comm_releaseNotes_CurrentVersion} <color=#FFFF00ff>{FullVersion}</color>"
+                                title = $"V: <color=#FFFF00ff>{FullVersion}</color>"
                             },
                             new ButtonDefinition
                             {
