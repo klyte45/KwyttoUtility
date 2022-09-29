@@ -37,7 +37,7 @@ namespace Kwytto.Utils
             {
                 if (m_prefabsData is null)
                 {
-                    var prefabMapping = PackageManager.FilterAssets(new Package.AssetType[] { UserAssetType.CustomAssetMetaData }).Select(x => Tuple.New(x.fullName, x)).GroupBy(x => x).ToDictionary(x => x.Key.First, x => x.Key.Second);
+                    var prefabMapping = PackageManager.FilterAssets(new Package.AssetType[] { UserAssetType.CustomAssetMetaData }).Select(x => Tuple.New(x.fullName, x)).GroupBy(x => x.First).ToDictionary(x => x.Key, x => x.First().Second);
                     m_prefabsData = GetInfos().Where(x => x?.name != null).Select(x => new IndexedPrefabData<T>(prefabMapping.TryGetValue(x.name, out Package.Asset asset) ? asset : null, x)).GroupBy(x => x.PrefabName).ToDictionary(x => x.Key, x => (IIndexedPrefabData)x.First());
                 }
                 return m_prefabsData;
