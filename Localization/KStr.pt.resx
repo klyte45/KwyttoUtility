@@ -245,4 +245,7 @@ Sinta-se à vontade para criar um tópico na Oficina ou apenas deixar um coment�
   <data name="comm_uiScale" xml:space="preserve">
     <value>UI Scale</value>
   </data>
+  <data name="comm_uiOpacity" xml:space="preserve">
+    <value>UI Background Opacity (when in game)</value>
+  </data>
 </root>
