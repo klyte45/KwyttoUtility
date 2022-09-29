@@ -63,6 +63,7 @@ namespace Kwytto.Interfaces
         public static SavedBool DebugMode { get; }
         public static SavedString CurrentSaveVersion { get; }
         private static SavedFloat UIScaleSaved { get; }
+        private static SavedFloat UIOpacitySaved { get; }
         #endregion
 
         #region Old CommonProperties Static
@@ -137,6 +138,7 @@ namespace Kwytto.Interfaces
         public abstract string Acronym { get; }
         public abstract Color ModColor { get; }
         public float UIScale => Mathf.Clamp(UIScaleSaved.value, 0.5f, 4);
+        public float UIOpacity => Mathf.Clamp(UIOpacitySaved.value, 0.05f, 1);
         public virtual string[] AssetExtraDirectoryNames { get; } = new string[0];
         public virtual string[] AssetExtraFileNames { get; } = new string[] { };
         public virtual string ModRootFolder => KFileUtils.BASE_FOLDER_PATH + SimpleName;
@@ -313,6 +315,13 @@ namespace Kwytto.Interfaces
                 label.text = $"{KStr.comm_uiScale} {UIScaleSaved.value:0%}";
             }) as UISlider;
             label = obj.parent.GetComponentInChildren<UILabel>();
+            UILabel label2 = null;
+            var obj2 = group9.AddSlider($"{KStr.comm_uiOpacity} {UIOpacitySaved.value:0%}", .01f, 1, .01f, UIOpacitySaved.value, (x) =>
+            {
+                UIOpacitySaved.value = x;
+                label.text = $"{KStr.comm_uiScale} {UIOpacitySaved.value:0%}";
+            }) as UISlider;
+            label2 = obj2.parent.GetComponentInChildren<UILabel>();
             group9.AddCheckbox(KStr.comm_debugMode, DebugMode.value, delegate (bool val)
             { DebugMode.value = val; });
             var uselessGroup = (group9.AddGroup(string.Format(KStr.comm_currentVersionFormat, FullVersion)) as UIHelper).self as UIComponent;
@@ -553,9 +562,10 @@ namespace Kwytto.Interfaces
                          .First(t => t.IsClass && typeof(BasicIUserMod).IsAssignableFrom(t) && !t.IsAbstract)
                         .GetConstructor(new Type[0])
                         .Invoke(new object[0]) as BasicIUserMod;
-                DebugMode = new SavedBool(m_instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
-                UIScaleSaved = new SavedFloat(m_instance.Acronym + "_uiScale", Settings.gameSettingsFile, 1, true);
-                CurrentSaveVersion = new SavedString(m_instance.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
+                DebugMode = new SavedBool("K45_" + m_instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
+                UIScaleSaved = new SavedFloat("K45_" + m_instance.Acronym + "_uiScale", Settings.gameSettingsFile, 1, true);
+                UIOpacitySaved = new SavedFloat("K45_" + m_instance.Acronym + "_uiOpacity", Settings.gameSettingsFile, 0.85f, true);
+                CurrentSaveVersion = new SavedString("K45_" + m_instance.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
             }
             catch (Exception e)
             {

@@ -407,6 +407,15 @@ namespace Kwytto.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a UI Background Opacity (when in game).
+        /// </summary>
+        public static string comm_uiOpacity {
+            get {
+                return ResourceManager.GetString("comm_uiOpacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a UI Scale.
         /// </summary>
         public static string comm_uiScale {
