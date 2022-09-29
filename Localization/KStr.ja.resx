@@ -247,4 +247,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   <data name="comm_uiScale" xml:space="preserve">
     <value>UIのスケール</value>
   </data>
+  <data name="comm_uiOpacity" xml:space="preserve">
+    <value>UI Background Opacity (when in game)</value>
+  </data>
 </root>
