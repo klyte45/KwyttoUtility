@@ -315,13 +315,17 @@ namespace Kwytto.Interfaces
                 label.text = $"{KStr.comm_uiScale} {UIScaleSaved.value:0%}";
             }) as UISlider;
             label = obj.parent.GetComponentInChildren<UILabel>();
+            label.autoSize = true;
+            label.wordWrap = false;
             UILabel label2 = null;
             var obj2 = group9.AddSlider($"{KStr.comm_uiOpacity} {UIOpacitySaved.value:0%}", .01f, 1, .01f, UIOpacitySaved.value, (x) =>
             {
                 UIOpacitySaved.value = x;
-                label.text = $"{KStr.comm_uiScale} {UIOpacitySaved.value:0%}";
+                label2.text = $"{KStr.comm_uiScale} {UIOpacitySaved.value:0%}";
             }) as UISlider;
             label2 = obj2.parent.GetComponentInChildren<UILabel>();
+            label2.autoSize = true;
+            label2.wordWrap = false;
             group9.AddCheckbox(KStr.comm_debugMode, DebugMode.value, delegate (bool val)
             { DebugMode.value = val; });
             var uselessGroup = (group9.AddGroup(string.Format(KStr.comm_currentVersionFormat, FullVersion)) as UIHelper).self as UIComponent;
