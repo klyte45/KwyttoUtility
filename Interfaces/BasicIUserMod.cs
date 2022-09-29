@@ -404,7 +404,6 @@ namespace Kwytto.Interfaces
                     string text = string.Format(KStr.comm_releaseNotes_WasUpdatedTitle, SimpleName);
                     ShowModal(new BindProperties()
                     {
-                        //icon = IconName,
                         showClose = true,
                         scrollText = notes,
                         scrollTextAlign = TextAnchor.UpperLeft,
@@ -412,7 +411,7 @@ namespace Kwytto.Interfaces
                         {
                             new ButtonDefinition
                             {
-                                title = $"{KStr.comm_releaseNotes_CurrentVersion} <color=#FFFF00ff>{FullVersion}</color>"
+                                title = $"V: <color=#FFFF00ff>{FullVersion}</color>"
                             },
                             new ButtonDefinition
                             {
