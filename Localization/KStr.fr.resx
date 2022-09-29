@@ -245,4 +245,7 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
   <data name="comm_uiScale" xml:space="preserve">
     <value>UI Scale</value>
   </data>
+  <data name="comm_uiOpacity" xml:space="preserve">
+    <value>UI Background Opacity (when in game)</value>
+  </data>
 </root>
