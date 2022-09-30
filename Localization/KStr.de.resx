@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="comm_addItemList" xml:space="preserve">
-    <value>Add Item</value>
+    <value>Eintrag hinzufügen</value>
   </data>
   <data name="comm_betaExtraInfo" xml:space="preserve">
-    <value>Extra informations</value>
+    <value>Zusätzliche Informationen</value>
   </data>
   <data name="comm_currentVersionFormat" xml:space="preserve">
-    <value>Current version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <value>Aktuelle Version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
     <comment>Keep the formatting; used in default game UI (mod options)</comment>
   </data>
   <data name="comm_debugMode" xml:space="preserve">
-    <value>Debug mode</value>
+    <value>Debugmodus</value>
   </data>
   <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
-    <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+    <value>Beim Laden der Daten von &lt;color=yellow&gt;{0}&lt;/color&gt; ist ein Fehler aufgetreten.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Raw data:</value>
+    <value>Rohdaten:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
     <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
