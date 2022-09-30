@@ -137,80 +137,80 @@
     <value>Rohdaten:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
+    <value>Bitte erstelle eine Problemmeldung in GitHub zusammen mit dem angehängten Spiellog und einer Aufnahme dieses Fensters, um dies vom Mod-Entwickler überprüfen zu lassen. Schaue dir den &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; Button im Mod-Optionsmenü an, um Details darüber zu erhalten, wie du das Spiellog erhältst.</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
-    <value>Error loading '{0}' data</value>
+    <value>Fehler beim Laden der '{0}' Daten</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
-    <value>See release notes</value>
+    <value>Siehe Versionshinweise</value>
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
   <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
-    <value>Current Version:</value>
+    <value>Aktuelle Version:</value>
     <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
   </data>
   <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
-    <value>Follow Kwytto at Twitter to get update news!</value>
+    <value>Folge Kwytto auf Twitter, um Updates zu erhalten!</value>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
     <value>Okay!</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
-    <value>See news at Workshop Page!</value>
+    <value>News auf der Workshop-Seite!</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
-    <value>{0} was updated! Release notes:</value>
+    <value>{0} wurde aktualisiert! Versionshinweise:</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
-    <value>Report-a-bug helper</value>
+    <value>Fehlerbericht-Helfer</value>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
-Additionally, you can find the mod log at the leftmost button below.
+    <value>Wenn du Probleme mit dieser Mod hast, schicke mir bitte die output_log.txt (oder player.log auf Mac/Linux) auf der Workshop-Seite der Mod. Eine Aufnahme des Bildschirms kann wahrscheinlich helfen, besser zu erkennen, was schief läuft...
+Zusätzlich kannst du das Mod-Log mit der Schaltfläche auf der linken Seite unten finden.
 
-There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
-Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+Es gibt einen Link für einen Workshop Guide von &lt;color=#008800&gt;aubergine18&lt;/color&gt; , in dem erklärt wird, wie man die Logdatei abhängig vom verwendeten Betriebssystem finden kann.
+Erstellen eine Diskussion im Workshop oder hinterlasse einfach einen Kommentar, der auf deine Dateien verlinkt.</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
-    <value>Go to the guide</value>
+    <value>Zur Anleitung</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
-    <value>Go to mod log</value>
+    <value>Zum Mod-Protokoll</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
-    <value>Go to mod page</value>
+    <value>Zur Mod-Seite</value>
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
     <value>Okay...</value>
   </data>
   <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
-    <value>NE</value>
+    <value>NO</value>
   </data>
   <data name="comm_Enum__Cardinal16_N" xml:space="preserve">
     <value>N</value>
   </data>
   <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">
-    <value>NNE</value>
+    <value>NNO</value>
   </data>
   <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">
-    <value>ENE</value>
+    <value>ONO</value>
   </data>
   <data name="comm_Enum__Cardinal16_E" xml:space="preserve">
-    <value>E</value>
+    <value>O</value>
   </data>
   <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">
-    <value>ESE</value>
+    <value>OSO</value>
   </data>
   <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">
-    <value>SE</value>
+    <value>SO</value>
   </data>
   <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">
-    <value>SSE</value>
+    <value>SSO</value>
   </data>
   <data name="comm_Enum__Cardinal16_S" xml:space="preserve">
     <value>S</value>
@@ -237,15 +237,15 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
     <value>NNW</value>
   </data>
   <data name="comm_errorTitle" xml:space="preserve">
-    <value>Error!</value>
+    <value>Fehler!</value>
   </data>
   <data name="comm_goToFileLocation" xml:space="preserve">
-    <value>Go to file location</value>
+    <value>Zum Datei-Speicherort</value>
   </data>
   <data name="comm_uiScale" xml:space="preserve">
-    <value>UI Scale</value>
+    <value>UI-Skalierung</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>UI Background Opacity (when in game)</value>
+    <value>UI Hintergrundtransparenz (wenn im Spiel)</value>
   </data>
 </root>
