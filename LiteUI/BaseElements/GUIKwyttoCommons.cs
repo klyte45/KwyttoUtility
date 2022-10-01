@@ -250,7 +250,16 @@ namespace Kwytto.LiteUI
                 GUILayout.Label(value ?? v_null);
             };
         }
-        public static bool AddColorPicker(string title, GUIColorPicker picker, ref Color value, bool enabled = true)
+        public static bool AddColorPicker(string title, GUIColorPicker picker, Color? value, Action<Color?> onChange, bool enabled = true)
+        {
+            if (AddColorPicker(title, picker, ref value, enabled))
+            {
+                onChange(value);
+                return true;
+            }
+            return false;
+        }
+        public static bool AddColorPicker(string title, GUIColorPicker picker, ref Color? value, bool enabled = true)
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -405,7 +414,7 @@ namespace Kwytto.LiteUI
                 return false;
             };
         }
-        public static bool AddIntField(float totalWidth, string title, ref int value, bool isEnabled = true, int min = int.MinValue, int max = int.MaxValue)
+        public static bool AddIntField(float totalWidth, string title, ref int? value, bool isEnabled = true, int min = int.MinValue, int max = int.MaxValue)
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -422,12 +431,12 @@ namespace Kwytto.LiteUI
                 }
                 else
                 {
-                    GUILayout.Label(value.ToString("0"));
+                    GUILayout.Label(value?.ToString("0") ?? v_null);
                 }
                 return false;
             };
         }
-        public static bool AddIntField(float totalWidth, string title, int value, Action<int> onChanged, bool isEnabled = true, int min = int.MinValue, int max = int.MaxValue)
+        public static bool AddIntField(float totalWidth, string title, int? value, Action<int?> onChanged, bool isEnabled = true, int min = int.MinValue, int max = int.MaxValue, string format = "0")
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -435,7 +444,7 @@ namespace Kwytto.LiteUI
                 GUILayout.FlexibleSpace();
                 if (isEnabled)
                 {
-                    var newValue = GUIIntField.IntField(title, value, min, max);
+                    var newValue = GUIIntField.IntField(title, value, min, max, format: format);
                     if (newValue != value)
                     {
                         onChanged(newValue);
@@ -444,7 +453,7 @@ namespace Kwytto.LiteUI
                 }
                 else
                 {
-                    GUILayout.Label(value.ToString("0"));
+                    GUILayout.Label(value?.ToString(format) ?? v_null);
                 }
                 return false;
             };
@@ -481,7 +490,7 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.MaxWidth(totalWidth / 2));
                 if (isEditable)
                 {
                     var newVal = GUIComboBox.Box(selectedIndex, options, title, root);

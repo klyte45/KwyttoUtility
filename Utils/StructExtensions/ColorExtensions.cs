@@ -11,6 +11,7 @@ namespace Kwytto.Utils
         public static string ToRGB(this Color32 color) => color.r.ToString("X2") + color.g.ToString("X2") + color.b.ToString("X2");
         public static string ToRGBA(this Color color) => ToRGBA((Color32)color);
         public static string ToRGB(this Color color) => ToRGB((Color32)color);
+        public static Color SetBrightness(this Color32 color, float brightness) => SetBrightness((Color)color, brightness);
         public static Color SetBrightness(this Color color, float brightness)
         {
             Color.RGBToHSV(color, out float hue, out float saturation, out _);

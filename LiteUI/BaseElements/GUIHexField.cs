@@ -65,13 +65,13 @@ namespace Kwytto.LiteUI
             {
                 lastValue = lastValue ?? value;
                 GUI.SetNextControlName(id);
-                lastValue = GUILayout.TextField(lastValue, widthOption);
+                lastValue = GUILayout.TextField(lastValue ?? "", widthOption);
                 lastFocusedFieldId = focusedFieldId;
             }
             else
             {
                 GUI.SetNextControlName(id);
-                GUILayout.TextField(value, widthOption);
+                GUILayout.TextField(value ?? "", widthOption);
             }
 
 

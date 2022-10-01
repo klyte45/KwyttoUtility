@@ -13,7 +13,7 @@ namespace Kwytto.LiteUI
             return keycode == KeyCode.KeypadEnter || keycode == KeyCode.Return;
         }
 
-        public static int IntField(string id, int value, int min = int.MinValue, int max = int.MaxValue, float? fieldWidth = 65)
+        public static int? IntField(string id, int? value, int min = int.MinValue, int max = int.MaxValue, float? fieldWidth = 65, string format = "0")
         {
             var focusedFieldId = GUI.GetNameOfFocusedControl();
             GUILayoutOption widthOption = null;
@@ -50,15 +50,15 @@ namespace Kwytto.LiteUI
 
             if (id == focusedFieldId)
             {
-                lastValue = lastValue ?? value.ToString("0");
+                lastValue = lastValue ?? value?.ToString(format);
                 GUI.SetNextControlName(id);
-                lastValue = GUILayout.TextField(lastValue, widthOption);
+                lastValue = GUILayout.TextField(lastValue ?? "", widthOption);
                 lastFocusedFieldId = focusedFieldId;
             }
             else
             {
                 GUI.SetNextControlName(id);
-                GUILayout.TextField(value.ToString("0"), widthOption);
+                GUILayout.TextField(value?.ToString(format) ?? "", widthOption);
             }
             if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition) && Event.current.isScrollWheel)
             {
@@ -79,7 +79,7 @@ namespace Kwytto.LiteUI
                 {
                     deltaVal *= 10;
                 }
-                value = Mathf.Min(max, Mathf.Max(min, value - deltaVal));
+                value = Mathf.Min(max, Mathf.Max(min, (value ?? 1) - deltaVal));
                 Event.current.Use();
             }
 

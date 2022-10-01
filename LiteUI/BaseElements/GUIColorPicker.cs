@@ -184,18 +184,25 @@ namespace Kwytto.LiteUI
             Texture.Apply();
         }
 
-        public Color PresentColor(string id, Color value, bool enabled, bool useAlpha = false)
+        public Color? PresentColor(string id, Color? value, bool enabled, bool useAlpha = false)
         {
 
             if (enabled)
             {
-                var rgbVal = (useAlpha ? value.ToRGBA() : value.ToRGB());
-
-                var r = (int)Mathf.Clamp(value.r * 255.0f, byte.MinValue, byte.MaxValue);
-                var g = (int)Mathf.Clamp(value.g * 255.0f, byte.MinValue, byte.MaxValue);
-                var b = (int)Mathf.Clamp(value.b * 255.0f, byte.MinValue, byte.MaxValue);
-                var a = useAlpha ? (int)Mathf.Clamp(value.a * 255.0f, byte.MinValue, byte.MaxValue) : 255;
-
+                var rgbVal = (useAlpha ? value?.ToRGBA() : value?.ToRGB());
+                var rgbLength = useAlpha ? 8 : 6;
+                int? r, g, b, a;
+                if (value is Color c)
+                {
+                    r = (int)Mathf.Clamp(c.r * 255.0f, byte.MinValue, byte.MaxValue);
+                    g = (int)Mathf.Clamp(c.g * 255.0f, byte.MinValue, byte.MaxValue);
+                    b = (int)Mathf.Clamp(c.b * 255.0f, byte.MinValue, byte.MaxValue);
+                    a = useAlpha ? (int)Mathf.Clamp(c.a * 255.0f, byte.MinValue, byte.MaxValue) : 255;
+                }
+                else
+                {
+                    r = g = b = a = null;
+                }
                 r = GUIIntField.IntField(id + ".r", r, fieldWidth: 40);
                 g = GUIIntField.IntField(id + ".g", g, fieldWidth: 40);
                 b = GUIIntField.IntField(id + ".b", b, fieldWidth: 40);
@@ -204,21 +211,25 @@ namespace Kwytto.LiteUI
                     a = GUIIntField.IntField(id + ".a", a, fieldWidth: 40);
                 }
 
-
-                value.r = Mathf.Clamp01(r / 255.0f);
-                value.g = Mathf.Clamp01(g / 255.0f);
-                value.b = Mathf.Clamp01(b / 255.0f);
-                value.a = Mathf.Clamp01(a / 255.0f);
+                if (!(r is null) || !(g is null) || !(b is null) || !(a is null))
+                {
+                    value = new Color(
+                        Mathf.Clamp01((r ?? 0) / 255.0f),
+                        Mathf.Clamp01((g ?? 0) / 255.0f),
+                        Mathf.Clamp01((b ?? 0) / 255.0f),
+                        Mathf.Clamp01((a ?? (useAlpha ? 0 : 255)) / 255.0f)
+                    );
+                }
                 GUILayout.Space(5);
-                var newRGB = GUIHexField.HexField(id + ".hex", rgbVal, rgbVal.Length, rgbVal.Length, 80);
+                var newRGB = GUIHexField.HexField(id + ".hex", rgbVal, rgbLength, rgbLength, 80);
                 if (newRGB != rgbVal)
                 {
                     value = useAlpha ? ColorExtensions.FromRGBA(newRGB) : ColorExtensions.FromRGB(newRGB);
                 }
 
-                if (GUILayout.Button(string.Empty, GUILayout.MinWidth(20), GUILayout.MaxWidth(80)))
+                if (GUILayout.Button(value is null ? GUIKwyttoCommons.v_null : string.Empty, GUILayout.MinWidth(20), GUILayout.MaxWidth(80)))
                 {
-                    Show(id, value);
+                    Show(id, value ?? Color.black);
                 }
                 else
                 {
@@ -230,7 +241,7 @@ namespace Kwytto.LiteUI
             }
             else
             {
-                GUILayout.Box(string.Empty, GUILayout.MinWidth(useAlpha ? 120 : 90), GUILayout.MaxWidth(150));
+                GUILayout.Box(value is null ? GUIKwyttoCommons.v_null : string.Empty, GUILayout.MinWidth(useAlpha ? 120 : 90), GUILayout.MaxWidth(150));
             }
 
 
@@ -242,7 +253,10 @@ namespace Kwytto.LiteUI
             colorRect.height -= 8.0f;
             lastRect.x += 4.0f;
             lastRect.width -= 8.0f;
-            GUI.DrawTexture(colorRect, GetColorTexture(id, value), ScaleMode.StretchToFill);
+            if (value is Color d)
+            {
+                GUI.DrawTexture(colorRect, GetColorTexture(id, d), ScaleMode.StretchToFill);
+            }
             return value;
         }
     }

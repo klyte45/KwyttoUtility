@@ -5,13 +5,13 @@ namespace Kwytto.Utils
 {
     public class DistrictUtils
     {
-        public static Dictionary<string, int> GetValidDistricts()
+        public static Dictionary<string, byte> GetValidDistricts()
         {
-            var districts = new Dictionary<string, int>
+            var districts = new Dictionary<string, byte>
             {
                 [$"<{Singleton<SimulationManager>.instance.m_metaData.m_CityName}>"] = 0
             };
-            for (int i = 1; i <= 0x7F; i++)
+            for (byte i = 1; i <= 0x7F; i++)
             {
                 if ((Singleton<DistrictManager>.instance.m_districts.m_buffer[i].m_flags & District.Flags.Created) != District.Flags.None)
                 {

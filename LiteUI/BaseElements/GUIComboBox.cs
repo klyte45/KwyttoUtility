@@ -12,11 +12,17 @@ namespace Kwytto.LiteUI
             switch (items.Length)
             {
                 case 0:
+                    GUILayout.Box(GUIKwyttoCommons.v_null);
                     return -1;
 
                 case 1:
-                    GUILayout.Label(items[0]);
-                    return 0;
+                    if (itemIndex == 0)
+                    {
+                        GUILayout.Box(items[0]);
+                        return 0;
+                    }
+                    break;
+
             }
 
             if (popupWindow != null

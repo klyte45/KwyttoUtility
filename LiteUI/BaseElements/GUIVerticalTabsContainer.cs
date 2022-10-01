@@ -11,6 +11,7 @@ namespace Kwytto.UI
 
         private readonly IGUIVerticalITab[] m_tabs;
         private string[] m_tabsNamesList;
+        public Texture2D m_listBgTexture;
 
         public GUIVerticalTabsContainer(IGUIVerticalITab[] tabs)
         {
@@ -23,6 +24,10 @@ namespace Kwytto.UI
             using (new GUILayout.AreaScope(area))
             {
                 var sideListArea = new Rect(0, 0, listWidth, area.height);
+                if (m_listBgTexture != null)
+                {
+                    GUI.DrawTexture(sideListArea, m_listBgTexture);
+                }
                 using (new GUILayout.AreaScope(sideListArea))
                 {
                     CurrentTabIdx = GUILayout.SelectionGrid(CurrentTabIdx, m_tabsNamesList, 1, new GUIStyle(GUI.skin.button) { wordWrap = true }); ;
