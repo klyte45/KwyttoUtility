@@ -54,6 +54,9 @@ namespace Kwytto.LiteUI
 
         protected override bool requireModal => false;
 
+        private bool isDraggingFromColorPlane;
+        private bool isDraggingFromHueBar;
+
         public Texture2D GetColorTexture(string id, Color color)
         {
             if (!TextureCache.TryGetValue(id, out var texture))
@@ -75,24 +78,24 @@ namespace Kwytto.LiteUI
             currentHSV.H = 360.0f - currentHSV.H;
             UpdateColorTexture();
 
-            Vector2 mouse = Input.mousePosition;
-            mouse.y = Screen.height - mouse.y;
+            Vector2 mouse = Input.mousePosition / UIScaler.UIScale;
+            mouse.y = Screen.height / UIScaler.UIScale - mouse.y;
 
             mouse.x -= WindowRect.width;
             var windowRect = WindowRect;
-            windowRect.position = mouse / UIScaler.UIScale;
+            windowRect.position = mouse;
             MoveResize(windowRect);
             Visible = true;
         }
 
         public void Update()
         {
-            Vector2 mouse = Input.mousePosition;
-            mouse.y = Screen.height - mouse.y;
+            Vector2 mouse = Input.mousePosition / UIScaler.UIScale;
+            mouse.y = Screen.height / UIScaler.UIScale - mouse.y;
 
             if (Input.GetMouseButton(0))
             {
-                if (!WindowRect.Contains(mouse))
+                if (!isDraggingFromHueBar && !isDraggingFromColorPlane && !WindowRect.Contains(mouse))
                 {
                     Visible = false;
                     return;
@@ -100,19 +103,24 @@ namespace Kwytto.LiteUI
             }
             else
             {
+                isDraggingFromColorPlane = false;
+                isDraggingFromHueBar = false;
                 return;
             }
 
             mouse -= WindowRect.position;
 
-            if (hueBarRect.Contains(mouse))
+            if (isDraggingFromHueBar || (!isDraggingFromColorPlane && hueBarRect.Contains(mouse)))
             {
+                isDraggingFromColorPlane = false;
+                isDraggingFromHueBar = true;
                 currentHSV.H = (1.0f - Mathf.Clamp01((mouse.y - hueBarRect.y) / hueBarRect.height)) * 360.0f;
                 UpdateColorTexture();
             }
-
-            if (colorPickerRect.Contains(mouse))
+            else if (isDraggingFromColorPlane || (!isDraggingFromHueBar && colorPickerRect.Contains(mouse)))
             {
+                isDraggingFromColorPlane = true;
+                isDraggingFromHueBar = false;
                 currentHSV.S = Mathf.Clamp01((mouse.x - colorPickerRect.x) / colorPickerRect.width);
                 currentHSV.V = Mathf.Clamp01((mouse.y - colorPickerRect.y) / colorPickerRect.height);
             }
@@ -132,7 +140,7 @@ namespace Kwytto.LiteUI
             var hueBarLineY = hueBarRect.y + (1.0f - (float)currentHSV.H / 360.0f) * hueBarRect.height;
             GUI.DrawTexture(new Rect(hueBarRect.x - 2.0f, hueBarLineY, hueBarRect.width + 4.0f, 2.0f), LineTex);
 
-            var colorPickerLineY = colorPickerRect.x + (float)currentHSV.V * colorPickerRect.width;
+            var colorPickerLineY = colorPickerRect.x + (float)currentHSV.V * (colorPickerRect.width - 1);
             GUI.DrawTexture(new Rect(colorPickerRect.x - 1.0f, colorPickerLineY, colorPickerRect.width + 2.0f, 1.0f), LineTex);
 
             var colorPickerLineX = colorPickerRect.y + (float)currentHSV.S * colorPickerRect.height;

@@ -365,7 +365,7 @@ namespace Kwytto.LiteUI
 
             try
             {
-                var effectiveArea = new Rect(0, TitleBarHeight, windowRect.width, windowRect.height - TitleBarHeight);
+                var effectiveArea = HasTitlebar ? new Rect(0, TitleBarHeight, windowRect.width, windowRect.height - TitleBarHeight) : new Rect(default, windowRect.size);
                 using (new GUILayout.AreaScope(effectiveArea))
                 {
                     DrawWindow(effectiveArea.size);
