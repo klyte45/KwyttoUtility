@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="comm_addItemList" xml:space="preserve">
-    <value>Add Item</value>
+    <value>เพิ่มรายการ</value>
   </data>
   <data name="comm_betaExtraInfo" xml:space="preserve">
     <value>ข้อมูลเพิ่มเติม</value>
