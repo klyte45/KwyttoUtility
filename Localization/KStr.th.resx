@@ -128,10 +128,10 @@
     <comment>Keep the formatting; used in default game UI (mod options)</comment>
   </data>
   <data name="comm_debugMode" xml:space="preserve">
-    <value>Debug mode</value>
+    <value>โหมดแก้ไขข้อบกพร่อง</value>
   </data>
   <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
-    <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+    <value>เกิดข้อผิดพลาดขณะโหลดข้อมูลจาก &lt;color=yellow&gt;{0}&lt;/color&gt;</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
     <value>ข้อมูลดิบ:</value>
@@ -159,7 +159,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>ตกลง</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
-    <value>See news at Workshop Page!</value>
+    <value>ดูข่าวสารต่างๆ ได้ที่หน้าเพจเวิร์กชอป</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
     <value>{0} ได้อัปเดตแล้ว บันทึกประจำรุ่น:</value>
@@ -170,23 +170,23 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
-Additionally, you can find the mod log at the leftmost button below.
+    <value>ถ้าคุณพบปัญหาการใช้งานจากม็อดนี้ สามารถส่ง output_log.txt (หรือ player.log ในกรณีที่ใช้งานบนระบบปฏิบัติการ macOS/Linux) ในหน้าเพจของเวิร์กชอป หรือถ้าเป็นไปได้แนะนำให้ส่งรูปภาพหน้าจอ สิ่งนี้สามารถช่วยคาดเดาสิ่งที่ผิดพลาดได้ดียิ่งขึ้น
+นอกจากนี้ คุณสามารถค้นหาบันทึกข้อมูลของม็อด ได้ที่ปุ่มซ้ายสุดด้านล่างนี้
 
-There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
-Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+มีลิงก์สำหรับคู่มือเวิร์กชอป โดย &lt;color=#008800&gt;aubergine18&lt;/color&gt; อธิบายวิธีค้นหาไฟล์บันทึกข้อมูลม็อดของคุณ โดยขึ้นอยู่กับระบบปฏิบัติการที่คุณใช้
+อย่าลังเลที่จะสร้างหัวข้อที่หน้าเวิร์กชอป หรือสามารถแสดงความคิดเห็นของคุณ พร้อมกับแนบลิงก์ไฟล์ของคุณก็สามารถทำได้ด้วยเช่นกัน</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
-    <value>Go to the guide</value>
+    <value>ไปที่คู่มือ</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
-    <value>Go to mod log</value>
+    <value>ไปยังบันทึกข้อมูลของม็อด</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
     <value>ไปยังหน้าของม็อด</value>
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
-    <value>Okay...</value>
+    <value>ตกลง</value>
   </data>
   <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
     <value>NE</value>
