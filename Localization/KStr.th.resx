@@ -140,7 +140,7 @@
     <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
-    <value>Error loading '{0}' data</value>
+    <value>ผิดพลาดในการโหลดข้อมูล '{0}'</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
     <value>ดูบันทึกประจำรุ่น</value>
@@ -162,7 +162,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>See news at Workshop Page!</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
-    <value>{0} was updated! Release notes:</value>
+    <value>{0} ได้อัปเดตแล้ว บันทึกประจำรุ่น:</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
