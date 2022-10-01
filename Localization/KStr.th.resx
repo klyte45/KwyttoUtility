@@ -121,10 +121,10 @@
     <value>Add Item</value>
   </data>
   <data name="comm_betaExtraInfo" xml:space="preserve">
-    <value>Extra informations</value>
+    <value>ข้อมูลเพิ่มเติม</value>
   </data>
   <data name="comm_currentVersionFormat" xml:space="preserve">
-    <value>Current version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <value>รุ่นปัจจุบัน: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
     <comment>Keep the formatting; used in default game UI (mod options)</comment>
   </data>
   <data name="comm_debugMode" xml:space="preserve">
@@ -134,7 +134,7 @@
     <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Raw data:</value>
+    <value>ข้อมูลดิบ:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
     <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
@@ -143,20 +143,20 @@
     <value>Error loading '{0}' data</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
-    <value>See release notes</value>
+    <value>ดูบันทึกประจำรุ่น</value>
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
   <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
-    <value>Current Version:</value>
+    <value>รุ่นปัจจุบัน</value>
     <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
   </data>
   <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
-    <value>Follow Kwytto at Twitter to get update news!</value>
+    <value>ติดตาม Kwytto ได้ที่ทวิตเตอร์ เพื่อติดตามความเคลื่อนไหว และอัปเดตข่าวสารต่างๆ</value>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
-    <value>Okay!</value>
+    <value>ตกลง</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
     <value>See news at Workshop Page!</value>
@@ -183,7 +183,7 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
     <value>Go to mod log</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
-    <value>Go to mod page</value>
+    <value>ไปยังหน้าของม็อด</value>
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
     <value>Okay...</value>
@@ -237,13 +237,13 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
     <value>NNW</value>
   </data>
   <data name="comm_errorTitle" xml:space="preserve">
-    <value>Error!</value>
+    <value>ผิดพลาด!</value>
   </data>
   <data name="comm_goToFileLocation" xml:space="preserve">
-    <value>Go to file location</value>
+    <value>ไปยังที่อยู่ของไฟล์</value>
   </data>
   <data name="comm_uiScale" xml:space="preserve">
-    <value>UI Scale</value>
+    <value>ขนาดของ UI</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
     <value>UI Background Opacity (when in game)</value>
