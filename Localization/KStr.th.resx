@@ -137,7 +137,7 @@
     <value>ข้อมูลดิบ:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
+    <value>โปรดแจ้งปัญหาการใช้งานใน GitHub พร้อมกับแนบไฟล์บันทึกข้อมูลของเกม และภาพหน้าจอของหน้าต่างนี้ เพื่อให้นักพัฒนาม็อดตรวจสอบสิ่งนี้ได้ คลิกที่ปุ่ม &lt;color=cyan&gt;เครื่องมือช่วยเหลือการแจ้งปัญหา&lt;/color&gt; ในเมนูตัวเลือกของม็อด เพื่อดูรายละเอียดเกี่ยวกับวิธีการรับบันทึกข้อมูลของเกม</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
     <value>ผิดพลาดในการโหลดข้อมูล '{0}'</value>
