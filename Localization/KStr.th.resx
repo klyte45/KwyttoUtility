@@ -246,6 +246,6 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>ขนาดของ UI</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>UI Background Opacity (when in game)</value>
+    <value>ความทึบแสงของพื้นหลังของ UI (เมื่ออยู่ในเกม)</value>
   </data>
 </root>
