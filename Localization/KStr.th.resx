@@ -166,7 +166,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
-    <value>Report-a-bug helper</value>
+    <value>ตัวช่วยรายงานข้อผิดพลาด</value>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
