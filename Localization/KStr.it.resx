@@ -118,75 +118,75 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="comm_addItemList" xml:space="preserve">
-    <value>Add Item</value>
+    <value>Aggiungi Oggetto</value>
   </data>
   <data name="comm_betaExtraInfo" xml:space="preserve">
-    <value>Extra informations</value>
+    <value>Informazioni extra</value>
   </data>
   <data name="comm_currentVersionFormat" xml:space="preserve">
-    <value>Current version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <value>Versione corrente: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
     <comment>Keep the formatting; used in default game UI (mod options)</comment>
   </data>
   <data name="comm_debugMode" xml:space="preserve">
-    <value>Debug mode</value>
+    <value>Modalità debug</value>
   </data>
   <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
-    <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+    <value>Si è verificato un errore durante il caricamento dei dati da &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Raw data:</value>
+    <value>Dati grezzi:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
+    <value>Si prega di aprire un ticket in GitHub allegando registro di gioco ed una immagine di questa finestra per farla controllare dallo sviluppatore. Usa il pulsante &lt;color=cyan&gt;Assistente segnala bug&lt;/color&gt; nel menu opzioni della mod per vedere come ottenere il registro di gioco.</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
-    <value>Error loading '{0}' data</value>
+    <value>Errore caricamento dati '{0}'</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
-    <value>See release notes</value>
+    <value>Vedi note di rilascio</value>
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
   <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
-    <value>Current Version:</value>
+    <value>Versione Corrente:</value>
     <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
   </data>
   <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
-    <value>Follow Kwytto at Twitter to get update news!</value>
+    <value>Segui Kwytto su Twitter per ricevere notizie!</value>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
-    <value>Okay!</value>
+    <value>Ok!</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
-    <value>See news at Workshop Page!</value>
+    <value>Vedi notizie sulla pagina del Workshop!</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
-    <value>{0} was updated! Release notes:</value>
+    <value>{0} è stata aggiornata! Note di rilascio:</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
-    <value>Report-a-bug helper</value>
+    <value>Assistente segnala bug</value>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
-Additionally, you can find the mod log at the leftmost button below.
+    <value>Se trovi qualche problema in questa mod, inviami il file output_log.txt (o player.log su Mac/Linux) nella pagina della mod sul Workshop. Se applicabile, una schermata può aiutare a comprendere meglio cosa ci sia di sbagliato...
+Inoltre, puoi trovare il registro della mod nel pulsante più a sinistra qui sotto.
 
-There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
-Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+C'è un link per una guida del Workshop di &lt;color=#008800&gt;aubergine18&lt;/color&gt; che spiega come trovare il file di log, a seconda del sistema operativo utilizzato.
+Sentiti libero di creare un topic sul Workshop o di lasciare semplicemente un commento linkato ai tuoi file.</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
-    <value>Go to the guide</value>
+    <value>Vai alla guida</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
-    <value>Go to mod log</value>
+    <value>Vai al registro mod</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
-    <value>Go to mod page</value>
+    <value>Vai alla pagina mod</value>
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
-    <value>Okay...</value>
+    <value>Ok...</value>
   </data>
   <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
     <value>NE</value>
@@ -216,36 +216,36 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
     <value>S</value>
   </data>
   <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">
-    <value>SSW</value>
+    <value>SSO</value>
   </data>
   <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
-    <value>SW</value>
+    <value>SO</value>
   </data>
   <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
-    <value>WSW</value>
+    <value>OSO</value>
   </data>
   <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
-    <value>W</value>
+    <value>O</value>
   </data>
   <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
-    <value>WNW</value>
+    <value>ONO</value>
   </data>
   <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
-    <value>NW</value>
+    <value>NO</value>
   </data>
   <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">
-    <value>NNW</value>
+    <value>NNO</value>
   </data>
   <data name="comm_errorTitle" xml:space="preserve">
-    <value>Error!</value>
+    <value>Errore!</value>
   </data>
   <data name="comm_goToFileLocation" xml:space="preserve">
-    <value>Go to file location</value>
+    <value>Vai alla posizione del file</value>
   </data>
   <data name="comm_uiScale" xml:space="preserve">
-    <value>UI Scale</value>
+    <value>"Dimensione IU"</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>UI Background Opacity (when in game)</value>
+    <value>Opacità di Fondo IU (quando in gioco)</value>
   </data>
 </root>
