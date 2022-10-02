@@ -493,7 +493,7 @@ namespace Kwytto.LiteUI
                 GUILayout.Label(title, GUILayout.MaxWidth(totalWidth / 2));
                 if (isEditable)
                 {
-                    var newVal = GUIComboBox.Box(selectedIndex, options, title, root);
+                    var newVal = GUIComboBox.Box(selectedIndex, options, title, root, totalWidth / 2);
                     if (newVal != selectedIndex)
                     {
                         selectedIndex = newVal;

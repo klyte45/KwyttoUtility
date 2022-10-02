@@ -304,7 +304,7 @@ namespace Kwytto.LiteUI
             else
             {
                 var mouseOverWindow = Visible && windowRect.Contains(UIScaler.MousePosition);
-                if (mouseOverWindow)
+                if (mouseOverWindow && !UIView.GetModalComponent().isVisible)
                 {
                     if (!isOnTop)
                     {

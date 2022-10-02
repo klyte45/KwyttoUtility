@@ -7,18 +7,23 @@ namespace Kwytto.LiteUI
         private const string ExpandDownButtonText = " ▼ ";
         private static PopupWindow popupWindow;
 
-        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root)
+        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null)
         {
+            GUILayoutOption maxWidthObj = null;
+            if (maxWidth != null)
+            {
+                maxWidthObj = GUILayout.MaxWidth(maxWidth ?? 0);
+            }
             switch (items.Length)
             {
                 case 0:
-                    GUILayout.Box(GUIKwyttoCommons.v_null);
+                    GUILayout.Box(GUIKwyttoCommons.v_null, maxWidthObj);
                     return -1;
 
                 case 1:
                     if (itemIndex == 0)
                     {
-                        GUILayout.Box(items[0]);
+                        GUILayout.Box(items[0], maxWidthObj);
                         return 0;
                     }
                     break;
@@ -36,7 +41,7 @@ namespace Kwytto.LiteUI
 
             var popupSize = GetPopupDimensions(items);
 
-            GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex]);
+            GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj);
             var lastRect = GUILayoutUtility.GetLastRect();
             var popupPosition = GUIUtility.GUIToScreenPoint(lastRect.position);
             if (lastRect.width / UIScaler.UIScale > popupSize.x)

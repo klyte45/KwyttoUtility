@@ -259,6 +259,21 @@ public struct CardinalPoint
         }
         return 8;
     }
+    public Cardinal16 GetCardinal16()
+    {
+        switch (InternalValue)
+        {
+            case CardinalInternal.N: return Cardinal16.N;
+            case CardinalInternal.S: return Cardinal16.S;
+            case CardinalInternal.E: return Cardinal16.E;
+            case CardinalInternal.W: return Cardinal16.W;
+            case CardinalInternal.NE: return Cardinal16.NE;
+            case CardinalInternal.NW: return Cardinal16.NW;
+            case CardinalInternal.SE: return Cardinal16.SE;
+            case CardinalInternal.SW: return Cardinal16.SW;
+        }
+        return (Cardinal16)(-1);
+    }
 
     public static CardinalPoint operator ++(CardinalPoint c)
     {
