@@ -6,6 +6,7 @@ using ColossalFramework.PlatformServices;
 using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using ICities;
+using Kwytto.LiteUI;
 using Kwytto.Localization;
 using Kwytto.Utils;
 using System;
@@ -324,6 +325,10 @@ namespace Kwytto.Interfaces
             {
                 UIOpacitySaved.value = x;
                 label2.text = $"{KStr.comm_uiOpacity} {UIOpacitySaved.value:0%}";
+                foreach (var ui in GameObject.FindObjectsOfType<GUIOpacityChanging>())
+                {
+                    ui.BgOpacity = x;
+                }
             }) as UISlider;
             label2 = obj2.parent.GetComponentInChildren<UILabel>();
             label2.autoSize = true;
