@@ -248,4 +248,11 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
   <data name="comm_uiOpacity" xml:space="preserve">
     <value>UI Background Opacity (when in game)</value>
   </data>
+  <data name="comm_connectionsSection_title" xml:space="preserve">    <value>Mod Connections</value>  </data>
+  <data name="comm_connectionSection_asConnected" xml:space="preserve">    <value>Connected to mod</value>  </data>
+  <data name="comm_connectionSection_asFallback" xml:space="preserve">    <value>Disconnected/Standalone</value>  </data>
+  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">    <value>Custom implementation</value>  </data>
+  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">    <value>Default connection on</value>  </data>
+  <data name="comm_connectionSection_invalidMode" xml:space="preserve">    <value>Loading mode not supported</value>  </data>
+  <data name="comm_connectionSection_notConnected" xml:space="preserve">    <value>Not connected</value>  </data>
 </root>
