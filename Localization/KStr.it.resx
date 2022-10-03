@@ -243,9 +243,9 @@ Sentiti libero di creare un topic sul Workshop o di lasciare semplicemente un co
     <value>Vai alla posizione del file</value>
   </data>
   <data name="comm_uiScale" xml:space="preserve">
-    <value>"Dimensione IU"</value>
+    <value>Scala Interfaccia</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>Opacità di Fondo IU (quando in gioco)</value>
+    <value>Opacità di Fondo Interfaccia (quando in gioco)</value>
   </data>
 </root>
