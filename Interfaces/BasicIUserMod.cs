@@ -24,7 +24,7 @@ namespace Kwytto.Interfaces
     {
         private static C controller;
 
-        protected override void OnLevelLoadedInherit(LoadMode mode)
+        protected override sealed void OnLevelLoadedInherit(LoadMode mode)
         {
             if (IsValidLoadMode(mode))
             {
@@ -34,8 +34,6 @@ namespace Kwytto.Interfaces
                     Controller = m_topObj.AddComponent<C>();
                 }
                 SimulationManager.instance.StartCoroutine(LevelUnloadBinds());
-                ShowVersionInfoPopup();
-                SearchIncompatibilitiesModal();
             }
             else
             {
@@ -43,7 +41,7 @@ namespace Kwytto.Interfaces
                 Redirector.UnpatchAll();
             }
         }
-        public override BaseController GetController() => Controller;
+        public override sealed BaseController GetController() => Controller;
         public static C Controller
         {
             get
@@ -209,6 +207,9 @@ namespace Kwytto.Interfaces
                     ExtraUnloadBinds();
                 };
             }
+            yield return 0;
+            ShowVersionInfoPopup();
+            SearchIncompatibilitiesModal();
         }
 
         protected virtual void ExtraUnloadBinds() { }
@@ -229,7 +230,7 @@ namespace Kwytto.Interfaces
             DestroyMod();
             LogUtils.FlushBuffer();
         }
-        public virtual void OnReleased() => PluginManager.instance.eventPluginsStateChanged -= SearchIncompatibilitiesModal;
+        public virtual void OnReleased() { }
         protected virtual void OnPatchesApply() { }
 
         public void OnEnabled()
@@ -276,6 +277,7 @@ namespace Kwytto.Interfaces
         protected GameObject m_topObj;
         public virtual void TopSettingsUI(UIHelper ext) { }
         public Transform RefTransform => m_topObj?.transform;
+        private bool m_hasShownIncompatibilityModal = false;
 
 
         public void OnSettingsUI(UIHelperBase helperDefault)
@@ -321,7 +323,7 @@ namespace Kwytto.Interfaces
             var obj2 = group9.AddSlider($"{KStr.comm_uiOpacity} {UIOpacitySaved.value:0%}", .01f, 1, .01f, UIOpacitySaved.value, (x) =>
             {
                 UIOpacitySaved.value = x;
-                label2.text = $"{KStr.comm_uiScale} {UIOpacitySaved.value:0%}";
+                label2.text = $"{KStr.comm_uiOpacity} {UIOpacitySaved.value:0%}";
             }) as UISlider;
             label2 = obj2.parent.GetComponentInChildren<UILabel>();
             label2.autoSize = true;
@@ -468,8 +470,14 @@ namespace Kwytto.Interfaces
             }
             return false;
         }
-        public void SearchIncompatibilitiesModal()
+        public void SearchIncompatibilitiesModal() => SearchIncompatibilitiesModal(false);
+        public void SearchIncompatibilitiesModal(bool force)
         {
+            if (!force && m_hasShownIncompatibilityModal)
+            {
+                return;
+            }
+            m_hasShownIncompatibilityModal = true;
             try
             {
                 Dictionary<ulong, Tuple<string, string>> notes = SearchIncompatibilities();
@@ -577,6 +585,18 @@ namespace Kwytto.Interfaces
             }
         }
 
+        #endregion
+
+        #region Constructor/Destructor
+        public BasicIUserMod()
+        {
+            PluginManager.instance.eventPluginsStateChanged += SearchIncompatibilitiesModal;
+        }
+
+        ~BasicIUserMod()
+        {
+            PluginManager.instance.eventPluginsStateChanged -= SearchIncompatibilitiesModal;
+        }
         #endregion
     }
 
