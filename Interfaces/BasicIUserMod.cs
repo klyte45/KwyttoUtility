@@ -23,7 +23,7 @@ namespace Kwytto.Interfaces
         where U : BasicIUserMod<U, C>, new()
         where C : BaseController<U, C>
     {
-        private static C controller;
+        protected static C controller;
 
         protected override sealed void OnLevelLoadedInherit(LoadMode mode)
         {
@@ -54,6 +54,39 @@ namespace Kwytto.Interfaces
                 return controller;
             }
             private set => controller = value;
+        }
+
+        protected virtual Dictionary<string, Func<IBridgePrioritizable>> ModBridges { get; }
+        public override void TopSettingsUI(UIHelper ext)
+        {
+            base.TopSettingsUI(ext);
+            if (ModBridges.Count > 0)
+            {
+                var groupConn = ext.AddGroup(KStr.comm_connectionsSection_title) as UIHelper;
+                var panelParentGr = groupConn.self as UIPanel;
+                foreach (var modEntry in ModBridges)
+                {
+                    GameObjectUtils.CreateUIElement(out UILabel lbl, panelParentGr.transform, modEntry.Key);
+                    lbl.processMarkup = true;
+                    panelParentGr.eventVisibilityChanged += (x, y) => lbl.text = $"{modEntry.Key}: {GetImplementationDetails(modEntry.Value())}";
+                }
+            }
+        }
+
+        private string GetImplementationDetails(IBridgePrioritizable connectorVS)
+        {
+            switch (connectorVS?.Priority)
+            {
+                case null:
+                    return $"<color gray>{KStr.comm_connectionSection_invalidMode}</color>";
+                case 1000:
+                    return $"<color #FF8800>{KStr.comm_connectionSection_notConnected}</color>";
+                case 0:
+                    return $"<color #00FF00>{KStr.comm_connectionSection_connectedDefault}</color>";
+                default:
+                    return $"<color #00ffff>{string.Format(KStr.comm_connectionSection_connectedCustom, connectorVS.IsBridgeEnabled ? KStr.comm_connectionSection_asConnected : KStr.comm_connectionSection_asFallback, connectorVS.Priority)}</color>";
+            }
+
         }
     }
     public abstract class BasicIUserMod : IUserMod, ILoadingExtension, IViewStartActions

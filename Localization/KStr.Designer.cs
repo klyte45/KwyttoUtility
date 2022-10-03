@@ -79,6 +79,69 @@ namespace Kwytto.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Connected to mod.
+        /// </summary>
+        public static string comm_connectionSection_asConnected {
+            get {
+                return ResourceManager.GetString("comm_connectionSection_asConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Disconnected/Standalone.
+        /// </summary>
+        public static string comm_connectionSection_asFallback {
+            get {
+                return ResourceManager.GetString("comm_connectionSection_asFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Custom implementation.
+        /// </summary>
+        public static string comm_connectionSection_connectedCustom {
+            get {
+                return ResourceManager.GetString("comm_connectionSection_connectedCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Default connection on.
+        /// </summary>
+        public static string comm_connectionSection_connectedDefault {
+            get {
+                return ResourceManager.GetString("comm_connectionSection_connectedDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Loading mode not supported.
+        /// </summary>
+        public static string comm_connectionSection_invalidMode {
+            get {
+                return ResourceManager.GetString("comm_connectionSection_invalidMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Not connected.
+        /// </summary>
+        public static string comm_connectionSection_notConnected {
+            get {
+                return ResourceManager.GetString("comm_connectionSection_notConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mod Connections.
+        /// </summary>
+        public static string comm_connectionsSection_title {
+            get {
+                return ResourceManager.GetString("comm_connectionsSection_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Current version: &lt;color yellow&gt;{0}&lt;/color&gt;.
         /// </summary>
         public static string comm_currentVersionFormat {
