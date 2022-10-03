@@ -134,7 +134,7 @@
     <value>Se ha producido un error al cargar los datos de &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Raw data:</value>
+    <value>Datos en bruto:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
     <value>Por favor, abra un hilo en GitHub junto con el registro del juego adjunto y una pantalla de impresión de esta ventana para que el desarrollador de mod lo compruebe. Mira el botón de &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; en el menú de opciones de mod para ver detalles sobre cómo obtener el registro del juego.</value>
@@ -219,16 +219,16 @@ Siéntase libre de crear un tema en la Workshop o simplemente dejar un comentari
     <value>SSO</value>
   </data>
   <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
-    <value>SW</value>
+    <value>SO</value>
   </data>
   <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
     <value>OSO</value>
   </data>
   <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
-    <value>W</value>
+    <value>O</value>
   </data>
   <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
-    <value>WNW</value>
+    <value>ONO</value>
   </data>
   <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
     <value>NO</value>
