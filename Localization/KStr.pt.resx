@@ -130,6 +130,18 @@
   <data name="comm_debugMode" xml:space="preserve">
     <value>Modo de debug</value>
   </data>
+  <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
+    <value>Ocorreu um erro ao carregar os dados de &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
+    <value>Dado bruto:</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
+    <value>Por favor, abra uma issue no GitHub com o log do jogo anexado e uma captura desta janela para ter isso verificado pelo desenvolvedor do mod. Veja o botão &lt;color=cyan&gt;Ajuda para reportar bug&lt;/color&gt; no menu de opções do mod para ver detalhes sobre como obter o log do jogo.</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
+    <value>Erro ao carregar dados de '{0}'</value>
+  </data>
   <data name="comm_releaseNotes" xml:space="preserve">
     <value>Ver notas da versão (em inglês)</value>
     <comment>Any other language shall inform that the release notes are always in English. 
@@ -175,5 +187,65 @@ Sinta-se à vontade para criar um tópico na Oficina ou apenas deixar um coment�
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
     <value>Certo...</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
+    <value>NE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_N" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">
+    <value>NNE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">
+    <value>ENE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_E" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">
+    <value>ESE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">
+    <value>SE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">
+    <value>SSE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_S" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">
+    <value>SSO</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
+    <value>SO</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
+    <value>OSO</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
+    <value>ONO</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
+    <value>NO</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">
+    <value>NNO</value>
+  </data>
+  <data name="comm_errorTitle" xml:space="preserve">
+    <value>Erro!</value>
+  </data>
+  <data name="comm_goToFileLocation" xml:space="preserve">
+    <value>Ir para o local</value>
+  </data>
+  <data name="comm_uiScale" xml:space="preserve">
+    <value>Escala da interface</value>
+  </data>
+  <data name="comm_uiOpacity" xml:space="preserve">
+    <value>Opacidade de fundo da UI (quando no jogo)</value>
   </data>
 </root>
