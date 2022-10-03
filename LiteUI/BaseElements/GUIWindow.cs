@@ -102,7 +102,10 @@ namespace Kwytto.LiteUI
                     {
                         if (requireModal)
                         {
-                            UIView.PopModal();
+                            if (UIView.GetModalComponent() == Panel)
+                            {
+                                UIView.PopModal();
+                            }
                             UIView.GetAView().panelsLibraryModalEffect.isVisible = oldModalState;
                             UIView.GetAView().panelsLibraryModalEffect.zOrder = oldModalZorder;
                         }
@@ -148,7 +151,10 @@ namespace Kwytto.LiteUI
             {
                 UIView.GetAView().panelsLibraryModalEffect.isVisible = oldModalState;
                 UIView.GetAView().panelsLibraryModalEffect.zOrder = oldModalZorder;
-                UIView.PopModal();
+                if (UIView.GetModalComponent() == Panel)
+                {
+                    UIView.PopModal();
+                }
             }
             Windows.Remove(this);
         }
@@ -304,7 +310,7 @@ namespace Kwytto.LiteUI
             else
             {
                 var mouseOverWindow = Visible && windowRect.Contains(UIScaler.MousePosition);
-                if (mouseOverWindow && !UIView.GetModalComponent().isVisible)
+                if (mouseOverWindow && !(UIView.GetModalComponent()?.isVisible ?? false))
                 {
                     if (!isOnTop)
                     {
@@ -509,6 +515,10 @@ namespace Kwytto.LiteUI
                     resizingWindow = null;
                     movingWindow = null;
                     Visible = false;
+                    if (UIView.GetModalComponent() == Panel)
+                    {
+                        UIView.PopModal();
+                    }
                     OnCloseButtonPress();
                 }
             }
@@ -576,7 +586,6 @@ namespace Kwytto.LiteUI
 
             GUI.DrawTexture(new Rect(windowRect.width - 12, windowRect.height - 12, 12, 12), resizeTex, ScaleMode.StretchToFill);
         }
-
 
     }
 }
