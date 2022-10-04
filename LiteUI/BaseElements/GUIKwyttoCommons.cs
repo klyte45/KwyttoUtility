@@ -335,16 +335,7 @@ namespace Kwytto.LiteUI
                 onClick();
             }
         }
-        public static bool AddToggle(string title, ref bool currentVal, bool editable = true, bool condition = true)
-        {
-            bool newVal;
-            if (condition && currentVal != (newVal = GUILayout.Toggle(currentVal, title)) && editable)
-            {
-                currentVal = newVal;
-                return true;
-            }
-            return false;
-        }
+        public static bool AddToggle(string title, ref bool currentVal, bool editable = true, bool condition = true) => AddToggle(title, currentVal, out currentVal, editable, condition);
         public static bool AddToggle(string title, bool currentVal, out bool newVal, bool editable = true, bool condition = true)
         {
             if (condition && currentVal != (newVal = GUILayout.Toggle(currentVal, title)) && editable)
@@ -352,6 +343,15 @@ namespace Kwytto.LiteUI
                 return true;
             }
             newVal = currentVal;
+            return false;
+        }
+        public static bool AddToggle(string title, bool currentVal, Action<bool> newValCall, bool editable = true, bool condition = true)
+        {
+            if (AddToggle(title, currentVal, out bool newVal, editable, condition))
+            {
+                newValCall(newVal);
+                return true;
+            }
             return false;
         }
 
