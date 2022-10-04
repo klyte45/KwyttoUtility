@@ -459,41 +459,43 @@ namespace Kwytto.LiteUI
             };
         }
 
-        public static bool AddComboBox<T>(float totalWidth, string i18nLocale, T selectedVal, string[] options, T[] values, GUIRootWindowBase root, Action<T> onChange, bool isEditable = true)
+        public static bool AddComboBox<T>(float totalWidth, string i18nLocale, T selectedVal, string[] options, T[] values, GUIRootWindowBase root, Action<T> onChange, bool isEditable = true, string name = null)
         {
             var selIdx = Array.IndexOf(values, selectedVal);
-            var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable);
+            var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable, name ?? i18nLocale);
             if (selIdx >= 0)
             {
                 onChange(values[selIdx]);
             }
             return changed;
         }
-        public static bool AddComboBox<T>(float totalWidth, string i18nLocale, ref T selectedVal, string[] options, T[] values, GUIRootWindowBase root, bool isEditable = true)
+        public static bool AddComboBox<T>(float totalWidth, string i18nLocale, ref T selectedVal, string[] options, T[] values, GUIRootWindowBase root, bool isEditable = true, string name = null)
         {
             var selIdx = Array.IndexOf(values, selectedVal);
-            var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable);
+            var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable, name ?? i18nLocale);
             if (selIdx >= 0)
             {
                 selectedVal = values[selIdx];
             }
             return changed;
         }
-        public static bool AddComboBox(float totalWidth, string i18nLocale, int selectedIndex, string[] options, out int result, GUIRootWindowBase root, bool isEditable = true)
+        public static bool AddComboBox(float totalWidth, string i18nLocale, int selectedIndex, string[] options, out int result, GUIRootWindowBase root, bool isEditable = true, string name = null)
         {
-            var changed = AddComboBox(totalWidth, i18nLocale, ref selectedIndex, options, root, isEditable);
+            var changed = AddComboBox(totalWidth, i18nLocale, ref selectedIndex, options, root, isEditable, name ?? i18nLocale);
             result = selectedIndex;
             return changed;
         }
 
-        public static bool AddComboBox(float totalWidth, string title, ref int selectedIndex, string[] options, GUIRootWindowBase root, bool isEditable = true)
+
+
+        public static bool AddComboBox(float totalWidth, string title, ref int selectedIndex, string[] options, GUIRootWindowBase root, bool isEditable = true, string name = null)
         {
             using (new GUILayout.HorizontalScope())
             {
                 GUILayout.Label(title, GUILayout.MaxWidth(totalWidth / 2));
                 if (isEditable)
                 {
-                    var newVal = GUIComboBox.Box(selectedIndex, options, title, root, totalWidth / 2);
+                    var newVal = GUIComboBox.Box(selectedIndex, options, name ?? title, root, totalWidth / 2);
                     if (newVal != selectedIndex)
                     {
                         selectedIndex = newVal;
