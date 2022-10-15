@@ -6,6 +6,39 @@ namespace Kwytto.Utils
 {
     public static class BridgeUtils
     {
+        public static T[] GetAllLoadableClassesInAppDomain<T>() where T : class
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            return assemblies.SelectMany(s =>
+             {
+                 try
+                 {
+                     return s.GetExportedTypes();
+                 }
+                 catch
+                 {
+                     return new Type[0];
+                 }
+             }).Where(p =>
+             {
+                 try
+                 {
+                     return typeof(T).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract;
+                 }
+                 catch { return false; }
+             }).Select(x =>
+             {
+                 try
+                 {
+                     return x.GetConstructor(new Type[0]).Invoke(new object[0]) as T;
+                 }
+                 catch
+                 {
+                     return null;
+                 }
+             }).Where(x => x != null).ToArray();
+        }
+
         public static T GetMostPrioritaryImplementation<T>() where T : class, IBridgePrioritizable
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
