@@ -43,15 +43,15 @@ namespace Kwytto.LiteUI
 
             GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj);
             var lastRect = GUILayoutUtility.GetLastRect();
-            var popupPosition = GUIUtility.GUIToScreenPoint(lastRect.position);
-            if (lastRect.width / UIScaler.UIScale > popupSize.x)
+            var popupPosition = GUIUtility.GUIToScreenPoint(lastRect.position) * UIScaler.UIScale;
+            if (lastRect.width > popupSize.x)
             {
-                popupSize.x = lastRect.width / UIScaler.UIScale;
+                popupSize.x = lastRect.width;
             }
             popupPosition.y += lastRect.height;
             if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
             {
-                popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize);
+                popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize * UIScaler.UIScale);
             }
 
             return itemIndex;
@@ -123,7 +123,7 @@ namespace Kwytto.LiteUI
                 OwnerId = ownerId;
                 popupItems = items;
                 selectedIndex = currentIndex;
-                popupRect = new Rect(position * UIScaler.UIScale, UIScaler.UIScale * new Vector2(popupSize.x, Mathf.Min(MaxPopupHeight / UIScaler.UIScale, popupSize.y, Screen.height / UIScaler.UIScale - position.y - 16)));
+                popupRect = new Rect(position, new Vector2(popupSize.x, Mathf.Min(MaxPopupHeight, popupSize.y, Screen.height - position.y - 16)));
                 popupScrollPosition = default;
                 mouseClickPoint = null;
                 readyToClose = false;

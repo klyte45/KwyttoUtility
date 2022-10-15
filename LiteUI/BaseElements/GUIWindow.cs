@@ -24,11 +24,12 @@ namespace Kwytto.LiteUI
         private bool HasTitlebar;
 
         private Vector2 minSize = Vector2.zero;
-        private Rect windowRect = new Rect(0, 0, 64, 64);
+        protected Rect windowRect = new Rect(0, 0, 64, 64);
 
         private bool visible;
         protected abstract bool showOverModals { get; }
         protected abstract bool requireModal { get; }
+        protected virtual bool moveEverywhere { get; } = false;
         private Texture2D cachedModIcon;
 
         private bool oldModalState;
@@ -49,7 +50,7 @@ namespace Kwytto.LiteUI
                 OnOpacityChanged(bgOpacity);
             }
         }
-        private float EffectiveFontSizeMultiplier => FontSizeMultiplier * ResolutionMultiplier;
+        protected float EffectiveFontSizeMultiplier => FontSizeMultiplier * ResolutionMultiplier;
         public static float ResolutionMultiplier => Screen.height / 1080f;
 
         protected virtual bool ShowCloseButton { get; } = true;
@@ -281,9 +282,8 @@ namespace Kwytto.LiteUI
                 GUI.matrix = UIScaler.ScaleMatrix;
 
                 windowRect = GUI.Window(Id, windowRect, WindowFunction, string.Empty);
-                Panel.absolutePosition = windowRect.position;
-                Panel.absolutePosition = windowRect.position;
-                Panel.size = windowRect.size;
+                Panel.absolutePosition = windowRect.position * UIScaler.UIScale;
+                Panel.size = windowRect.size * UIScaler.UIScale;
                 OnWindowDrawn();
             }
             finally
@@ -396,6 +396,10 @@ namespace Kwytto.LiteUI
                     DrawCloseButton(mouse);
                 }
             }
+            else if (moveEverywhere)
+            {
+                CheckMoveAnywhere(mouse);
+            }
 
             if (Resizable)
             {
@@ -431,6 +435,21 @@ namespace Kwytto.LiteUI
         }
 
         protected float TitleBarHeight => (12 * ResolutionMultiplier) + (16 * EffectiveFontSizeMultiplier);
+
+        private void CheckMoveAnywhere(Vector3 mouse)
+        {
+            if (!GUIUtility.hasModalWindow)
+            {
+                if (movingWindow == this)
+                {
+                    DoMove(mouse);
+                }
+                else if (windowRect.Contains(mouse))
+                {
+                    StartMove(mouse);
+                }
+            }
+        }
         private void DrawTitlebar(Vector3 mouse)
         {
             var moveRect = new Rect(windowRect.x, windowRect.y, windowRect.width - TitleBarHeight, TitleBarHeight);
@@ -445,31 +464,14 @@ namespace Kwytto.LiteUI
                     {
                         moveTex = MoveHoverTexture;
                         GUI.contentColor = titleBarHover.ContrastColor();
-
-                        if (Input.GetMouseButton(0))
-                        {
-                            var pos = new Vector2(mouse.x, mouse.y) + moveDragHandle;
-                            windowRect.x = pos.x;
-                            windowRect.y = pos.y;
-                            FitScreen();
-                        }
-                        else
-                        {
-                            movingWindow = null;
-
-                            OnWindowMoved(windowRect.position);
-                        }
+                        DoMove(mouse);
                     }
                 }
                 else if (moveRect.Contains(mouse))
                 {
                     moveTex = MoveHoverTexture;
                     GUI.contentColor = titleBarHover.ContrastColor();
-                    if (Input.GetMouseButtonDown(0) && resizingWindow == null)
-                    {
-                        movingWindow = this;
-                        moveDragHandle = new Vector2(windowRect.x, windowRect.y) - new Vector2(mouse.x, mouse.y);
-                    }
+                    StartMove(mouse);
                 }
                 else
                 {
@@ -499,6 +501,35 @@ namespace Kwytto.LiteUI
                 alignment = TextAnchor.MiddleLeft
             });
             GUI.contentColor = Color.white;
+        }
+
+        private void StartMove(Vector3 mouse)
+        {
+            if (Input.GetMouseButtonDown(0) && resizingWindow == null)
+            {
+                movingWindow = this;
+                moveDragHandle = new Vector2(windowRect.x, windowRect.y) - new Vector2(mouse.x, mouse.y);
+            }
+        }
+
+        private void DoMove(Vector3 mouse)
+        {
+            if (movingWindow == this)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    var pos = new Vector2(mouse.x, mouse.y) + moveDragHandle;
+                    windowRect.x = pos.x;
+                    windowRect.y = pos.y;
+                    FitScreen();
+                }
+                else
+                {
+                    movingWindow = null;
+
+                    OnWindowMoved(windowRect.position);
+                }
+            }
         }
 
         private void DrawCloseButton(Vector3 mouse)

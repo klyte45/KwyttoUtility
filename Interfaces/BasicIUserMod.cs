@@ -60,7 +60,7 @@ namespace Kwytto.Interfaces
         public override void TopSettingsUI(UIHelper ext)
         {
             base.TopSettingsUI(ext);
-            if (ModBridges.Count > 0)
+            if (ModBridges != null && ModBridges.Count > 0)
             {
                 var groupConn = ext.AddGroup(KStr.comm_connectionsSection_title) as UIHelper;
                 var panelParentGr = groupConn.self as UIPanel;
