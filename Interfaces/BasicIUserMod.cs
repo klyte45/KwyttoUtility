@@ -31,8 +31,7 @@ namespace Kwytto.Interfaces
             {
                 if (!typeof(C).IsGenericType)
                 {
-                    m_topObj = GameObject.Find(Name) ?? new GameObject(Name);
-                    Controller = m_topObj.AddComponent<C>();
+                    Controller = OwnGO.AddComponent<C>();
                 }
                 SimulationManager.instance.StartCoroutine(LevelUnloadBinds());
             }
@@ -91,6 +90,22 @@ namespace Kwytto.Interfaces
     }
     public abstract class BasicIUserMod : IUserMod, ILoadingExtension, IViewStartActions
     {
+        #region self GameObject
+        private GameObject m_ownObj;
+        public GameObject OwnGO
+        {
+            get
+            {
+                if (m_ownObj is null)
+                {
+                    m_ownObj = GameObject.Find(Name) ?? new GameObject(Name);
+                }
+                return m_ownObj;
+            }
+        }
+        #endregion
+
+
         #region Saved shared config
         public static SavedBool DebugMode { get; }
         public static SavedString CurrentSaveVersion { get; }
@@ -303,14 +318,14 @@ namespace Kwytto.Interfaces
         {
             LocaleManager.eventLocaleChanged -= LocaleChanged;
             UUIButtons.ForEach(x => x.Destroy());
+            GameObject.Destroy(OwnGO);
         }
         #endregion
 
         #region Settings UI
         public virtual bool UseGroup9 => true;
-        protected GameObject m_topObj;
         public virtual void TopSettingsUI(UIHelper ext) { }
-        public Transform RefTransform => m_topObj?.transform;
+
         private bool m_hasShownIncompatibilityModal = false;
 
 
