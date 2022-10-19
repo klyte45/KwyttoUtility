@@ -148,7 +148,7 @@ namespace Kwytto.Interfaces
             {
                 if (m_rootFolder == null)
                 {
-                    m_rootFolder = KFileUtils.BASE_FOLDER_PATH + Instance.SafeName;
+                    m_rootFolder = Instance.ModRootFolder;
                 }
                 return m_rootFolder;
             }
@@ -188,7 +188,7 @@ namespace Kwytto.Interfaces
         public float UIOpacity => Mathf.Clamp(UIOpacitySaved.value, 0.05f, 1);
         public virtual string[] AssetExtraDirectoryNames { get; } = new string[0];
         public virtual string[] AssetExtraFileNames { get; } = new string[] { };
-        public virtual string ModRootFolder => KFileUtils.BASE_FOLDER_PATH + SimpleName;
+        public virtual string ModRootFolder => KFileUtils.BASE_FOLDER_PATH + SafeName;
         public abstract string Description { get; }
         public virtual IUUIButtonContainerPlaceholder[] UUIButtons { get; } = new IUUIButtonContainerPlaceholder[0];
 

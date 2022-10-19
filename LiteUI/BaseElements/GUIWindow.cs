@@ -156,7 +156,12 @@ namespace Kwytto.LiteUI
                 {
                     UIView.PopModal();
                 }
+                while (UIView.GetModalComponent().gameObject is null)
+                {
+                    UIView.PopModal();
+                }
             }
+
             Windows.Remove(this);
         }
 
