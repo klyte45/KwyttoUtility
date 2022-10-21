@@ -54,6 +54,8 @@ namespace Kwytto.LiteUI
         public static float ResolutionMultiplier => Screen.height / 1080f;
 
         protected virtual bool ShowCloseButton { get; } = true;
+        protected virtual bool ShowMinimizeButton { get; } = false;
+        protected bool Minimized { get; set; } = false;
 
         public static GUIStyle HighlightStyle => GUIStyle.none;
         public int DefaultSize => Mathf.RoundToInt(16 * EffectiveFontSizeMultiplier);
@@ -75,8 +77,8 @@ namespace Kwytto.LiteUI
         protected virtual void OnOpacityChanged(float newVal)
         {
         }
-
-        public Rect WindowRect => windowRect;
+        protected Rect TitleBarArea => new Rect(windowRect.x, windowRect.y, TitleBarWidthMinimized, TitleBarHeight);
+        public Rect WindowRect => Minimized && HasTitlebar && ShowMinimizeButton ? TitleBarArea : windowRect;
         protected GUISkin Skin { get; private set; }
 
         public bool Visible
@@ -176,7 +178,7 @@ namespace Kwytto.LiteUI
                 titleBar = BasicIUserMod.Instance.ModColor.SetBrightness(.33f);
                 titleBarHover = BasicIUserMod.Instance.ModColor.SetBrightness(1);
 
-                BgTexture =TextureUtils.New(1, 1);
+                BgTexture = TextureUtils.New(1, 1);
                 BgTexture.SetPixel(0, 0, new Color(bgColor.r, bgColor.g, bgColor.b, bgOpacity));
                 BgTexture.Apply();
 
@@ -286,9 +288,13 @@ namespace Kwytto.LiteUI
             {
                 GUI.matrix = UIScaler.ScaleMatrix;
 
-                windowRect = GUI.Window(Id, windowRect, WindowFunction, string.Empty);
+                var windowRect = GUI.Window(Id, WindowRect, WindowFunction, string.Empty);
                 Panel.absolutePosition = windowRect.position * UIScaler.UIScale;
                 Panel.size = windowRect.size * UIScaler.UIScale;
+                if (!Minimized)
+                {
+                    this.windowRect = windowRect;
+                }
                 OnWindowDrawn();
             }
             finally
@@ -314,7 +320,7 @@ namespace Kwytto.LiteUI
             }
             else
             {
-                var mouseOverWindow = Visible && windowRect.Contains(UIScaler.MousePosition);
+                var mouseOverWindow = Visible && WindowRect.Contains(UIScaler.MousePosition);
                 if (mouseOverWindow && !(UIView.GetModalComponent()?.isVisible ?? false))
                 {
                     if (!isOnTop)
@@ -336,7 +342,7 @@ namespace Kwytto.LiteUI
         protected static bool IsMouseOverWindow()
         {
             var mouse = UIScaler.MousePosition;
-            return Windows.FindIndex(window => window.Visible && window.windowRect.Contains(mouse)) >= 0;
+            return Windows.FindIndex(window => window.Visible && window.WindowRect.Contains(mouse)) >= 0;
         }
 
         protected abstract void DrawWindow(Vector2 size);
@@ -373,13 +379,16 @@ namespace Kwytto.LiteUI
         {
             FitScreen();
             GUILayout.Space(8.0f);
-
+            var effectiveIsMinimized = HasTitlebar && ShowMinimizeButton && Minimized;
             try
             {
-                var effectiveArea = HasTitlebar ? new Rect(0, TitleBarHeight, windowRect.width, windowRect.height - TitleBarHeight) : new Rect(default, windowRect.size);
-                using (new GUILayout.AreaScope(effectiveArea))
+                if (!effectiveIsMinimized)
                 {
-                    DrawWindow(effectiveArea.size);
+                    var effectiveArea = HasTitlebar ? new Rect(0, TitleBarHeight, windowRect.width, windowRect.height - TitleBarHeight) : new Rect(default, windowRect.size);
+                    using (new GUILayout.AreaScope(effectiveArea))
+                    {
+                        DrawWindow(effectiveArea.size);
+                    }
                 }
             }
             catch (Exception ex)
@@ -396,6 +405,10 @@ namespace Kwytto.LiteUI
             if (HasTitlebar)
             {
                 DrawTitlebar(mouse);
+                if (ShowMinimizeButton)
+                {
+                    DrawMinimizeButton(mouse);
+                }
                 if (ShowCloseButton)
                 {
                     DrawCloseButton(mouse);
@@ -406,7 +419,7 @@ namespace Kwytto.LiteUI
                 CheckMoveAnywhere(mouse);
             }
 
-            if (Resizable)
+            if (Resizable && !effectiveIsMinimized)
             {
                 DrawResizeHandle(mouse);
             }
@@ -414,32 +427,40 @@ namespace Kwytto.LiteUI
 
         private void DrawBorder()
         {
-            var leftRect = new Rect(0.0f, 0.0f, 1.0f, windowRect.height);
-            var rightRect = new Rect(windowRect.width - 1.0f, 0.0f, 1.0f, windowRect.height);
-            var bottomRect = new Rect(0.0f, windowRect.height - 1.0f, windowRect.width, 1.0f);
+            var leftRect = new Rect(0.0f, 0.0f, 1.0f, WindowRect.height);
+            var rightRect = new Rect(WindowRect.width - 1.0f, 0.0f, 1.0f, WindowRect.height);
+            var bottomRect = new Rect(0.0f, WindowRect.height - 1.0f, WindowRect.width, 1.0f);
             GUI.DrawTexture(leftRect, MoveNormalTexture);
             GUI.DrawTexture(rightRect, MoveNormalTexture);
             GUI.DrawTexture(bottomRect, MoveNormalTexture);
+            if (!HasTitlebar)
+            {
+                var topRect = new Rect(0.0f, 0.0f, WindowRect.width, 1.0f);
+                GUI.DrawTexture(topRect, MoveNormalTexture);
+            }
         }
 
         private void FitScreen()
         {
-            windowRect.width = Mathf.Clamp(windowRect.width, minSize.x * ResolutionMultiplier, UIScaler.MaxWidth);
-            windowRect.height = Mathf.Clamp(windowRect.height, minSize.y * ResolutionMultiplier, UIScaler.MaxHeight);
-            windowRect.x = Mathf.Clamp(windowRect.x, 0, UIScaler.MaxWidth);
-            windowRect.y = Mathf.Clamp(windowRect.y, 0, UIScaler.MaxHeight);
-            if (windowRect.xMax > UIScaler.MaxWidth)
+            var windowRectCalc = WindowRect;
+            var minSize = Minimized && HasTitlebar && ShowMinimizeButton ? new Vector2(TitleBarWidthMinimized, TitleBarHeight) : this.minSize;
+            windowRectCalc.width = Mathf.Clamp(windowRectCalc.width, minSize.x * ResolutionMultiplier, UIScaler.MaxWidth);
+            windowRectCalc.height = Mathf.Clamp(windowRectCalc.height, minSize.y * ResolutionMultiplier, UIScaler.MaxHeight);
+            windowRect.x = Mathf.Clamp(windowRectCalc.x, 0, UIScaler.MaxWidth);
+            windowRect.y = Mathf.Clamp(windowRectCalc.y, 0, UIScaler.MaxHeight);
+            if (windowRectCalc.xMax > UIScaler.MaxWidth)
             {
-                windowRect.x = UIScaler.MaxWidth - windowRect.width;
+                windowRect.x = UIScaler.MaxWidth - windowRectCalc.width;
             }
 
-            if (windowRect.yMax > UIScaler.MaxHeight)
+            if (windowRectCalc.yMax > UIScaler.MaxHeight)
             {
-                windowRect.y = UIScaler.MaxHeight - windowRect.height;
+                windowRect.y = UIScaler.MaxHeight - windowRectCalc.height;
             }
         }
 
         protected float TitleBarHeight => (12 * ResolutionMultiplier) + (16 * EffectiveFontSizeMultiplier);
+        protected float TitleBarWidthMinimized => (160 * ResolutionMultiplier);
 
         private void CheckMoveAnywhere(Vector3 mouse)
         {
@@ -449,7 +470,7 @@ namespace Kwytto.LiteUI
                 {
                     DoMove(mouse);
                 }
-                else if (windowRect.Contains(mouse))
+                else if (WindowRect.Contains(mouse))
                 {
                     StartMove(mouse);
                 }
@@ -457,7 +478,7 @@ namespace Kwytto.LiteUI
         }
         private void DrawTitlebar(Vector3 mouse)
         {
-            var moveRect = new Rect(windowRect.x, windowRect.y, windowRect.width - TitleBarHeight, TitleBarHeight);
+            var moveRect = new Rect(windowRect.x, windowRect.y, windowRect.width - (TitleBarHeight * ((ShowMinimizeButton ? 1 : 0) + (ShowCloseButton ? 1 : 0))), TitleBarHeight);
             var moveTex = MoveNormalTexture;
 
             // TODO: reduce nesting
@@ -539,7 +560,7 @@ namespace Kwytto.LiteUI
 
         private void DrawCloseButton(Vector3 mouse)
         {
-            var closeRect = new Rect(windowRect.x + windowRect.width - TitleBarHeight, windowRect.y, TitleBarHeight, TitleBarHeight);
+            var closeRect = new Rect(WindowRect.x + WindowRect.width - TitleBarHeight, WindowRect.y, TitleBarHeight, TitleBarHeight);
             var closeTex = CloseNormalTexture;
 
             if (!GUIUtility.hasModalWindow && closeRect.Contains(mouse))
@@ -560,13 +581,36 @@ namespace Kwytto.LiteUI
             }
             var oldColor = GUI.contentColor;
             GUI.contentColor = Color.white;
-            GUI.DrawTexture(new Rect(windowRect.width - TitleBarHeight, 0.0f, TitleBarHeight, TitleBarHeight), closeTex, ScaleMode.StretchToFill);
-            GUI.Label(new Rect(windowRect.width - TitleBarHeight, 0.0f, TitleBarHeight, TitleBarHeight), "X", new GUIStyle(GUI.skin.label)
+            GUI.DrawTexture(new Rect(WindowRect.width - TitleBarHeight, 0.0f, TitleBarHeight, TitleBarHeight), closeTex, ScaleMode.StretchToFill);
+            GUI.Label(new Rect(WindowRect.width - TitleBarHeight, 0.0f, TitleBarHeight, TitleBarHeight), "X", new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleCenter
             });
             GUI.contentColor = oldColor;
+        }
+        private void DrawMinimizeButton(Vector3 mouse)
+        {
+            var xOffset = (TitleBarHeight * (ShowCloseButton ? 2 : 1));
+            var btnRect = new Rect(WindowRect.x + WindowRect.width - xOffset, windowRect.y, TitleBarHeight, TitleBarHeight);
+            var btnTex = ResizeNormalTexture;
 
+            if (!GUIUtility.hasModalWindow && btnRect.Contains(mouse))
+            {
+                btnTex = ResizeHoverTexture;
+
+                if (Event.current.type == EventType.MouseUp && Input.GetMouseButtonUp(0))
+                {
+                    Minimized = !Minimized;
+                }
+            }
+            var oldColor = GUI.contentColor;
+            GUI.contentColor = Color.black;
+            GUI.DrawTexture(new Rect(WindowRect.width - xOffset, 0.0f, TitleBarHeight, TitleBarHeight), btnTex, ScaleMode.StretchToFill);
+            GUI.Label(new Rect(WindowRect.width - xOffset, 0.0f, TitleBarHeight, TitleBarHeight), Minimized ? "□" : "_", new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter
+            });
+            GUI.contentColor = oldColor;
         }
 
         protected virtual void OnCloseButtonPress()
@@ -587,7 +631,7 @@ namespace Kwytto.LiteUI
                     {
                         resizeTex = ResizeHoverTexture;
 
-                        if (Input.GetMouseButton(0))
+                        if (Event.current.type == EventType.MouseUp && Input.GetMouseButtonUp(0))
                         {
                             var size = new Vector2(mouse.x, mouse.y)
                                 + resizeDragHandle
