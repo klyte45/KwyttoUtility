@@ -44,10 +44,10 @@ namespace Kwytto.Utils
                 }
             }
         }
-        public static Texture2D LoadTextureFromFile(string filename)
+        public static Texture2D LoadTextureFromFile(string filename, TextureFormat format = TextureFormat.RGBA32, bool linear = true)
         {
             byte[] fileData = File.ReadAllBytes(filename);
-            var tex = TextureUtils.New(2, 2);
+            var tex = TextureUtils.New(2, 2, format, linear);
             return tex.LoadImage(fileData) ? tex : null;
         }
         public static List<SpriteInfo> CreateSpriteInfo(Dictionary<string, Tuple<RectOffset, bool>> borderDescriptors, string filename, Texture2D tex)
