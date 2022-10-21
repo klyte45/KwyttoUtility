@@ -96,11 +96,11 @@ namespace Kwytto.Utils
             return null;
         }
 
-        public static AssetBundle LoadBundle(string filename)
+        public static AssetBundle LoadBundle(string filename, Assembly refAssembly = null)
         {
             try
             {
-                return AssetBundle.LoadFromMemory(LoadResourceData(NamespaceMod + filename, RefAssemblyMod));
+                return AssetBundle.LoadFromMemory(LoadResourceData(NamespaceMod + filename, refAssembly ?? RefAssemblyMod));
             }
             catch (Exception e)
             {
