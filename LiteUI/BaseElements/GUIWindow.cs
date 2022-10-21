@@ -156,7 +156,12 @@ namespace Kwytto.LiteUI
                 {
                     UIView.PopModal();
                 }
+                while (UIView.GetModalComponent().gameObject is null)
+                {
+                    UIView.PopModal();
+                }
             }
+
             Windows.Remove(this);
         }
 
@@ -167,35 +172,35 @@ namespace Kwytto.LiteUI
         {
             if (Skin == null)
             {
-                bgColor = BasicIUserMod.Instance.ModColor.SetBrightness(.30f);
-                titleBar = BasicIUserMod.Instance.ModColor.SetBrightness(.60f);
+                bgColor = BasicIUserMod.Instance.ModColor.SetBrightness(.15f);
+                titleBar = BasicIUserMod.Instance.ModColor.SetBrightness(.33f);
                 titleBarHover = BasicIUserMod.Instance.ModColor.SetBrightness(1);
 
-                BgTexture = new Texture2D(1, 1);
+                BgTexture =TextureUtils.New(1, 1);
                 BgTexture.SetPixel(0, 0, new Color(bgColor.r, bgColor.g, bgColor.b, bgOpacity));
                 BgTexture.Apply();
 
-                ResizeNormalTexture = new Texture2D(1, 1);
+                ResizeNormalTexture = TextureUtils.New(1, 1);
                 ResizeNormalTexture.SetPixel(0, 0, Color.white);
                 ResizeNormalTexture.Apply();
 
-                ResizeHoverTexture = new Texture2D(1, 1);
+                ResizeHoverTexture = TextureUtils.New(1, 1);
                 ResizeHoverTexture.SetPixel(0, 0, Color.blue);
                 ResizeHoverTexture.Apply();
 
-                CloseNormalTexture = new Texture2D(1, 1);
+                CloseNormalTexture = TextureUtils.New(1, 1);
                 CloseNormalTexture.SetPixel(0, 0, ColorExtensions.FromRGB("AA0000"));
                 CloseNormalTexture.Apply();
 
-                CloseHoverTexture = new Texture2D(1, 1);
+                CloseHoverTexture = TextureUtils.New(1, 1);
                 CloseHoverTexture.SetPixel(0, 0, ColorExtensions.FromRGB("FF6666"));
                 CloseHoverTexture.Apply();
 
-                MoveNormalTexture = new Texture2D(1, 1);
+                MoveNormalTexture = TextureUtils.New(1, 1);
                 MoveNormalTexture.SetPixel(0, 0, titleBar);
                 MoveNormalTexture.Apply();
 
-                MoveHoverTexture = new Texture2D(1, 1);
+                MoveHoverTexture = TextureUtils.New(1, 1);
                 MoveHoverTexture.SetPixel(0, 0, titleBarHover);
                 MoveHoverTexture.Apply();
 
@@ -489,7 +494,7 @@ namespace Kwytto.LiteUI
                 cachedModIcon = KResourceLoader.LoadTextureMod(BasicIUserMod.Instance.IconName);
                 if (cachedModIcon is null)
                 {
-                    cachedModIcon = new Texture2D(1, 1);
+                    cachedModIcon = TextureUtils.New(1, 1);
                     cachedModIcon.SetPixel(0, 0, Color.clear);
                     cachedModIcon.Apply();
                 }

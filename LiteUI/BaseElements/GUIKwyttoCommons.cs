@@ -30,7 +30,7 @@ namespace Kwytto.LiteUI
 
         private static Texture2D CreateTextureOfColor(Color src)
         {
-            var texture = new Texture2D(1, 1);
+            var texture = TextureUtils.New(1, 1);
             texture.SetPixel(0, 0, src);
             texture.Apply();
             return texture;

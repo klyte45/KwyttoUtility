@@ -27,7 +27,7 @@ namespace Kwytto.Utils
             }
             Color[] outPixels = ApplyFilter(inTex.width, inTex.height, method, startTime, inPixels, parameters);
 
-            var outTex = new Texture2D(inTex.width, inTex.height);
+            var outTex = TextureUtils.New(inTex.width, inTex.height);
             outTex.SetPixels(outPixels);
             outTex.Apply();
 

@@ -1,5 +1,6 @@
 ﻿namespace Kwytto.LiteUI
 {
+    using Kwytto.Utils;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -162,7 +163,7 @@
             {
                 var result = new GUIStyle(GUI.skin.label);
                 result.hover.textColor = Color.yellow;
-                var t = new Texture2D(1, 1);
+                var t = TextureUtils.New(1, 1);
                 t.SetPixel(0, 0, default);
                 t.Apply();
                 result.hover.background = t;
@@ -173,7 +174,7 @@
 
             private static GUIStyle CreateWindowStyle()
             {
-                var background = new Texture2D(16, 16, TextureFormat.RGBA32, mipmap: false)
+                var background = new Texture2D(16, 16, TextureFormat.ARGB32, false, true)
                 {
                     wrapMode = TextureWrapMode.Clamp,
                 };

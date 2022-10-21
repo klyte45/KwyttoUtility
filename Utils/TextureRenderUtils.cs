@@ -19,7 +19,7 @@ namespace Kwytto.Utils
             textDimensions = MeasureTextWidth(font, text, textScale, out Vector2 yBounds);
 
 
-            var tex = new Texture2D((int)textDimensions.x, (int)textDimensions.y, TextureFormat.ARGB32, false);
+            var tex = TextureUtils.New((int)textDimensions.x, (int)textDimensions.y);
             tex.SetPixels(new Color[(int)(textDimensions.x * textDimensions.y)]);
 
             RenderText(font, text, new Vector3(0, -yBounds.x), textScale, textColor, outlineColor, tex);
@@ -79,11 +79,11 @@ namespace Kwytto.Utils
                 var imageSize = new Vector2(Mathf.NextPowerOfTwo((int)Mathf.Max(textDimensions.x * multipler, width)), Mathf.NextPowerOfTwo((int)Mathf.Max(textDimensions.y, height)));
 
 
-                var tex = new Texture2D((int)imageSize.x, (int)imageSize.y, TextureFormat.ARGB32, false);
+                var tex = TextureUtils.New((int)imageSize.x, (int)imageSize.y);
                 tex.SetPixels(new Color[(int)(imageSize.x * imageSize.y)]);
 
 
-                var texText = new Texture2D((int)textDimensions.x, (int)textDimensions.y, TextureFormat.ARGB32, false);
+                var texText = TextureUtils.New((int)textDimensions.x, (int)textDimensions.y);
                 texText.SetPixels(new Color[(int)(textDimensions.x * textDimensions.y)]);
 
                 Color contrastColor = bgColor.ContrastColor();
@@ -166,7 +166,7 @@ namespace Kwytto.Utils
             if (text.IsNullOrWhiteSpace())
             {
                 textRealSize = Vector2.zero;
-                return new Texture2D(1, 1);
+                return TextureUtils.New(1, 1);
             }
             var textColors = new Stack<ColorInfo>();
             textColors.Clear();
@@ -176,10 +176,13 @@ namespace Kwytto.Utils
             if (texSize.x <= 0 || texSize.y <= 0)
             {
                 textRealSize = Vector2.zero;
-                return new Texture2D(1, 1);
+                return TextureUtils.New(1, 1);
             }
             var position = new Vector3(0, startYPos);
-            var result = new Texture2D((int)texSize.x, (int)texSize.y, TextureFormat.RGBA32, false);
+            var result = new Texture2D((int)texSize.x, (int)texSize.y, TextureFormat.ARGB32, false, true)
+            {
+                filterMode = FilterMode.Point,
+            };
             result.SetPixels(new Color[result.width * result.height]);
             RenderLine(tokens, uidynamicFont, textScale, textColors, position, result);
             tokens.Release();

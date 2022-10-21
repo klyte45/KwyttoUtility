@@ -6,6 +6,8 @@ namespace Kwytto.Utils
 {
     public static class TextureUtils
     {
+        public static Texture2D New(int width, int height) => new Texture2D(width, height, TextureFormat.ARGB32, false, true);
+
         public static Texture2D DeCompress(this Texture2D source)
         {
             RenderTexture renderTex = RenderTexture.GetTemporary(
@@ -18,7 +20,12 @@ namespace Kwytto.Utils
             Graphics.Blit(source, renderTex);
             RenderTexture previous = RenderTexture.active;
             RenderTexture.active = renderTex;
-            Texture2D readableText = new Texture2D(source.width, source.height, source.format, false);
+            Texture2D readableText = new Texture2D(source.width, source.height, source.format, false, true)
+            {
+                hideFlags = HideFlags.HideAndDontSave,
+                filterMode = FilterMode.Point
+            };
+
             readableText.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
             readableText.Apply();
             RenderTexture.active = previous;
