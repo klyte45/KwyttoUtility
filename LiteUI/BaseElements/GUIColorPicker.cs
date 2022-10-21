@@ -44,7 +44,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        private Texture2D Texture => colorPickerTexture ?? (colorPickerTexture = new Texture2D(colorPickerSize, colorPickerSize));
+        private Texture2D Texture => colorPickerTexture ?? (colorPickerTexture = new Texture2D(colorPickerSize, colorPickerSize, TextureFormat.ARGB32, false, true));
 
         private Texture2D HueBar => hueBarTexture ?? (hueBarTexture = DrawHueBar(hueBarWidth, colorPickerSize));
 
@@ -61,7 +61,7 @@ namespace Kwytto.LiteUI
         {
             if (!TextureCache.TryGetValue(id, out var texture))
             {
-                texture = new Texture2D(1, 1);
+                texture = TextureUtils.New(1, 1);
                 TextureCache.Add(id, texture);
             }
 
@@ -149,7 +149,7 @@ namespace Kwytto.LiteUI
 
         private static Texture2D DrawHueBar(int width, int height)
         {
-            var texture = new Texture2D(width, height);
+            var texture = TextureUtils.New(width, height);
 
             for (var y = 0; y < height; y++)
             {
@@ -167,7 +167,7 @@ namespace Kwytto.LiteUI
 
         private Texture2D DrawLineTex()
         {
-            var tex = new Texture2D(1, 1);
+            var tex = TextureUtils.New(1, 1);
             tex.SetPixel(0, 0, LineColor);
             tex.Apply();
             return tex;

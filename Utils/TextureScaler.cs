@@ -18,7 +18,7 @@ namespace Kwytto.Utils
             _gpu_scale(src, width, height, mode);
 
             //Get rendered data back to a new texture
-            var result = new Texture2D(width, height, TextureFormat.ARGB32, true);
+            var result = TextureUtils.New(width, height);
             result.Resize(width, height);
             result.ReadPixels(texR, 0, 0, true);
             return result;

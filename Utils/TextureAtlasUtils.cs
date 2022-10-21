@@ -36,7 +36,7 @@ namespace Kwytto.Utils
                 if (File.Exists(filename))
                 {
                     byte[] fileData = File.ReadAllBytes(filename);
-                    var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+                    var tex = TextureUtils.New(2, 2);
                     if (tex.LoadImage(fileData))
                     {
                         newFiles.AddRange(CreateSpriteInfo(borderDescriptors, filename, tex));
@@ -47,7 +47,7 @@ namespace Kwytto.Utils
         public static Texture2D LoadTextureFromFile(string filename)
         {
             byte[] fileData = File.ReadAllBytes(filename);
-            var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            var tex = TextureUtils.New(2, 2);
             return tex.LoadImage(fileData) ? tex : null;
         }
         public static List<SpriteInfo> CreateSpriteInfo(Dictionary<string, Tuple<RectOffset, bool>> borderDescriptors, string filename, Texture2D tex)
@@ -122,7 +122,7 @@ namespace Kwytto.Utils
             textureAtlas.AddSprites(newFiles.ToArray());
             if (textureAtlas.texture == null)
             {
-                textureAtlas.material.mainTexture = new Texture2D(1, 1);
+                textureAtlas.material.mainTexture = TextureUtils.New(1, 1);
                 (textureAtlas.material.mainTexture as Texture2D).SetPixel(0, 0, default);
             }
             Rect[] array = textureAtlas.texture.PackTextures(textureAtlas.sprites.Select(x => x.texture).ToArray(), textureAtlas.padding, 4096 * 4);

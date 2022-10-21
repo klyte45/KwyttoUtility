@@ -185,7 +185,7 @@ namespace Kwytto.LiteUI
 
             private static GUIStyle CreateWindowStyle()
             {
-                var background = new Texture2D(16, 16, TextureFormat.RGBA32, mipmap: false)
+                var background = new Texture2D(16, 16, TextureFormat.ARGB32, false, true)
                 {
                     wrapMode = TextureWrapMode.Clamp,
                 };
