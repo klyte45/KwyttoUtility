@@ -12,8 +12,6 @@ namespace Kwytto.LiteUI
         protected override bool ShowCloseButton => properties.showClose;
         protected override float FontSizeMultiplier => 1f;
 
-        private bool used = false;
-
         private Vector2 scrollPosition;
 
         public static KwyttoDialog ShowModal(BindProperties properties)
@@ -35,12 +33,6 @@ namespace Kwytto.LiteUI
 
         protected override void DrawWindow(Vector2 size)
         {
-            if (used && UIView.GetModalComponent() == Panel)
-            {
-                UIView.PopModal();
-                Destroy(gameObject);
-                return;
-            }
             var area = new Rect(5 * GUIWindow.ResolutionMultiplier, 0, size.x - 10 * GUIWindow.ResolutionMultiplier, size.y);
             using (new GUILayout.AreaScope(area))
             {
@@ -96,7 +88,7 @@ namespace Kwytto.LiteUI
                                 {
                                     if (button.onClick())
                                     {
-                                        used = true;
+                                        Destroy(gameObject);
                                         return;
                                     }
                                 }
@@ -109,7 +101,7 @@ namespace Kwytto.LiteUI
         }
         protected override void OnCloseButtonPress()
         {
-            used = true;
+            Destroy(gameObject);
         }
 
         #region Extra Classes

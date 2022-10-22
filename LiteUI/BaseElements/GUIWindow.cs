@@ -158,12 +158,7 @@ namespace Kwytto.LiteUI
                 {
                     UIView.PopModal();
                 }
-                while (UIView.GetModalComponent().gameObject is null)
-                {
-                    UIView.PopModal();
-                }
             }
-
             Windows.Remove(this);
         }
 
@@ -267,6 +262,11 @@ namespace Kwytto.LiteUI
                     oldModalZorder = UIView.GetAView().panelsLibraryModalEffect.zOrder;
                     UIView.GetAView().panelsLibraryModalEffect.zOrder = int.MaxValue;
                     UIView.GetAView().panelsLibraryModalEffect.isVisible = true;
+                }
+                if (UIView.GetModalComponent() != Panel)
+                {
+                    Panel.isVisible = false;
+                    return;
                 }
             }
             else if (!showOverModals && UIView.GetAView().panelsLibraryModalEffect.isVisible)
@@ -631,7 +631,7 @@ namespace Kwytto.LiteUI
                     {
                         resizeTex = ResizeHoverTexture;
 
-                        if (Event.current.type == EventType.MouseUp && Input.GetMouseButtonUp(0))
+                        if (Input.GetMouseButton(0))
                         {
                             var size = new Vector2(mouse.x, mouse.y)
                                 + resizeDragHandle
