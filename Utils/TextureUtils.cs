@@ -75,13 +75,13 @@ namespace Kwytto.Utils
             return Convert.ToBase64String(imageData);
         }
 
-        public static Texture2D Base64ToTexture2D(string encodedData)
+        public static Texture2D Base64ToTexture2D(string encodedData, bool linear = true)
         {
             byte[] imageData = Convert.FromBase64String(encodedData);
 
             GetImageSize(imageData, out int width, out int height);
 
-            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false, true)
+            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false, linear)
             {
                 hideFlags = HideFlags.HideAndDontSave,
                 filterMode = FilterMode.Point
