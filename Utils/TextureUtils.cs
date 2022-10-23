@@ -7,6 +7,13 @@ namespace Kwytto.Utils
     public static class TextureUtils
     {
         public static Texture2D New(int width, int height, TextureFormat format = TextureFormat.RGBA32, bool linear = true) => new Texture2D(width, height, format, false, linear);
+        public static Texture2D NewSingleColorForUI(Color color)
+        {
+            var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false, true);
+            tex.SetPixel(0, 0, color);
+            tex.Apply();
+            return tex;
+        }
 
         public static Texture2D DeCompress(this Texture2D source)
         {
