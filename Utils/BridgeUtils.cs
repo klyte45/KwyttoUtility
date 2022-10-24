@@ -46,7 +46,6 @@ namespace Kwytto.Utils
             {
                 try
                 {
-                    //LogUtils.DoLog($"Loading Assembly: {s.FullName}");
                     return s.GetExportedTypes();
                 }
                 catch
@@ -59,7 +58,10 @@ namespace Kwytto.Utils
                 {
                     return typeof(T).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract;
                 }
-                catch { return false; }
+                catch
+                {
+                    return false;
+                }
             }).ToArray();
             if (BasicIUserMod.DebugMode)
             {
@@ -71,8 +73,10 @@ namespace Kwytto.Utils
                 {
                     return x.GetConstructor(new Type[0]).Invoke(new object[0]) as T;
                 }
-                catch
+                catch (Exception e)
                 {
+                    if (BasicIUserMod.DebugMode)
+                        LogUtils.DoLog($"Class failed to be loaded as integration: {x}\n{e}");
                     return null;
                 }
             }).Where(x => x?.IsBridgeEnabled ?? false).OrderBy(x => x.Priority).First();

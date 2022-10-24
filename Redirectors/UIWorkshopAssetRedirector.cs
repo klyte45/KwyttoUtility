@@ -1,5 +1,4 @@
 ﻿using ColossalFramework.Packaging;
-using ColossalFramework.UI;
 using Kwytto.Interfaces;
 using Kwytto.Utils;
 using System.IO;
@@ -22,11 +21,11 @@ namespace Kwytto.Redirectors
         {
             var m_ContentPath = __instance.GetType().GetField("m_ContentPath", RedirectorUtils.allFlags).GetValue(__instance) as string;
             var m_TargetAsset = __instance.GetType().GetField("m_TargetAsset", RedirectorUtils.allFlags).GetValue(__instance) as Package.Asset;
-            var rootAssetFolder = Path.GetDirectoryName(m_TargetAsset.package.packagePath);
-            LogUtils.DoErrorLog($"rootAssetFolder2: {rootAssetFolder}; ");
+            var rootAssetFolder = KFileUtils.GetRootPackageFolderForK45(m_TargetAsset);
             bool bundledAnyFile = false;
             if (!(BasicIUserMod.Instance.AssetExtraFileNames is null))
             {
+                LogUtils.DoWarnLog($"rootAssetFolder: {rootAssetFolder}; ");
                 foreach (string filename in BasicIUserMod.Instance.AssetExtraFileNames)
                 {
                     var targetFilename = Path.Combine(rootAssetFolder, filename);
