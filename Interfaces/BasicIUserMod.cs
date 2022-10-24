@@ -277,8 +277,10 @@ namespace Kwytto.Interfaces
             Redirector.UnpatchAll();
             PatchesApply();
             DestroyMod();
+            DoOnLevelUnloading();
             LogUtils.FlushBuffer();
         }
+        protected virtual void DoOnLevelUnloading() { }
         public virtual void OnReleased() { }
         protected virtual void OnPatchesApply() { }
 
