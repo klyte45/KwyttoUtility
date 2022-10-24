@@ -55,7 +55,7 @@ namespace Kwytto.LiteUI
 
         protected virtual bool ShowCloseButton { get; } = true;
         protected virtual bool ShowMinimizeButton { get; } = false;
-        protected bool Minimized { get; set; } = false;
+        public bool Minimized { get; protected set; } = false;
 
         public static GUIStyle HighlightStyle => GUIStyle.none;
         public int DefaultSize => Mathf.RoundToInt(16 * EffectiveFontSizeMultiplier);
