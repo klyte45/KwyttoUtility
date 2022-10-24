@@ -25,7 +25,7 @@ namespace Kwytto.Interfaces
     {
         protected static C controller;
 
-        protected override sealed void OnLevelLoadedInherit(LoadMode mode)
+        protected override sealed bool OnLevelLoadedInherit(LoadMode mode)
         {
             if (IsValidLoadMode(mode))
             {
@@ -34,11 +34,13 @@ namespace Kwytto.Interfaces
                     Controller = OwnGO.AddComponent<C>();
                 }
                 SimulationManager.instance.StartCoroutine(LevelUnloadBinds());
+                return true;
             }
             else
             {
                 LogUtils.DoWarnLog($"Invalid load mode: {mode}. The mod will not be loaded!");
                 Redirector.UnpatchAll();
+                return false;
             }
         }
         public override sealed BaseController GetController() => Controller;
@@ -236,13 +238,14 @@ namespace Kwytto.Interfaces
 
         public void OnLevelLoaded(LoadMode mode)
         {
-            OnLevelLoadedInherit(mode);
-            OnLevelLoadingInternal();
-
-            InitializeMod();
+            if (OnLevelLoadedInherit(mode))
+            {
+                OnLevelLoadingInternal();
+                InitializeMod();
+            }
         }
 
-        protected abstract void OnLevelLoadedInherit(LoadMode mode);
+        protected abstract bool OnLevelLoadedInherit(LoadMode mode);
 
         protected IEnumerator LevelUnloadBinds()
         {
@@ -319,7 +322,7 @@ namespace Kwytto.Interfaces
         private void DestroyMod()
         {
             LocaleManager.eventLocaleChanged -= LocaleChanged;
-            UUIButtons.ForEach(x => x.Destroy());
+            UUIButtons.ForEach(x => x?.Destroy());
             GameObject.Destroy(OwnGO);
         }
         #endregion
