@@ -35,7 +35,7 @@ namespace Kwytto.LiteUI
             texture.Apply();
             return texture;
         }
-        public static Texture GetByNameFromDefaultAtlas(string name) => UIView.GetAView().defaultAtlas.sprites.Where(x => x.name == name).FirstOrDefault().texture;
+        public static Texture GetByNameFromDefaultAtlas(string name) => UIView.GetAView().defaultAtlas?.sprites?.Where(x => x.name == name).FirstOrDefault()?.texture;
 
         #region Vector inputs
         public static bool AddVector2Field(float totalWidth, Vector2Xml input, string title, string baseFieldName, bool isEditable = true, float minValue = float.MinValue, float maxValue = float.MaxValue)

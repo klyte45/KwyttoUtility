@@ -69,6 +69,8 @@
         K45_CircleIcon,
         K45_RoundedSquareIcon,
         highlight,
-        K45_Bus
+        K45_Bus,
+        K45_Wireframe,
+        K45_Lamp
     }
 }
