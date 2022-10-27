@@ -1,5 +1,6 @@
 ﻿using ColossalFramework.IO;
 using ColossalFramework.Packaging;
+using ColossalFramework.UI;
 using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,17 +37,18 @@ namespace Kwytto.Utils
             })[0], out workshopId);
         }
 
-        public static void ScanPrefabsFolders<T>(string filenameToSearch, Action<FileStream, T> action) where T : PrefabInfo => ScanPrefabsFolders(new Dictionary<string, Action<FileStream, T>>
-        {
-            [filenameToSearch] = action
-        });
+        public static void ScanPrefabsFolders<T, I>(PrefabIndexesAbstract<T, I> index, string filenameToSearch, Action<FileStream, T> action) where T : PrefabInfo where I : PrefabIndexesAbstract<T, I>
+            => ScanPrefabsFolders(index, new Dictionary<string, Action<FileStream, T>>
+            {
+                [filenameToSearch] = action
+            });
 
-        public static void ScanPrefabsFolders<T>(Dictionary<string, Action<FileStream, T>> actions) where T : PrefabInfo
+        public static void ScanPrefabsFolders<T, I>(PrefabIndexesAbstract<T, I> index, Dictionary<string, Action<FileStream, T>> actions) where T : PrefabInfo where I : PrefabIndexesAbstract<T, I>
         {
             var list = new List<string>();
-            ForEachLoadedPrefab<T>((loaded) =>
+            index.PrefabsData.ForEach((loaded) =>
             {
-                Package.Asset asset = PackageManager.FindAssetByName(loaded.name);
+                Package.Asset asset = PackageManager.FindAssetByName(loaded.Key);
                 if (!(asset == null) && !(asset.package == null))
                 {
                     string packagePath = asset.package.packagePath;
@@ -62,7 +64,7 @@ namespace Kwytto.Utils
                                 {
                                     using (FileStream stream = File.OpenRead(filePath))
                                     {
-                                        actions[filenameToSearch](stream, loaded);
+                                        actions[filenameToSearch](stream, loaded.Value.Info as T);
                                     }
                                 }
                             }
@@ -92,12 +94,12 @@ namespace Kwytto.Utils
                 }
             }
         }
-        public static void ScanPrefabsFoldersDirectory<T>(string directoryToFind, Action<ulong, string, T> action) where T : PrefabInfo
+        public static void ScanPrefabsFoldersDirectory<T, I>(PrefabIndexesAbstract<T, I> index, string directoryToFind, Action<ulong, string, T> action) where T : PrefabInfo where I : PrefabIndexesAbstract<T, I>
         {
             var list = new List<string>();
-            ForEachLoadedPrefab<T>((loaded) =>
+            index.PrefabsData.ForEach((loaded) =>
             {
-                Package.Asset asset = PackageManager.FindAssetByName(loaded.name);
+                Package.Asset asset = PackageManager.FindAssetByName(loaded.Key);
                 if (!(asset == null) && !(asset.package == null))
                 {
                     string packagePath = asset.package.packagePath;
@@ -110,7 +112,7 @@ namespace Kwytto.Utils
                             LogUtils.DoLog("DIRECTORY TO FIND: " + filePath);
                             if (Directory.Exists(filePath))
                             {
-                                action(asset.package.GetPublishedFileID().AsUInt64, filePath, loaded);
+                                action(asset.package.GetPublishedFileID().AsUInt64, filePath, loaded.Value.Info as T);
                             }
                         }
                     }
@@ -174,19 +176,6 @@ namespace Kwytto.Utils
                 action(pack, assets.First());
             }
         }
-
-        public static void ForEachLoadedPrefab<PI>(Action<PI> action) where PI : PrefabInfo
-        {
-            for (uint i = 0; i < PrefabCollection<PI>.LoadedCount(); i++)
-            {
-                PI loaded = PrefabCollection<PI>.GetLoaded(i);
-                if (!(loaded == null))
-                {
-                    action(loaded);
-                }
-            }
-        }
-
         public static string[] GetAllFilesEmbeddedAtFolder(string packageDirectory, string extension)
         {
 

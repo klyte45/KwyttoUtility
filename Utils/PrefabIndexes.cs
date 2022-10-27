@@ -37,7 +37,9 @@ namespace Kwytto.Utils
             {
                 if (m_prefabsData is null)
                 {
-                    var prefabMapping = PackageManager.FilterAssets(new Package.AssetType[] { UserAssetType.CustomAssetMetaData }).Select(x => Tuple.New(x.fullName, x)).GroupBy(x => x.First).ToDictionary(x => x.Key, x => x.First().Second);
+                    var prefabMapping = PackageManager.FilterAssets(new Package.AssetType[] { Package.AssetType.Object })
+                        .Select(x => Tuple.New(x.fullName, x))
+                        .GroupBy(x => x.First).ToDictionary(x => x.Key, x => x.First().Second);
                     m_prefabsData = GetInfos().Where(x => x?.name != null).Select(x => new IndexedPrefabData<T>(prefabMapping.TryGetValue(x.name, out Package.Asset asset) ? asset : null, x)).GroupBy(x => x.PrefabName).ToDictionary(x => x.Key, x => (IIndexedPrefabData)x.First());
                 }
                 return m_prefabsData;
@@ -93,6 +95,7 @@ namespace Kwytto.Utils
 
     public interface IIndexedPrefabData
     {
+        string PackageName { get; }
         string DisplayName { get; }
         string PrefabName { get; }
         Friend Author { get; }
@@ -111,11 +114,12 @@ namespace Kwytto.Utils
 
             Prefab = prefab;
             PrefabName = prefab.name;
+            PackageName = src?.name;
             DisplayName = prefab.GetUncheckedLocalizedTitle();
             if (!(src is null))
             {
                 WorkshopId = src.package.GetPublishedFileID().AsUInt64;
-                if (ulong.TryParse(src.package.packageAuthor.Substring("steamid:".Length), out ulong authorID))
+                if ((src.package.packageAuthor?.StartsWith("steamid:") ?? false) && ulong.TryParse(src.package.packageAuthor.Substring("steamid:".Length), out ulong authorID))
                 {
                     Author = new Friend(new UserID(authorID));
                 }
@@ -128,6 +132,7 @@ namespace Kwytto.Utils
 
         public string DisplayName { get; private set; }
         public string PrefabName { get; private set; }
+        public string PackageName { get; private set; }
         public Friend Author { get; private set; }
         public ulong WorkshopId { get; private set; }
 
