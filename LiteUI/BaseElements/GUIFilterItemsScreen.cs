@@ -63,7 +63,7 @@ namespace Kwytto.LiteUI
             m_searchText = "";
             RestartFilterCoroutine();
         }
-        public void DrawButton(float width, string value) => GUIKwyttoCommons.AddButtonSelector(width, m_title, value, () => SetFocus(true));
+        public void DrawButton(float width, string value, bool enabled) => GUIKwyttoCommons.AddButtonSelector(width, m_title, value, () => SetFocus(true), enabled);
         public void DrawButtonDisabled(float width, string value) => GUIKwyttoCommons.AddButtonSelector(width, m_title, value, null, false);
         public void DrawSelectorView(float height)
         {

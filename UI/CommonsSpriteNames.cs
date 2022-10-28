@@ -71,6 +71,7 @@
         highlight,
         K45_Bus,
         K45_Wireframe,
-        K45_Lamp
+        K45_Lamp,
+        K45_Flag
     }
 }
