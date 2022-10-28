@@ -68,6 +68,7 @@ namespace Kwytto.LiteUI
             Resizable = resizable;
             HasTitlebar = hasTitlebar;
             this.minSize = minSize == default ? new Vector2(64.0f, 64.0f) : minSize;
+            windowRect.size = Vector2.Max(windowRect.size, this.minSize);
             Panel = gameObject.AddComponent<UIPanel>();
             Panel.zOrder = int.MaxValue;
             Windows.Add(this);
