@@ -30,7 +30,6 @@ namespace Kwytto.UI
                         {
                             x.Reset();
                         }
-                        CurrentTabIdx = 0;
                     }
                 }
             }

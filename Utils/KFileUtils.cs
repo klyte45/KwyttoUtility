@@ -94,26 +94,22 @@ namespace Kwytto.Utils
                 }
             }
         }
-        public static void ScanPrefabsFoldersDirectory<T, I>(PrefabIndexesAbstract<T, I> index, string directoryToFind, Action<ulong, string, T> action) where T : PrefabInfo where I : PrefabIndexesAbstract<T, I>
+        public static void ScanPrefabsFoldersDirectory<T, I>(PrefabIndexesAbstract<T, I> index, string directoryToFind, Action<IndexedPrefabData<T>, string> action) where T : PrefabInfo where I : PrefabIndexesAbstract<T, I>
         {
             var list = new List<string>();
-            index.PrefabsData.ForEach((loaded) =>
+            index.PrefabsData.GroupBy(x => x.Value.PackageName).Where(x => x.Key.TrimToNull() != null).Select(x => x.First()).ForEach((loaded) =>
             {
-                Package.Asset asset = PackageManager.FindAssetByName(loaded.Key);
-                if (!(asset == null) && !(asset.package == null))
+                string packagePath = PackageManager.GetPackage(loaded.Value.PackageName)?.packagePath;
+                if (packagePath != null)
                 {
-                    string packagePath = asset.package.packagePath;
-                    if (packagePath != null)
+                    string filePath = Path.Combine(Path.GetDirectoryName(packagePath), directoryToFind);
+                    if (!list.Contains(filePath))
                     {
-                        string filePath = Path.Combine(Path.GetDirectoryName(packagePath), directoryToFind);
-                        if (!list.Contains(filePath))
+                        list.Add(filePath);
+                        LogUtils.DoLog("DIRECTORY TO FIND: " + filePath);
+                        if (Directory.Exists(filePath))
                         {
-                            list.Add(filePath);
-                            LogUtils.DoLog("DIRECTORY TO FIND: " + filePath);
-                            if (Directory.Exists(filePath))
-                            {
-                                action(asset.package.GetPublishedFileID().AsUInt64, filePath, loaded.Value.Info as T);
-                            }
+                            action(loaded.Value as IndexedPrefabData<T>, filePath);
                         }
                     }
                 }
