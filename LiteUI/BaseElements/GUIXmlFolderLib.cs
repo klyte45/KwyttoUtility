@@ -24,9 +24,10 @@ namespace Kwytto.LiteUI
             KFileUtils.EnsureFolderCreation(LibFolderPath);
         }
 
-        private readonly Texture ImportAdd = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Plus);
-        private readonly Texture ImportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Import);
-        private readonly Texture ExportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Export);
+        private readonly Texture2D ImportAdd = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Plus);
+        private readonly Texture2D ImportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Import);
+        private readonly Texture2D ExportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Export);
+        private readonly Texture2D FolderTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Load);
 
         public string DeleteQuestionI18n { get; set; } = "";
         public string ImportI18n { get; set; } = "";
@@ -44,22 +45,23 @@ namespace Kwytto.LiteUI
         private IEnumerator OnFilterLib()
         {
             yield return librarySearchResults.Value = Directory.GetFiles(LibFolderPath, "*.xml")
-                .Select(x => Path.GetFileNameWithoutExtension(x))
-              .Where((x) => libraryFilter.IsNullOrWhiteSpace() ? true : LocaleManager.cultureInfo.CompareInfo.IndexOf(x, libraryFilter, CompareOptions.IgnoreCase) >= 0)
+              .Select(x => Path.GetFileNameWithoutExtension(x))
+              .Where((x) => libraryFilter.IsNullOrWhiteSpace() || LocaleManager.cultureInfo.CompareInfo.IndexOf(x, libraryFilter, CompareOptions.IgnoreCase) >= 0)
               .OrderBy((x) => x)
-              .ToArray(); ;
+              .ToArray();
         }
 
         public void DrawImportView(Action<T, bool> OnSelect)
         {
             using (new GUILayout.HorizontalScope())
             {
-                var newFilterVal = GUILayout.TextField(libraryFilter);
+                var newFilterVal = GUILayout.TextField(libraryFilter, GUILayout.Height(30));
                 if (newFilterVal != libraryFilter)
                 {
                     libraryFilter = newFilterVal;
                     RestartLibraryFilterCoroutine();
                 }
+                GUIKwyttoCommons.SquareTextureButton(FolderTex, ".", () => ColossalFramework.Utils.OpenInFileBrowser(LibFolderPath));
             };
 
             using (var scroll = new GUILayout.ScrollViewScope(libraryScroll))
