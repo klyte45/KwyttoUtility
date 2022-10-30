@@ -147,5 +147,6 @@ namespace Kwytto.Utils
     public class TreeIndexes : PrefabIndexesAbstract<TreeInfo, TreeIndexes> { }
     public class CitizenIndexes : PrefabIndexesAbstract<CitizenInfo, CitizenIndexes> { }
     public class NetIndexes : PrefabIndexesAbstract<NetInfo, NetIndexes> { }
+    public class TransportIndexes : PrefabIndexesAbstract<TransportInfo, TransportIndexes> { }
 }
 

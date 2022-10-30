@@ -328,9 +328,9 @@ namespace Kwytto.LiteUI
         }
 
 
-        public static void SquareTextureButton(Texture2D icon, string tooltip, Action onClick, bool condition = true)
+        public static void SquareTextureButton(Texture2D icon, string tooltip, Action onClick, bool condition = true, int size = 30)
         {
-            if (condition && GUILayout.Button(new GUIContent(icon, tooltip), GUILayout.Width(30), GUILayout.Height(30)))
+            if (condition && GUILayout.Button(new GUIContent(icon, tooltip), GUILayout.Width(size), GUILayout.Height(size)))
             {
                 onClick();
             }
