@@ -72,6 +72,8 @@
         K45_Bus,
         K45_Wireframe,
         K45_Lamp,
-        K45_Flag
+        K45_Flag,
+        K45_Eye,
+        K45_EyeSlash
     }
 }
