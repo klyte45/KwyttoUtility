@@ -330,7 +330,13 @@ namespace Kwytto.LiteUI
 
         public static void SquareTextureButton(Texture2D icon, string tooltip, Action onClick, bool condition = true, int size = 30)
         {
-            if (condition && GUILayout.Button(new GUIContent(icon, tooltip), GUILayout.Width(size), GUILayout.Height(size)))
+            if (condition && GUILayout.Button(new GUIContent(icon, tooltip), new GUIStyle(GUI.skin.button)
+            {
+                contentOffset = default,
+                padding = new RectOffset(),
+                fixedHeight = size,
+                fixedWidth = size
+            }))
             {
                 onClick();
             }
