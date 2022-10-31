@@ -23,12 +23,14 @@ namespace Kwytto.LiteUI
         private Rect hueBarRect;
 
         private Texture2D lineTexTexture;
+        private bool hasAlpha;
 
-        public GUIColorPicker Init()
+        public GUIColorPicker Init(bool hasAlpha = false)
         {
-            base.Init("ColorPicker", new Rect(16.0f, 16.0f, 188.0f, 156.0f), false, false);
+            base.Init("ColorPicker", new Rect(16.0f, 16.0f, 188.0f, 216.0f), false, false);
             colorPickerRect = new Rect(8.0f, 8.0f, colorPickerSize, colorPickerSize);
             hueBarRect = new Rect(colorPickerRect.x + colorPickerSize + 4.0f, colorPickerRect.y, hueBarWidth, colorPickerRect.height);
+            this.hasAlpha = hasAlpha;
             return this;
         }
 
@@ -70,22 +72,27 @@ namespace Kwytto.LiteUI
             return texture;
         }
 
-        public void Show(string id, Color initialColor)
+        public void Show(string id, Color initialColor, int horizontalPivot = 1)
         {
             CurrentValueId = id;
             originalAlpha = initialColor.a;
+            UpdateColor(initialColor);
+
+            Vector2 targetPos = Input.mousePosition / UIScaler.UIScale;
+            targetPos.y = Screen.height / UIScaler.UIScale - targetPos.y;
+
+            targetPos.x -= WindowRect.width * (Math.Sign(horizontalPivot) + 1) / 2;
+            var windowRect = WindowRect;
+            windowRect.position = targetPos;
+            MoveResize(windowRect);
+            Visible = true;
+        }
+
+        private void UpdateColor(Color initialColor)
+        {
             currentHSV = ColorUtil.HSV.RGB2HSV(initialColor);
             currentHSV.H = 360.0f - currentHSV.H;
             UpdateColorTexture();
-
-            Vector2 mouse = Input.mousePosition / UIScaler.UIScale;
-            mouse.y = Screen.height / UIScaler.UIScale - mouse.y;
-
-            mouse.x -= WindowRect.width;
-            var windowRect = WindowRect;
-            windowRect.position = mouse;
-            MoveResize(windowRect);
-            Visible = true;
         }
 
         public void Update()
@@ -145,6 +152,33 @@ namespace Kwytto.LiteUI
 
             var colorPickerLineX = colorPickerRect.y + (float)currentHSV.S * colorPickerRect.height;
             GUI.DrawTexture(new Rect(colorPickerLineX, colorPickerRect.y - 1.0f, 1.0f, colorPickerRect.height + 2.0f), LineTex);
+
+            using (new GUILayout.VerticalScope())
+            {
+                GUILayout.Space(colorPickerSize + 12);
+                var color = SelectedColor;
+                var srcColor = color;
+                using (new GUILayout.HorizontalScope())
+                {
+                    GUILayout.FlexibleSpace();
+                    color = DrawRgbaInput("!", color, hasAlpha, out string rgbVal, out int rgbLength) ?? color;
+                    GUILayout.FlexibleSpace();
+                }
+
+                GUILayout.Space(5);
+                using (new GUILayout.HorizontalScope())
+                {
+                    GUILayout.FlexibleSpace();
+                    color = DrawHexRgbInput("!!", color, false, hasAlpha ? color.ToRGBA() : color.ToRGB(), hasAlpha ? 8 : 6) ?? color;
+                    GUILayout.FlexibleSpace();
+                }
+
+                if (srcColor != color)
+                {
+                    UpdateColor(color);
+                }
+
+            }
         }
 
         private static Texture2D DrawHueBar(int width, int height)
@@ -197,43 +231,9 @@ namespace Kwytto.LiteUI
 
             if (enabled)
             {
-                var rgbVal = (useAlpha ? value?.ToRGBA() : value?.ToRGB());
-                var rgbLength = useAlpha ? 8 : 6;
-                int? r, g, b, a;
-                if (value is Color c)
-                {
-                    r = (int)Mathf.Clamp(c.r * 255.0f, byte.MinValue, byte.MaxValue);
-                    g = (int)Mathf.Clamp(c.g * 255.0f, byte.MinValue, byte.MaxValue);
-                    b = (int)Mathf.Clamp(c.b * 255.0f, byte.MinValue, byte.MaxValue);
-                    a = useAlpha ? (int)Mathf.Clamp(c.a * 255.0f, byte.MinValue, byte.MaxValue) : 255;
-                }
-                else
-                {
-                    r = g = b = a = null;
-                }
-                r = GUIIntField.IntField(id + ".r", r, fieldWidth: 40);
-                g = GUIIntField.IntField(id + ".g", g, fieldWidth: 40);
-                b = GUIIntField.IntField(id + ".b", b, fieldWidth: 40);
-                if (useAlpha)
-                {
-                    a = GUIIntField.IntField(id + ".a", a, fieldWidth: 40);
-                }
-
-                if (!(r is null) || !(g is null) || !(b is null) || !(a is null))
-                {
-                    value = new Color(
-                        Mathf.Clamp01((r ?? 0) / 255.0f),
-                        Mathf.Clamp01((g ?? 0) / 255.0f),
-                        Mathf.Clamp01((b ?? 0) / 255.0f),
-                        Mathf.Clamp01((a ?? (useAlpha ? 0 : 255)) / 255.0f)
-                    );
-                }
+                value = DrawRgbaInput(id, value, useAlpha, out string rgbVal, out int rgbLength);
                 GUILayout.Space(5);
-                var newRGB = GUIHexField.HexField(id + ".hex", rgbVal, rgbLength, rgbLength, 80);
-                if (newRGB != rgbVal)
-                {
-                    value = useAlpha ? ColorExtensions.FromRGBA(newRGB) : ColorExtensions.FromRGB(newRGB);
-                }
+                value = DrawHexRgbInput(id, value, useAlpha, rgbVal, rgbLength);
 
                 if (GUILayout.Button(value is null ? GUIKwyttoCommons.v_null : string.Empty, GUILayout.MinWidth(20), GUILayout.MaxWidth(80)))
                 {
@@ -265,6 +265,54 @@ namespace Kwytto.LiteUI
             {
                 GUI.DrawTexture(colorRect, GetColorTexture(id, d), ScaleMode.StretchToFill);
             }
+            return value;
+        }
+
+        private static Color? DrawHexRgbInput(string id, Color? value, bool useAlpha, string rgbVal, int rgbLength)
+        {
+            var newRGB = GUIHexField.HexField(id + ".hex", rgbVal, rgbLength, rgbLength, 80);
+            if (newRGB != rgbVal)
+            {
+                value = useAlpha ? ColorExtensions.FromRGBA(newRGB) : ColorExtensions.FromRGB(newRGB);
+            }
+
+            return value;
+        }
+
+        private static Color? DrawRgbaInput(string id, Color? value, bool useAlpha, out string rgbVal, out int rgbLength)
+        {
+            rgbVal = (useAlpha ? value?.ToRGBA() : value?.ToRGB());
+            rgbLength = useAlpha ? 8 : 6;
+            int? r, g, b, a;
+            if (value is Color c)
+            {
+                r = (int)Mathf.Clamp(c.r * 255.0f, byte.MinValue, byte.MaxValue);
+                g = (int)Mathf.Clamp(c.g * 255.0f, byte.MinValue, byte.MaxValue);
+                b = (int)Mathf.Clamp(c.b * 255.0f, byte.MinValue, byte.MaxValue);
+                a = useAlpha ? (int)Mathf.Clamp(c.a * 255.0f, byte.MinValue, byte.MaxValue) : 255;
+            }
+            else
+            {
+                r = g = b = a = null;
+            }
+            r = GUIIntField.IntField(id + ".r", r, fieldWidth: 40);
+            g = GUIIntField.IntField(id + ".g", g, fieldWidth: 40);
+            b = GUIIntField.IntField(id + ".b", b, fieldWidth: 40);
+            if (useAlpha)
+            {
+                a = GUIIntField.IntField(id + ".a", a, fieldWidth: 40);
+            }
+
+            if (!(r is null) || !(g is null) || !(b is null) || !(a is null))
+            {
+                value = new Color(
+                    Mathf.Clamp01((r ?? 0) / 255.0f),
+                    Mathf.Clamp01((g ?? 0) / 255.0f),
+                    Mathf.Clamp01((b ?? 0) / 255.0f),
+                    Mathf.Clamp01((a ?? (useAlpha ? 0 : 255)) / 255.0f)
+                );
+            }
+
             return value;
         }
     }
