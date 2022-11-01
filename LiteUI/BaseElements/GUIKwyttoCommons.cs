@@ -367,6 +367,15 @@ namespace Kwytto.LiteUI
             newVal = value;
             return result;
         }
+        public static bool AddSlider(float totalWidth, string i18nLocale, float value, Action<float> newValCall, float min, float max, bool isEnabled = true)
+        {
+            var result = AddSlider(totalWidth, i18nLocale, ref value, min, max, isEnabled);
+            if (result)
+            {
+                newValCall(value);
+            };
+            return result;
+        }
         public static bool AddSlider(float totalWidth, string title, ref float value, float min, float max, bool isEnabled = true)
         {
             using (new GUILayout.HorizontalScope())
@@ -378,6 +387,47 @@ namespace Kwytto.LiteUI
                     var rect = GUILayoutUtility.GetLastRect();
                     var newValue = GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max);
                     newValue = GUIFloatField.FloatField(title, newValue, min, max);
+                    if (newValue != value)
+                    {
+                        value = newValue;
+                        return true;
+                    }
+                }
+                else
+                {
+                    GUILayout.Label(value.ToString("F3"));
+                }
+                return false;
+            };
+        }
+
+
+        public static bool AddSliderInt(float totalWidth, string i18nLocale, int value, out int newVal, int min, int max, bool isEnabled = true)
+        {
+            var result = AddSliderInt(totalWidth, i18nLocale, ref value, min, max, isEnabled);
+            newVal = value;
+            return result;
+        }
+        public static bool AddSliderInt(float totalWidth, string i18nLocale, int value, Action<int> newValCall, int min, int max, bool isEnabled = true)
+        {
+            var result = AddSliderInt(totalWidth, i18nLocale, ref value, min, max, isEnabled);
+            if (result)
+            {
+                newValCall(value);
+            };
+            return result;
+        }
+        public static bool AddSliderInt(float totalWidth, string title, ref int value, int min, int max, bool isEnabled = true)
+        {
+            using (new GUILayout.HorizontalScope())
+            {
+                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.Space(totalWidth / 3);
+                if (isEnabled)
+                {
+                    var rect = GUILayoutUtility.GetLastRect();
+                    var newValue = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max));
+                    newValue = GUIIntField.IntField(title, newValue, min, max) ?? newValue;
                     if (newValue != value)
                     {
                         value = newValue;
@@ -469,9 +519,16 @@ namespace Kwytto.LiteUI
         {
             var selIdx = Array.IndexOf(values, selectedVal);
             var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable, name ?? i18nLocale);
-            if (selIdx >= 0)
+            if (changed)
             {
-                onChange(values[selIdx]);
+                if (selIdx >= 0)
+                {
+                    onChange(values[selIdx]);
+                }
+                else
+                {
+                    onChange(default);
+                }
             }
             return changed;
         }
@@ -479,9 +536,16 @@ namespace Kwytto.LiteUI
         {
             var selIdx = Array.IndexOf(values, selectedVal);
             var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable, name ?? i18nLocale);
-            if (selIdx >= 0)
+            if (changed)
             {
-                selectedVal = values[selIdx];
+                if (selIdx >= 0)
+                {
+                    selectedVal = values[selIdx];
+                }
+                else
+                {
+                    selectedVal = default;
+                }
             }
             return changed;
         }

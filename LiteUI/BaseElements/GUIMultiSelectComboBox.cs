@@ -37,7 +37,7 @@
             var popupSize = GetPopupDimensions(items.Select(item => item.Name), value);
 
             GUILayout.Box(value, GUILayout.Width(popupSize.x));
-            var popupPosition = GUIUtility.GUIToScreenPoint(GUILayoutUtility.GetLastRect().position);
+            var popupPosition = (GUIUtility.GUIToScreenPoint(default) + GUILayoutUtility.GetLastRect().position) * UIScaler.UIScale;
             if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow())
             {
                 popupWindow.Show(callerId, items, popupPosition, popupSize);
@@ -83,7 +83,7 @@
                 height += itemSize.y;
             }
 
-            return new Vector2(width + 60, height + 36);
+            return new Vector2(width + 60 * UIScaler.UIScale, height + 36 * UIScaler.UIScale);
         }
 
         public static void MultiSelectList(MultiSelectItem[] items)

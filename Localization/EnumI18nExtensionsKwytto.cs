@@ -1,4 +1,5 @@
-﻿using Kwytto.Utils;
+﻿using Kwytto.Interfaces;
+using Kwytto.Utils;
 using System;
 using System.Linq;
 using static CardinalPoint;
@@ -33,7 +34,7 @@ namespace Kwytto.Localization
                     }
                     break;
             }
-            LogUtils.DoLog($"<data name=\".e_Enum__{variable?.GetType()}_{variable}\" xml:space=\"preserve\">    <value{variable?.GetType()}|{variable}value>  </data>\r\n");
+            LogUtils.DoLog($"<data name=\"{BasicIUserMod.Instance.Acronym.ToLower()}_Enum__{variable?.GetType().Name}_{variable}\" xml:space=\"preserve\">    <value>{variable?.GetType()}|{variable}</value>  </data>");
             return $"{variable?.GetType()}|{variable}";
         }
 

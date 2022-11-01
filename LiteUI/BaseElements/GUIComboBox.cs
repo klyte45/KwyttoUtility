@@ -9,10 +9,57 @@ namespace Kwytto.LiteUI
 
         public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null)
         {
-            GUILayoutOption maxWidthObj = null;
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj) is int retNum)
+            {
+                return retNum;
+            }
+
+            var popupSize = GetPopupDimensions(items);
+
+            GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj);
+            var lastRect = GUILayoutUtility.GetLastRect();
+            if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
+            {
+                var popupPosition = (GUIUtility.GUIToScreenPoint(default) + lastRect.position) * UIScaler.UIScale;
+                if (lastRect.width * UIScaler.UIScale > popupSize.x)
+                {
+                    popupSize.x = lastRect.width * UIScaler.UIScale;
+                }
+                popupPosition.y += lastRect.height * UIScaler.UIScale;
+                popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize);
+            }
+
+            return itemIndex;
+        }
+        public static int Button(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null)
+        {
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj) is int retNum)
+            {
+                return retNum;
+            }
+            GUILayout.Space(0);
+            var lastRect = GUILayoutUtility.GetLastRect();
+            if (GUILayout.Button(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj) && EnsurePopupWindow(root))
+            {
+                var popupSize = GetPopupDimensions(items);
+                var popupPosition = (GUIUtility.GUIToScreenPoint(default) + lastRect.position) * UIScaler.UIScale;
+                if ((maxWidth ?? 0) > popupSize.x)
+                {
+                    popupSize.x = maxWidth ?? popupSize.x;
+                }
+                popupPosition.y += lastRect.height; ;
+                popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize);
+            }
+
+            return itemIndex;
+        }
+
+        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj)
+        {
+            maxWidthObj = null;
             if (maxWidth != null)
             {
-                maxWidthObj = GUILayout.MaxWidth(maxWidth ?? 0);
+                maxWidthObj = GUILayout.MaxWidth((maxWidth ?? 4) - 4);
             }
             switch (items.Length)
             {
@@ -38,23 +85,7 @@ namespace Kwytto.LiteUI
                 Object.Destroy(popupWindow);
                 popupWindow = null;
             }
-
-            var popupSize = GetPopupDimensions(items);
-
-            GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj);
-            var lastRect = GUILayoutUtility.GetLastRect();
-            var popupPosition = GUIUtility.GUIToScreenPoint(lastRect.position) * UIScaler.UIScale;
-            if (lastRect.width > popupSize.x)
-            {
-                popupSize.x = lastRect.width;
-            }
-            popupPosition.y += lastRect.height;
-            if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
-            {
-                popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize * UIScaler.UIScale);
-            }
-
-            return itemIndex;
+            return null;
         }
 
         private static bool EnsurePopupWindow(GUIRootWindowBase root)
@@ -85,15 +116,15 @@ namespace Kwytto.LiteUI
             for (var i = 0; i < items.Length; ++i)
             {
                 var itemSize = GUI.skin.button.CalcSize(new GUIContent(items[i]));
-                if (itemSize.x > width)
+                if (itemSize.x + 3 > width)
                 {
-                    width = itemSize.x;
+                    width = itemSize.x + 3;
                 }
 
-                height += itemSize.y;
+                height += itemSize.y + 1;
             }
 
-            return new Vector2(width + 36, height + 36);
+            return new Vector2(width + 36 * UIScaler.UIScale, height + 36 * UIScaler.UIScale);
         }
 
         private sealed class PopupWindow : MonoBehaviour
