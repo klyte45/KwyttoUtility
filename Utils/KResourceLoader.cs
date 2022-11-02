@@ -84,11 +84,7 @@ namespace Kwytto.Utils
         {
             try
             {
-                var texture = new Texture2D(1, 1, TextureFormat.ARGB32, false, true)
-                {
-                    hideFlags = HideFlags.HideAndDontSave,
-                    filterMode = FilterMode.Point
-                };
+                var texture = TextureUtils.New(1, 1);
                 texture.LoadImage(LoadResourceData(filename, refAssembly));
                 return texture;
             }

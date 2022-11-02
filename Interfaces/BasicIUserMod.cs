@@ -293,15 +293,25 @@ namespace Kwytto.Interfaces
             {
                 needShowVersionPopup = true;
             }
+            PluginManager.instance.eventPluginsStateChanged += SearchIncompatibilitiesModal;
             KFileUtils.EnsureFolderCreation(ModRootFolder);
             PatchesApply();
             DoOnEnable();
             LogUtils.FlushBuffer();
+            if (SimulationManager.exists)
+            {
+                OnLevelLoaded((LoadMode)SimulationManager.instance.m_metaData.m_updateMode);
+            }
         }
 
         protected virtual void DoOnEnable() { }
 
-        public void OnDisabled() => Redirector.UnpatchAll();
+        public void OnDisabled()
+        {
+            PluginManager.instance.eventPluginsStateChanged -= SearchIncompatibilitiesModal;
+            Redirector.UnpatchAll();
+            DestroyMod();
+        }
 
         protected void PatchesApply()
         {
@@ -323,7 +333,7 @@ namespace Kwytto.Interfaces
         {
             LocaleManager.eventLocaleChanged -= LocaleChanged;
             UUIButtons.ForEach(x => x?.Destroy());
-            GameObject.Destroy(OwnGO);
+            GameObject.Destroy(m_ownObj);
         }
         #endregion
 
@@ -645,17 +655,6 @@ namespace Kwytto.Interfaces
 
         #endregion
 
-        #region Constructor/Destructor
-        public BasicIUserMod()
-        {
-            PluginManager.instance.eventPluginsStateChanged += SearchIncompatibilitiesModal;
-        }
-
-        ~BasicIUserMod()
-        {
-            PluginManager.instance.eventPluginsStateChanged -= SearchIncompatibilitiesModal;
-        }
-        #endregion
     }
 
 }

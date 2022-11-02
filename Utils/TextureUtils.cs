@@ -6,7 +6,15 @@ namespace Kwytto.Utils
 {
     public static class TextureUtils
     {
-        public static Texture2D New(int width, int height, TextureFormat format = TextureFormat.RGBA32, bool linear = true) => new Texture2D(width, height, format, false, linear);
+        public static Texture2D New(int width, int height, TextureFormat format = TextureFormat.RGBA32, bool linear = true)
+        {
+            Texture2D texture2D = new Texture2D(width, height, format, false, linear)
+            {
+                hideFlags = HideFlags.HideAndDontSave,
+                filterMode = FilterMode.Point
+            };
+            return texture2D;
+        }
         public static Texture2D NewSingleColorForUI(Color color)
         {
             var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false, true);
