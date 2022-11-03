@@ -24,6 +24,7 @@ namespace Kwytto.LiteUI
         private bool HasTitlebar;
 
         private Vector2 minSize = Vector2.zero;
+        private Vector2 maxSize = new Vector2(999999, 999999);
         protected Rect windowRect = new Rect(0, 0, 64, 64);
 
         private bool visible;
@@ -60,7 +61,7 @@ namespace Kwytto.LiteUI
         public static GUIStyle HighlightStyle => GUIStyle.none;
         public int DefaultSize => Mathf.RoundToInt(16 * EffectiveFontSizeMultiplier);
 
-        protected void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default)
+        protected void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default, Vector2? maxSize = null)
         {
             Id = UnityEngine.Random.Range(1024, int.MaxValue);
             Title = title ?? BasicIUserMod.Instance.GeneralName;
@@ -68,7 +69,8 @@ namespace Kwytto.LiteUI
             Resizable = resizable;
             HasTitlebar = hasTitlebar;
             this.minSize = minSize == default ? new Vector2(64.0f, 64.0f) : minSize;
-            windowRect.size = Vector2.Max(windowRect.size, this.minSize);
+            this.maxSize = maxSize ?? this.maxSize;
+            windowRect.size = Vector2.Min(this.maxSize, Vector2.Max(windowRect.size, this.minSize));
             Panel = gameObject.AddComponent<UIPanel>();
             Panel.zOrder = int.MaxValue;
             Windows.Add(this);
@@ -445,8 +447,8 @@ namespace Kwytto.LiteUI
         {
             var windowRectCalc = WindowRect;
             var minSize = Minimized && HasTitlebar && ShowMinimizeButton ? new Vector2(TitleBarWidthMinimized, TitleBarHeight) : this.minSize;
-            windowRectCalc.width = Mathf.Clamp(windowRectCalc.width, minSize.x * ResolutionMultiplier, UIScaler.MaxWidth);
-            windowRectCalc.height = Mathf.Clamp(windowRectCalc.height, minSize.y * ResolutionMultiplier, UIScaler.MaxHeight);
+            windowRectCalc.width = Mathf.Clamp(windowRectCalc.width, minSize.x * ResolutionMultiplier, Mathf.Min(UIScaler.MaxWidth, maxSize.x * ResolutionMultiplier));
+            windowRectCalc.height = Mathf.Clamp(windowRectCalc.height, minSize.y * ResolutionMultiplier, Mathf.Min(UIScaler.MaxHeight, maxSize.y * ResolutionMultiplier));
             windowRect.x = Mathf.Clamp(windowRectCalc.x, 0, UIScaler.MaxWidth);
             windowRect.y = Mathf.Clamp(windowRectCalc.y, 0, UIScaler.MaxHeight);
             if (windowRectCalc.xMax > UIScaler.MaxWidth)
@@ -637,13 +639,14 @@ namespace Kwytto.LiteUI
                             var size = new Vector2(mouse.x, mouse.y)
                                 + resizeDragHandle
                                 - new Vector2(windowRect.x, windowRect.y);
-                            windowRect.width = Mathf.Max(size.x, minSize.x);
-                            windowRect.height = Mathf.Max(size.y, minSize.y);
+                            windowRect.size = Vector2.Min(Vector2.Max(size, minSize), maxSize);
 
                             // calling FitScreen() here causes gradual expansion of window when mouse is past the screen
                             // so we do like this:
                             windowRect.xMax = Mathf.Min(windowRect.xMax, UIScaler.MaxWidth);
                             windowRect.yMax = Mathf.Min(windowRect.yMax, UIScaler.MaxHeight);
+                            windowRect.xMin = Mathf.Max(windowRect.xMin, 0);
+                            windowRect.yMin = Mathf.Max(windowRect.yMin, 0);
                         }
                         else
                         {

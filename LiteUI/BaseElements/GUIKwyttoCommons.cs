@@ -17,6 +17,7 @@ namespace Kwytto.LiteUI
         public static readonly Texture2D redTexture;
         public static readonly Texture2D almostWhiteTexture;
         public static readonly Texture2D whiteTexture;
+        public static readonly Texture2D blackTexture;
 
         static GUIKwyttoCommons()
         {
@@ -26,6 +27,7 @@ namespace Kwytto.LiteUI
             redTexture = CreateTextureOfColor(Color.Lerp(Color.red, Color.black, 0.12f));
             almostWhiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.black, 0.28f));
             whiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.gray, 0.12f));
+            blackTexture = CreateTextureOfColor(Color.Lerp(Color.black, Color.gray, 0.12f));
         }
 
         private static Texture2D CreateTextureOfColor(Color src)
@@ -581,6 +583,6 @@ namespace Kwytto.LiteUI
         }
         #endregion
 
-    
+
     }
 }
