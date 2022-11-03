@@ -30,7 +30,10 @@ namespace Kwytto.Utils
             string folderPath = Path.Combine(KFileUtils.BASE_FOLDER_PATH, "_LOGS");
             KFileUtils.EnsureFolderCreation(folderPath);
             LogPath = Path.Combine(folderPath, BasicIUserMod.Instance.Acronym + ".log.txt");
-
+            if (File.Exists(LogPath))
+            {
+                File.Delete(LogPath);
+            }
         }
         private static void LogBuffered(string format, params object[] args)
         {
