@@ -61,7 +61,7 @@ namespace Kwytto.LiteUI
         public static GUIStyle HighlightStyle => GUIStyle.none;
         public int DefaultSize => Mathf.RoundToInt(16 * EffectiveFontSizeMultiplier);
 
-        protected void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default, Vector2? maxSize = null)
+        protected void Init(string title, Rect rect, bool resizable = true, bool hasTitlebar = true, Vector2 minSize = default, Vector2 maxSize = default)
         {
             Id = UnityEngine.Random.Range(1024, int.MaxValue);
             Title = title ?? BasicIUserMod.Instance.GeneralName;
@@ -69,7 +69,7 @@ namespace Kwytto.LiteUI
             Resizable = resizable;
             HasTitlebar = hasTitlebar;
             this.minSize = minSize == default ? new Vector2(64.0f, 64.0f) : minSize;
-            this.maxSize = maxSize ?? this.maxSize;
+            this.maxSize = maxSize == default ? this.maxSize : maxSize;
             windowRect.size = Vector2.Min(this.maxSize, Vector2.Max(windowRect.size, this.minSize));
             Panel = gameObject.AddComponent<UIPanel>();
             Panel.zOrder = int.MaxValue;
