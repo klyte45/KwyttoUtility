@@ -230,6 +230,7 @@ namespace Kwytto.LiteUI
                 Skin.window = new GUIStyle(GUI.skin.window);
                 Skin.window.normal.background = BgTexture;
                 Skin.window.onNormal.background = BgTexture;
+                Skin.window.clipping = TextClipping.Overflow;
 
 
                 Skin.settings.cursorColor = GUI.skin.settings.cursorColor;
@@ -296,8 +297,14 @@ namespace Kwytto.LiteUI
                 Panel.size = windowRect.size * UIScaler.UIScale;
                 if (!Minimized)
                 {
+                    Panel.enabled = true;
                     this.windowRect = windowRect;
                 }
+                else
+                {
+                    Panel.enabled = false;
+                }
+
                 OnWindowDrawn();
             }
             finally
@@ -349,6 +356,7 @@ namespace Kwytto.LiteUI
         }
 
         protected abstract void DrawWindow(Vector2 size);
+        protected Action DrawOverWindow;
         protected virtual void HandleException(Exception ex)
         {
         }
@@ -426,6 +434,20 @@ namespace Kwytto.LiteUI
             if (Resizable && !effectiveIsMinimized)
             {
                 DrawResizeHandle(mouse);
+            }
+            if (DrawOverWindow != null || GUI.tooltip?.TrimToNull() != null)
+            {
+                DrawOverWindow?.Invoke();
+                if (GUI.tooltip?.TrimToNull() != null)
+                {
+                    var tooltipRect = GUILayoutUtility.GetRect(new GUIContent(GUI.tooltip), GUI.skin.label);
+                    tooltipRect.width += 4;
+                    tooltipRect.height += 4;
+                    var position = GUIUtility.ScreenToGUIPoint(default) + UIScaler.MousePosition;
+                    tooltipRect.position = new Vector2(position.x, position.y - tooltipRect.height);
+                    GUI.Label(tooltipRect, GUIKwyttoCommons.blackTexture);
+                    GUI.Label(new Rect(tooltipRect.position + (Vector2.one * 2), tooltipRect.size - Vector2.one * 4), GUI.tooltip);
+                }
             }
         }
 
