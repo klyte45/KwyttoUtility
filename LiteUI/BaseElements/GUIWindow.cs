@@ -290,7 +290,7 @@ namespace Kwytto.LiteUI
             try
             {
                 GUI.matrix = UIScaler.ScaleMatrix;
-
+                BeforeDrawWindow();
                 var windowRect = GUI.Window(Id, WindowRect, WindowFunction, string.Empty);
                 Panel.absolutePosition = windowRect.position * UIScaler.UIScale;
                 Panel.size = windowRect.size * UIScaler.UIScale;
@@ -349,11 +349,12 @@ namespace Kwytto.LiteUI
         }
 
         protected abstract void DrawWindow(Vector2 size);
-
         protected virtual void HandleException(Exception ex)
         {
         }
-
+        protected virtual void BeforeDrawWindow()
+        {
+        }
         protected virtual void OnWindowDrawn()
         {
         }

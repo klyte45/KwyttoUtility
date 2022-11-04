@@ -13,6 +13,7 @@ namespace Kwytto.LiteUI
         public const string v_invalid = "<color=#ff0000>--INVALID--</color>";
         public static readonly Texture2D darkGreenTexture;
         public static readonly Texture2D greenTexture;
+        public static readonly Texture2D yellowTexture;
         public static readonly Texture2D darkRedTexture;
         public static readonly Texture2D redTexture;
         public static readonly Texture2D almostWhiteTexture;
@@ -28,6 +29,7 @@ namespace Kwytto.LiteUI
             almostWhiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.black, 0.28f));
             whiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.gray, 0.12f));
             blackTexture = CreateTextureOfColor(Color.Lerp(Color.black, Color.gray, 0.12f));
+            yellowTexture = CreateTextureOfColor(Color.Lerp(Color.yellow, Color.black, 0.12f));
         }
 
         private static Texture2D CreateTextureOfColor(Color src)
