@@ -7,16 +7,16 @@ namespace Kwytto.LiteUI
         private const string ExpandDownButtonText = " ▼ ";
         private static PopupWindow popupWindow;
 
-        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null)
+        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null)
         {
-            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj) is int retNum)
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, nullStr) is int retNum)
             {
                 return retNum;
             }
 
             var popupSize = GetPopupDimensions(items);
 
-            GUILayout.Box(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj);
+            GUILayout.Box(itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
             var lastRect = GUILayoutUtility.GetLastRect();
             if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
             {
@@ -31,15 +31,15 @@ namespace Kwytto.LiteUI
 
             return itemIndex;
         }
-        public static int Button(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null)
+        public static int Button(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null)
         {
-            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj) is int retNum)
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, nullStr) is int retNum)
             {
                 return retNum;
             }
             GUILayout.Space(0);
             var lastRect = GUILayoutUtility.GetLastRect();
-            if (GUILayout.Button(itemIndex < 0 ? GUIKwyttoCommons.v_null : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj) && EnsurePopupWindow(root))
+            if (GUILayout.Button(itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj }) && EnsurePopupWindow(root))
             {
                 var popupSize = GetPopupDimensions(items);
                 var popupPosition = (GUIUtility.GUIToScreenPoint(default) + lastRect.position) * UIScaler.UIScale;
@@ -54,7 +54,7 @@ namespace Kwytto.LiteUI
             return itemIndex;
         }
 
-        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj)
+        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj, string nullStr = GUIKwyttoCommons.v_null)
         {
             maxWidthObj = null;
             if (maxWidth != null)
@@ -64,13 +64,13 @@ namespace Kwytto.LiteUI
             switch (items.Length)
             {
                 case 0:
-                    GUILayout.Box(GUIKwyttoCommons.v_null, maxWidthObj);
+                    GUILayout.Box(nullStr, maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
                     return -1;
 
                 case 1:
                     if (itemIndex == 0)
                     {
-                        GUILayout.Box(items[0], maxWidthObj);
+                        GUILayout.Box(items[0], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
                         return 0;
                     }
                     break;
@@ -82,7 +82,7 @@ namespace Kwytto.LiteUI
                 && popupWindow.CloseAndGetSelection(out var newSelectedIndex))
             {
                 itemIndex = newSelectedIndex;
-                Object.Destroy(popupWindow);
+                GameObject.Destroy(popupWindow);
                 popupWindow = null;
             }
             return null;

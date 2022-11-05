@@ -53,5 +53,11 @@ namespace Kwytto.Utils
                 return objTarget.AddComponent<F>();
             }
         }
+
+        public static bool VerifyModEnabled(ulong modId)
+        {
+            PluginManager.PluginInfo pluginInfo = PluginManager.instance.GetPluginsInfo().FirstOrDefault((PluginManager.PluginInfo pi) => pi.publishedFileID.AsUInt64 == modId);
+            return !(pluginInfo == null || !pluginInfo.isEnabled);
+        }
     }
 }

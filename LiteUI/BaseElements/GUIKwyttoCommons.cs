@@ -11,6 +11,7 @@ namespace Kwytto.LiteUI
         public const string v_null = "<color=#FF00FF>--NULL--</color>";
         public const string v_empty = "<color=#888888>--EMPTY--</color>";
         public const string v_invalid = "<color=#ff0000>--INVALID--</color>";
+        public const string v_all = "<color=#FFFF00>--ALL--</color>";
         public static readonly Texture2D darkGreenTexture;
         public static readonly Texture2D greenTexture;
         public static readonly Texture2D yellowTexture;
@@ -562,7 +563,7 @@ namespace Kwytto.LiteUI
 
 
 
-        public static bool AddComboBox(float totalWidth, string title, ref int selectedIndex, string[] options, GUIRootWindowBase root, bool isEditable = true, string name = null)
+        public static bool AddComboBox(float totalWidth, string title, ref int selectedIndex, string[] options, GUIRootWindowBase root, bool isEditable = true, string name = null, string nullStr = v_null)
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -578,7 +579,7 @@ namespace Kwytto.LiteUI
                 }
                 else
                 {
-                    GUILayout.Label(selectedIndex >= 0 ? selectedIndex >= options.Length ? v_invalid : options[selectedIndex] : v_null);
+                    GUILayout.Label(selectedIndex >= 0 ? selectedIndex >= options.Length ? v_invalid : options[selectedIndex] : nullStr);
                 }
                 return false;
             };
