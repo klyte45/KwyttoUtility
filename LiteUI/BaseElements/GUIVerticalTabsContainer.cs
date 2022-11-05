@@ -7,7 +7,7 @@ namespace Kwytto.UI
 {
     public class GUIVerticalTabsContainer
     {
-        public int CurrentTabIdx { get; private set; } = 0;
+        public int CurrentTabIdx { get; set; } = 0;
 
         private readonly IGUIVerticalITab[] m_tabs;
         private string[] m_tabsNamesList;
