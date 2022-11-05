@@ -23,9 +23,9 @@ namespace Kwytto.LiteUI
 
         static GUIKwyttoCommons()
         {
-            darkGreenTexture = CreateTextureOfColor(Color.Lerp(Color.green, Color.black, 0.5f));
+            darkGreenTexture = CreateTextureOfColor(Color.Lerp(Color.green, Color.black, 0.8f));
             greenTexture = CreateTextureOfColor(Color.Lerp(Color.green, Color.black, 0.12f));
-            darkRedTexture = CreateTextureOfColor(Color.Lerp(Color.red, Color.black, 0.5f));
+            darkRedTexture = CreateTextureOfColor(Color.Lerp(Color.red, Color.black, 0.8f));
             redTexture = CreateTextureOfColor(Color.Lerp(Color.red, Color.black, 0.12f));
             almostWhiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.black, 0.28f));
             whiteTexture = CreateTextureOfColor(Color.Lerp(Color.white, Color.gray, 0.12f));
