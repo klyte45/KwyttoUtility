@@ -385,7 +385,8 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title);
+                GUILayout.FlexibleSpace();
                 GUILayout.Space(totalWidth / 3);
                 if (isEnabled)
                 {
@@ -426,13 +427,14 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title);
+                GUILayout.FlexibleSpace();
                 GUILayout.Space(totalWidth / 3);
                 if (isEnabled)
                 {
                     var rect = GUILayoutUtility.GetLastRect();
                     var newValue = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max));
-                    newValue = GUIIntField.IntField(title, newValue, min, max) ?? newValue;
+                    newValue = GUIIntField.IntField(title, newValue, min, max, 40) ?? newValue;
                     if (newValue != value)
                     {
                         value = newValue;
@@ -457,7 +459,7 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth - 75));
                 GUILayout.FlexibleSpace();
                 if (isEnabled)
                 {
@@ -479,7 +481,7 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth - 75));
                 GUILayout.FlexibleSpace();
                 if (isEnabled)
                 {
@@ -501,7 +503,7 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth / 2));
+                GUILayout.Label(title, GUILayout.Width(totalWidth - 75));
                 GUILayout.FlexibleSpace();
                 if (isEnabled)
                 {

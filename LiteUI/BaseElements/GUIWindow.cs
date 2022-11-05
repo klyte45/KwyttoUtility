@@ -504,7 +504,7 @@ namespace Kwytto.LiteUI
         }
         private void DrawTitlebar(Vector3 mouse)
         {
-            var moveRect = new Rect(windowRect.x, windowRect.y, windowRect.width - (TitleBarHeight * ((ShowMinimizeButton ? 1 : 0) + (ShowCloseButton ? 1 : 0))), TitleBarHeight);
+            var moveRect = new Rect(windowRect.x, windowRect.y, (Minimized ? TitleBarWidthMinimized : windowRect.width) - (TitleBarHeight * ((ShowMinimizeButton ? 1 : 0) + (ShowCloseButton ? 1 : 0))), TitleBarHeight);
             var moveTex = MoveNormalTexture;
 
             // TODO: reduce nesting

@@ -13,6 +13,22 @@ namespace Kwytto.LiteUI
             return keycode == KeyCode.KeypadEnter || keycode == KeyCode.Return;
         }
 
+        private static GUIStyle cachedStyle;
+        private static GUIStyle CachedStyle
+        {
+            get
+            {
+                if (cachedStyle == null)
+                {
+                    cachedStyle = new GUIStyle(GUI.skin.textField)
+                    {
+                        alignment = TextAnchor.MiddleRight
+                    };
+                }
+                return cachedStyle;
+            }
+        }
+
         public static int? IntField(string id, int? value, int min = int.MinValue, int max = int.MaxValue, float? fieldWidth = 65, string format = "0")
         {
             var focusedFieldId = GUI.GetNameOfFocusedControl();
@@ -52,13 +68,13 @@ namespace Kwytto.LiteUI
             {
                 lastValue = lastValue ?? value?.ToString(format);
                 GUI.SetNextControlName(id);
-                lastValue = GUILayout.TextField(lastValue ?? "", widthOption);
+                lastValue = GUILayout.TextField(lastValue ?? "", CachedStyle, widthOption);
                 lastFocusedFieldId = focusedFieldId;
             }
             else
             {
                 GUI.SetNextControlName(id);
-                GUILayout.TextField(value?.ToString(format) ?? "", widthOption);
+                GUILayout.TextField(value?.ToString(format) ?? "", CachedStyle, widthOption);
             }
             if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition) && Event.current.isScrollWheel)
             {

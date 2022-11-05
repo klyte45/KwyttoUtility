@@ -6,7 +6,21 @@ namespace Kwytto.LiteUI
     {
         private static string lastFocusedFieldId;
         private static string lastValue;
-
+        private static GUIStyle cachedStyle;
+        private static GUIStyle CachedStyle
+        {
+            get
+            {
+                if (cachedStyle == null)
+                {
+                    cachedStyle = new GUIStyle(GUI.skin.textField)
+                    {
+                        alignment = TextAnchor.MiddleRight
+                    };
+                }
+                return cachedStyle;
+            }
+        }
         private static bool EnterPressed()
         {
             var keycode = Event.current.keyCode;
@@ -47,13 +61,13 @@ namespace Kwytto.LiteUI
             {
                 lastValue = lastValue ?? value.ToString("F3");
                 GUI.SetNextControlName(id);
-                lastValue = GUILayout.TextField(lastValue, GUILayout.Width(65));
+                lastValue = GUILayout.TextField(lastValue, CachedStyle, GUILayout.Width(65));
                 lastFocusedFieldId = focusedFieldId;
             }
             else
             {
                 GUI.SetNextControlName(id);
-                GUILayout.TextField(value.ToString("F3"), GUILayout.Width(65));
+                GUILayout.TextField(value.ToString("F3"), CachedStyle, GUILayout.Width(65));
             }
             if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition) && Event.current.isScrollWheel)
             {

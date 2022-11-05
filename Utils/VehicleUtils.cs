@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Kwytto.Utils
 {
-    public class VehicleUtils
+    public static class VehicleUtils
     {
         #region Vehicle Utils
         public static VehicleInfo GetRandomModel(IEnumerable<string> assetList, out string selectedModel)
@@ -30,7 +30,7 @@ namespace Kwytto.Utils
             }
             return saida;
         }
-        public static int GetCapacity(VehicleInfo info) => GetCapacity(info, info.m_vehicleAI);
+        public static int GetCapacity(this VehicleInfo info) => GetCapacity(info, info.m_vehicleAI);
         private static Dictionary<Type, FieldInfo> m_cachedCapacityFieldForAiType = new Dictionary<Type, FieldInfo>();
         private static Dictionary<Type, FieldInfo> m_cachedTransportInfoFieldsForAiType = new Dictionary<Type, FieldInfo>();
         public static int GetCapacity<AI>(VehicleInfo info, AI ai, bool noLoop = false) where AI : VehicleAI
@@ -98,7 +98,7 @@ namespace Kwytto.Utils
             return fieldInfo;
         }
 
-        public static Dictionary<string, float> GetCapacityRelative(VehicleInfo info)
+        public static Dictionary<string, float> GetCapacityRelative(this VehicleInfo info)
         {
             var relativeParts = new Dictionary<string, float>();
             GetCapacityRelative(info, info.m_vehicleAI, ref relativeParts, out _);
