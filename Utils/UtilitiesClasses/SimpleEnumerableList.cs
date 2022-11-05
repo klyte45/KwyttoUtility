@@ -35,12 +35,12 @@ namespace Kwytto.Utils
                     continue;
                 }
 
-                var value = (ValueContainer<TKey, TValue>) valueSerializer.Deserialize(reader);
+                var value = (ValueContainer<TKey, TValue>)valueSerializer.Deserialize(reader);
                 if (value.Index == null)
                 {
                     continue;
                 }
-                Add(value.Index, value.Value);
+                this[value.Index] = value.Value;
 
             }
 
@@ -82,15 +82,16 @@ namespace Kwytto.Utils
         {
             get => Index.ToString();
 
-            set {
+            set
+            {
                 TKey result;
                 try
                 {
-                    result = (TKey) Enum.Parse(typeof(TKey), value);
+                    result = (TKey)Enum.Parse(typeof(TKey), value);
                 }
                 catch
                 {
-                    result = (TKey) Enum.ToObject(typeof(TKey), (int.TryParse(value, out int val) ? val : 0));
+                    result = (TKey)Enum.ToObject(typeof(TKey), (int.TryParse(value, out int val) ? val : 0));
                 }
 
                 Index = result;
