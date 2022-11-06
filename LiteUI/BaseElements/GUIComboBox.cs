@@ -54,14 +54,14 @@ namespace Kwytto.LiteUI
 
             return itemIndex;
         }
-        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, string contentShow = ExpandDownButtonText)
+        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, string contentShow = ExpandDownButtonText, GUIStyle style = null)
         {
             var itemIndex = -1;
             if (Initialize(ref itemIndex, items, callerId, null, out _, contentShow) is int retNum)
             {
                 return retNum;
             };
-            if (GUI.Button(rect, contentShow) && EnsurePopupWindow(root))
+            if (GUI.Button(rect, contentShow, style ?? GUI.skin.button) && EnsurePopupWindow(root))
             {
                 itemIndex = -2;
                 var popupSize = GetPopupDimensions(items);
