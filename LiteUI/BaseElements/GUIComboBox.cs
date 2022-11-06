@@ -39,7 +39,8 @@ namespace Kwytto.LiteUI
             }
             GUILayout.Space(0);
             var lastRect = GUILayoutUtility.GetLastRect();
-            if (GUILayout.Button(itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj }) && EnsurePopupWindow(root))
+            var content = new GUIContent(itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex]);
+            if (GUILayout.Button(content, maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj }) && EnsurePopupWindow(root))
             {
                 var popupSize = GetPopupDimensions(items);
                 var popupPosition = (GUIUtility.GUIToScreenPoint(default) + lastRect.position) * UIScaler.UIScale;
@@ -47,8 +48,26 @@ namespace Kwytto.LiteUI
                 {
                     popupSize.x = maxWidth ?? popupSize.x;
                 }
-                popupPosition.y += lastRect.height; ;
+                popupPosition.y += GUI.skin.button.CalcHeight(content, maxWidth ?? 9999);
                 popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize);
+            }
+
+            return itemIndex;
+        }
+        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, string contentShow = ExpandDownButtonText)
+        {
+            var itemIndex = -1;
+            if (Initialize(ref itemIndex, items, callerId, null, out _, contentShow) is int retNum)
+            {
+                return retNum;
+            };
+            if (GUI.Button(rect, contentShow) && EnsurePopupWindow(root))
+            {
+                itemIndex = -2;
+                var popupSize = GetPopupDimensions(items);
+                var popupPosition = (GUIUtility.GUIToScreenPoint(default) + rect.position) * UIScaler.UIScale;
+                popupPosition.y += rect.height;
+                popupWindow.Show(callerId, items, -3, popupPosition, popupSize);
             }
 
             return itemIndex;

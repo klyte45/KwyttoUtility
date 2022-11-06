@@ -294,15 +294,15 @@ namespace Kwytto.LiteUI
                 BeforeDrawWindow();
                 var windowRect = GUI.Window(Id, WindowRect, WindowFunction, string.Empty);
                 Panel.absolutePosition = windowRect.position * UIScaler.UIScale;
-                Panel.size = windowRect.size * UIScaler.UIScale;
+                Panel.enabled = true;
                 if (!Minimized)
                 {
-                    Panel.enabled = true;
+                    Panel.size = windowRect.size * UIScaler.UIScale;
                     this.windowRect = windowRect;
                 }
                 else
                 {
-                    Panel.enabled = false;
+                    Panel.size = new Vector2(TitleBarWidthMinimized, TitleBarHeight) * UIScaler.UIScale;
                 }
 
                 OnWindowDrawn();
