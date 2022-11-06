@@ -135,15 +135,15 @@ namespace Kwytto.LiteUI
             for (var i = 0; i < items.Length; ++i)
             {
                 var itemSize = GUI.skin.button.CalcSize(new GUIContent(items[i]));
-                if (itemSize.x + 3 > width)
+                if (itemSize.x + 8 > width)
                 {
-                    width = itemSize.x + 3;
+                    width = itemSize.x + 8;
                 }
 
                 height += itemSize.y + 1;
             }
 
-            return new Vector2(width + 36 * UIScaler.UIScale, height + 36 * UIScaler.UIScale);
+            return new Vector2(width, height) * UIScaler.UIScale + new Vector2(56, 36);
         }
 
         private sealed class PopupWindow : MonoBehaviour
