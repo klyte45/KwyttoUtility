@@ -43,8 +43,8 @@ namespace Kwytto.Libraries
 
         public byte[] Serialize() => ZipUtils.Zip(XmlUtils.DefaultXmlSerialize((LIB)this, false));
         public virtual void OnReleased() { }
-
-        public virtual void LoadDefaults(ISerializableData serializableData) { }
+        public virtual LIB LoadDefaults(ISerializableData serializableData) { return null; }
+        IDataExtension IDataExtension.LoadDefaults(ISerializableData serializableData) => LoadDefaults(serializableData);
 
         protected override void Save() { }
     }

@@ -8,7 +8,7 @@ namespace Kwytto.Data
         string SaveId { get; }
         bool IsLegacyCompatOnly { get; }
 
-        void LoadDefaults(ISerializableData serializableData);
+        IDataExtension LoadDefaults(ISerializableData serializableData);
         IDataExtension Deserialize(Type type, byte[] data);
         byte[] Serialize();
         void OnReleased();

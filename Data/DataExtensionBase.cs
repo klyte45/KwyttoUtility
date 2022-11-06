@@ -59,7 +59,8 @@ namespace Kwytto.Data
 
         public virtual void OnReleased() { }
 
-        public virtual void LoadDefaults(ISerializableData serializableData) { }
+        public virtual U LoadDefaults(ISerializableData serializableData) { return null; }
+        IDataExtension IDataExtension.LoadDefaults(ISerializableData serializableData) => LoadDefaults(serializableData);
         public virtual void BeforeSerialize() { }
         public virtual void AfterDeserialize(U loadedData) { }
     }

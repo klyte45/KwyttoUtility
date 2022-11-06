@@ -79,8 +79,7 @@ namespace Kwytto.Data
             if (!SerializableDataManager.EnumerateData().Contains(basicInstance.SaveId))
             {
                 LogUtils.DoLog($"NO DATA TYPE {type} - Instancing basic instance");
-                instance.Instances[type] = basicInstance;
-                basicInstance.LoadDefaults(SerializableDataManager);
+                instance.Instances[type] = basicInstance.LoadDefaults(SerializableDataManager) ?? basicInstance;
                 return;
             }
             using (var memoryStream = new MemoryStream(SerializableDataManager.LoadData(basicInstance.SaveId)))

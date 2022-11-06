@@ -41,7 +41,8 @@ namespace Kwytto.Data
 
         public virtual void OnReleased() { }
         public virtual void AfterDeserialize(LIB instance) { }
-        public virtual void LoadDefaults(ISerializableData serializableData) { }
+        public virtual LIB LoadDefaults(ISerializableData serializableData) { return null; }
+        IDataExtension IDataExtension.LoadDefaults(ISerializableData serializableData) => LoadDefaults(serializableData);
 
         public event Action EventDataChanged;
 
