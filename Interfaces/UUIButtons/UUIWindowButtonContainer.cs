@@ -84,6 +84,7 @@ namespace Kwytto.Interfaces
                 w.transform.position = new Vector3(25, 50);
                 m_modButton.Button.Focus();
                 ApplyButtonColor();
+                GUI.BringWindowToFront(w.Id);
             }
         }
     }

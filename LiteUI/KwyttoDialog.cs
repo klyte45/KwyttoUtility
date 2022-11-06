@@ -1,6 +1,7 @@
 ﻿using ColossalFramework;
 using ColossalFramework.UI;
 using Kwytto.Localization;
+using Kwytto.Utils;
 using System;
 using UnityEngine;
 
@@ -42,15 +43,18 @@ namespace Kwytto.LiteUI
                 {
                     using (new GUILayout.VerticalScope())
                     {
-                        GUILayout.Label((properties.messageTextSizeMultiplier > 0 ? $"<size={Mathf.RoundToInt(properties.messageTextSizeMultiplier * DefaultSize)}>" : "") + properties.message + (properties.messageTextSizeMultiplier > 0 ? "</size>" : ""), new GUIStyle(GUI.skin.label)
+                        if (properties.message.TrimToNull() != null)
                         {
-                            alignment = properties.messageAlign
-                        }, GUILayout.ExpandHeight(properties.scrollText.IsNullOrWhiteSpace()), GUILayout.ExpandWidth(true));
+                            GUILayout.Label((properties.messageTextSizeMultiplier > 0 ? $"<size={Mathf.RoundToInt(properties.messageTextSizeMultiplier * DefaultSize)}>" : "") + properties.message + (properties.messageTextSizeMultiplier > 0 ? "</size>" : "") + "\n", new GUIStyle(GUI.skin.label)
+                            {
+                                alignment = properties.messageAlign
+                            }, GUILayout.ExpandHeight(properties.scrollText.IsNullOrWhiteSpace()), GUILayout.ExpandWidth(true));
+                        }
                         if (!properties.scrollText.IsNullOrWhiteSpace())
                         {
                             using (var view = new GUILayout.ScrollViewScope(scrollPosition))
                             {
-                                GUILayout.Label((properties.scrollTextSizeMultiplier > 0 ? $"<size={Mathf.RoundToInt(properties.scrollTextSizeMultiplier * DefaultSize)}>" : "") + properties.scrollText + (properties.scrollTextSizeMultiplier > 0 ? "</size>" : ""),
+                                GUILayout.Label((properties.scrollTextSizeMultiplier > 0 ? $"<size={Mathf.RoundToInt(properties.scrollTextSizeMultiplier * DefaultSize)}>" : "") + properties.scrollText + (properties.scrollTextSizeMultiplier > 0 ? "</size>" : "") + "\n",
                                     new GUIStyle(GUI.skin.label)
                                     {
                                         alignment = properties.scrollTextAlign
