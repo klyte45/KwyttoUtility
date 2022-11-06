@@ -220,7 +220,10 @@ namespace Kwytto.LiteUI
                 Skin.scrollView = new GUIStyle(GUI.skin.scrollView);
                 Skin.textArea = new GUIStyle(GUI.skin.textArea);
                 Skin.textField = new GUIStyle(GUI.skin.textField);
-                Skin.toggle = new GUIStyle(GUI.skin.toggle);
+                Skin.toggle = new GUIStyle(GUI.skin.toggle)
+                {
+                    wordWrap = true
+                };
                 Skin.verticalScrollbar = new GUIStyle(GUI.skin.verticalScrollbar);
                 Skin.verticalScrollbarDownButton = new GUIStyle(GUI.skin.verticalScrollbarDownButton);
                 Skin.verticalScrollbarThumb = new GUIStyle(GUI.skin.verticalScrollbarThumb);

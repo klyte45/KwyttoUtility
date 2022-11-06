@@ -227,18 +227,19 @@ namespace Kwytto.LiteUI
             return buttonText;
         }
 
-        public static bool TextWithLabel(float totalWidth, string label, string value, Action<string> action, bool enabled = true)
+        public static bool TextWithLabel(float totalWidth, string label, string value, Action<string> action, bool enabled = true, float textFieldProportion = .6f)
         {
             if (!enabled)
             {
                 TextWithLabelDisabled(totalWidth, label, value);
                 return false;
             }
+            textFieldProportion = Mathf.Clamp(textFieldProportion, .1f, .6f);
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(label, GUILayout.Width(totalWidth / 3));
+                GUILayout.Label(label, GUILayout.Width(totalWidth * (1 - textFieldProportion - .2f)));
                 GUILayout.FlexibleSpace();
-                var newText = GUILayout.TextField(value ?? "", GUILayout.Height(20), GUILayout.MaxWidth(totalWidth * .6f));
+                var newText = GUILayout.TextField(value ?? "", GUILayout.Height(20), GUILayout.MaxWidth(totalWidth * textFieldProportion));
                 if (value != newText)
                 {
                     action(newText);
