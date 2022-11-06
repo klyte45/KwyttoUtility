@@ -235,7 +235,8 @@ namespace Kwytto.LiteUI
             using (new GUILayout.HorizontalScope())
             {
                 GUILayout.Label(label, GUILayout.Width(totalWidth / 3));
-                var newText = GUILayout.TextField(value ?? "", GUILayout.Height(20));
+                GUILayout.FlexibleSpace();
+                var newText = GUILayout.TextField(value ?? "", GUILayout.Height(20), GUILayout.MaxWidth(totalWidth * .6f));
                 if (value != newText)
                 {
                     action(newText);
@@ -252,6 +253,7 @@ namespace Kwytto.LiteUI
                 {
                     value = v_empty;
                 }
+                GUILayout.FlexibleSpace();
                 GUILayout.Label(value ?? v_null);
             };
         }
