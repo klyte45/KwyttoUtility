@@ -9,7 +9,7 @@ namespace Kwytto.LiteUI
 
         public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null)
         {
-            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, nullStr) is int retNum)
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, new GUIContent(nullStr)) is int retNum)
             {
                 return retNum;
             }
@@ -33,7 +33,7 @@ namespace Kwytto.LiteUI
         }
         public static int Button(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null)
         {
-            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, nullStr) is int retNum)
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, new GUIContent(nullStr)) is int retNum)
             {
                 return retNum;
             }
@@ -54,7 +54,9 @@ namespace Kwytto.LiteUI
 
             return itemIndex;
         }
-        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, string contentShow = ExpandDownButtonText, GUIStyle style = null)
+        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, string contentShow = ExpandDownButtonText, GUIStyle style = null) 
+            => ContextMenuRect(rect, items, callerId, root, new GUIContent(contentShow), style);
+        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, GUIContent contentShow, GUIStyle style = null)
         {
             var itemIndex = -1;
             if (Initialize(ref itemIndex, items, callerId, null, out _, contentShow) is int retNum)
@@ -73,7 +75,7 @@ namespace Kwytto.LiteUI
             return itemIndex;
         }
 
-        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj, string nullStr = GUIKwyttoCommons.v_null)
+        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj, GUIContent nullStr)
         {
             maxWidthObj = null;
             if (maxWidth != null)
