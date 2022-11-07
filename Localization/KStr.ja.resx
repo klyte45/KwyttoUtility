@@ -260,7 +260,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>切断済み/単体動作</value>
   </data>
   <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
-    <value>Custom implementation ({0}; p={1})</value>
+    <value>カスタム実装 ({0}; p={1})</value>
   </data>
   <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
     <value>デフォルトの接続はオン</value>
