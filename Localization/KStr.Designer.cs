@@ -97,7 +97,7 @@ namespace Kwytto.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Custom implementation.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Custom implementation ({0}; p={1}).
         /// </summary>
         public static string comm_connectionSection_connectedCustom {
             get {

@@ -85,7 +85,7 @@ namespace Kwytto.Interfaces
                 case 0:
                     return $"<color #00FF00>{KStr.comm_connectionSection_connectedDefault}</color>";
                 default:
-                    return $"<color #00ffff>{string.Format(KStr.comm_connectionSection_connectedCustom, connectorVS.IsBridgeEnabled ? KStr.comm_connectionSection_asConnected : KStr.comm_connectionSection_asFallback, connectorVS.Priority)}</color>";
+                    return $"<color #00ffff>{string.Format(KStr.comm_connectionSection_connectedCustom, connectorVS.GetType().Name, connectorVS.Priority)}</color>";
             }
 
         }
