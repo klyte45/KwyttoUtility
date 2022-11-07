@@ -250,11 +250,25 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   <data name="comm_uiOpacity" xml:space="preserve">
     <value>UI背景の不透明度 (ゲーム中)</value>
   </data>
-  <data name="comm_connectionsSection_title" xml:space="preserve">    <value>MODの接続</value>  </data>
-  <data name="comm_connectionSection_asConnected" xml:space="preserve">    <value>MODに接続済み</value>  </data>
-  <data name="comm_connectionSection_asFallback" xml:space="preserve">    <value>切断済み/単体動作</value>  </data>
-  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">    <value>カスタム実装</value>  </data>
-  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">    <value>デフォルトの接続はオン</value>  </data>
-  <data name="comm_connectionSection_invalidMode" xml:space="preserve">    <value>ロードモードは未対応</value>  </data>
-  <data name="comm_connectionSection_notConnected" xml:space="preserve">    <value>未接続</value>  </data>
+  <data name="comm_connectionsSection_title" xml:space="preserve">
+    <value>MODの接続</value>
+  </data>
+  <data name="comm_connectionSection_asConnected" xml:space="preserve">
+    <value>MODに接続済み</value>
+  </data>
+  <data name="comm_connectionSection_asFallback" xml:space="preserve">
+    <value>切断済み/単体動作</value>
+  </data>
+  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
+    <value>Custom implementation ({0}; p={1})</value>
+  </data>
+  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
+    <value>デフォルトの接続はオン</value>
+  </data>
+  <data name="comm_connectionSection_invalidMode" xml:space="preserve">
+    <value>ロードモードは未対応</value>
+  </data>
+  <data name="comm_connectionSection_notConnected" xml:space="preserve">
+    <value>未接続</value>
+  </data>
 </root>
