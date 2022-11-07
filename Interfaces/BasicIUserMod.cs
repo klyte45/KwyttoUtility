@@ -289,7 +289,7 @@ namespace Kwytto.Interfaces
 
         public void OnEnabled()
         {
-            if (CurrentSaveVersion.value != FullVersion)
+            if (CurrentSaveVersion?.value != FullVersion)
             {
                 needShowVersionPopup = true;
             }
@@ -298,10 +298,6 @@ namespace Kwytto.Interfaces
             PatchesApply();
             DoOnEnable();
             LogUtils.FlushBuffer();
-            if (SimulationManager.exists)
-            {
-                OnLevelLoaded((LoadMode)SimulationManager.instance.m_metaData.m_updateMode);
-            }
         }
 
         protected virtual void DoOnEnable() { }
