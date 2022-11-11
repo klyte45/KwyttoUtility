@@ -54,7 +54,7 @@ namespace Kwytto.LiteUI
 
             return itemIndex;
         }
-        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, string contentShow = ExpandDownButtonText, GUIStyle style = null) 
+        public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, string contentShow = ExpandDownButtonText, GUIStyle style = null)
             => ContextMenuRect(rect, items, callerId, root, new GUIContent(contentShow), style);
         public static int ContextMenuRect(Rect rect, string[] items, string callerId, GUIRootWindowBase root, GUIContent contentShow, GUIStyle style = null)
         {
@@ -145,7 +145,7 @@ namespace Kwytto.LiteUI
                 height += itemSize.y + 1;
             }
 
-            return new Vector2(width, height) * UIScaler.UIScale + new Vector2(56, 36);
+            return new Vector2(width, height) * UIScaler.UIScale / GUIWindow.ResolutionMultiplier + new Vector2(56, 36);
         }
 
         private sealed class PopupWindow : MonoBehaviour

@@ -358,7 +358,7 @@ namespace Kwytto.LiteUI
         public static bool AddToggle(string title, ref bool currentVal, bool editable = true, bool condition = true) => AddToggle(title, currentVal, out currentVal, editable, condition);
         public static bool AddToggle(string title, bool currentVal, out bool newVal, bool editable = true, bool condition = true)
         {
-            if (condition && currentVal != (newVal = GUILayout.Toggle(currentVal, title)) && editable)
+            if (condition && currentVal != (newVal = GUICustomToggle.CustomToggle(currentVal, title)) && editable)
             {
                 return true;
             }
@@ -373,6 +373,11 @@ namespace Kwytto.LiteUI
                 return true;
             }
             return false;
+        }
+
+        public static void Space(float size)
+        {
+            GUILayout.Space(size * GUIWindow.ResolutionMultiplier);
         }
 
         public static bool AddSlider(float totalWidth, string i18nLocale, float value, out float newVal, float min, float max, bool isEnabled = true)

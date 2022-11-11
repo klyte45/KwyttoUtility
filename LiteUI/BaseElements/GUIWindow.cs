@@ -296,16 +296,16 @@ namespace Kwytto.LiteUI
                 GUI.matrix = UIScaler.ScaleMatrix;
                 BeforeDrawWindow();
                 var windowRect = GUI.Window(Id, WindowRect, WindowFunction, string.Empty);
-                Panel.absolutePosition = windowRect.position * UIScaler.UIScale;
+                Panel.absolutePosition = windowRect.position / ResolutionMultiplier;
                 Panel.enabled = true;
                 if (!Minimized)
                 {
-                    Panel.size = windowRect.size * UIScaler.UIScale;
+                    Panel.size = windowRect.size / ResolutionMultiplier;
                     this.windowRect = windowRect;
                 }
                 else
                 {
-                    Panel.size = new Vector2(TitleBarWidthMinimized, TitleBarHeight) * UIScaler.UIScale;
+                    Panel.size = new Vector2(TitleBarWidthMinimized, TitleBarHeight) / ResolutionMultiplier;
                 }
 
                 OnWindowDrawn();
@@ -560,7 +560,7 @@ namespace Kwytto.LiteUI
 
         private void StartMove(Vector3 mouse)
         {
-            if (Input.GetMouseButtonDown(0) && resizingWindow == null)
+            if (Event.current.type == EventType.mouseDown && Input.GetMouseButtonDown(0) && resizingWindow == null)
             {
                 movingWindow = this;
                 moveDragHandle = new Vector2(windowRect.x, windowRect.y) - new Vector2(mouse.x, mouse.y);
@@ -596,7 +596,7 @@ namespace Kwytto.LiteUI
             {
                 closeTex = CloseHoverTexture;
 
-                if (Input.GetMouseButtonDown(0))
+                if (Event.current.type == EventType.mouseDown && Input.GetMouseButtonDown(0))
                 {
                     resizingWindow = null;
                     movingWindow = null;
@@ -684,7 +684,7 @@ namespace Kwytto.LiteUI
                 else if (resizeRect.Contains(mouse))
                 {
                     resizeTex = ResizeHoverTexture;
-                    if (Input.GetMouseButtonDown(0))
+                    if (Event.current.type == EventType.mouseDown && Input.GetMouseButtonDown(0))
                     {
                         resizingWindow = this;
                         resizeDragHandle =
