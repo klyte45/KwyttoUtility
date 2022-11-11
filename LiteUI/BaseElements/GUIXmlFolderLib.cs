@@ -61,7 +61,7 @@ namespace Kwytto.LiteUI
                     libraryFilter = newFilterVal;
                     RestartLibraryFilterCoroutine();
                 }
-                GUIKwyttoCommons.SquareTextureButton(FolderTex, ".", () => ColossalFramework.Utils.OpenInFileBrowser(LibFolderPath));
+                GUIKwyttoCommons.SquareTextureButton2(FolderTex, ".", () => ColossalFramework.Utils.OpenInFileBrowser(LibFolderPath));
             };
 
             using (var scroll = new GUILayout.ScrollViewScope(libraryScroll))

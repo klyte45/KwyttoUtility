@@ -551,7 +551,7 @@ namespace Kwytto.LiteUI
                 cachedModIcon.filterMode = FilterMode.Trilinear;
             }
             GUI.DrawTexture(new Rect(3.0f, 0.0f, TitleBarHeight, TitleBarHeight), cachedModIcon, ScaleMode.StretchToFill, true);
-            GUI.Label(new Rect(18 + 16 * EffectiveFontSizeMultiplier, 0.0f, windowRect.width - 30 + 32 * EffectiveFontSizeMultiplier, TitleBarHeight - 2 * EffectiveFontSizeMultiplier), Title, new GUIStyle(GUI.skin.label)
+            GUI.Label(new Rect(18 * ResolutionMultiplier + 16 * EffectiveFontSizeMultiplier, 0.0f, windowRect.width - 30 * ResolutionMultiplier + 32 * EffectiveFontSizeMultiplier, TitleBarHeight - 2 * EffectiveFontSizeMultiplier), Title, new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleLeft
             });

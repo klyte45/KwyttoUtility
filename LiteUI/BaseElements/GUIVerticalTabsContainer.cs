@@ -1,5 +1,6 @@
 ﻿using ColossalFramework.UI;
 using Kwytto.LiteUI;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -18,9 +19,14 @@ namespace Kwytto.UI
             m_tabs = tabs;
             m_tabsNamesList = tabs.Select(x => x.TabDisplayName).ToArray();
         }
-
+        [Obsolete("Use version 2: listwidth wasn't ensured to multiply by the resolution multiplier", true)]
         public void DrawListTabs(Rect area, float listWidth = 120)
         {
+            DrawListTabs2(area, listWidth / GUIWindow.ResolutionMultiplier);
+        }
+        public void DrawListTabs2(Rect area, float listWidth = 120)
+        {
+            listWidth *= GUIWindow.ResolutionMultiplier;
             using (new GUILayout.AreaScope(area))
             {
                 var sideListArea = new Rect(0, 0, listWidth, area.height);
