@@ -362,6 +362,7 @@ namespace Kwytto.LiteUI
         protected Action DrawOverWindow;
         protected virtual void HandleException(Exception ex)
         {
+            LogUtils.DoErrorLog($"Error drawing window {Title} ({GetType().Name}):\n{ex}");
         }
         protected virtual void BeforeDrawWindow()
         {
@@ -394,11 +395,16 @@ namespace Kwytto.LiteUI
         {
             FitScreen();
             GUILayout.Space(8.0f);
+            var mouse = UIScaler.MousePosition;
             var effectiveIsMinimized = HasTitlebar && ShowMinimizeButton && Minimized;
             try
             {
                 if (!effectiveIsMinimized)
                 {
+                    if (Resizable)
+                    {
+                        CheckResizeHandle(mouse);
+                    }
                     var effectiveArea = HasTitlebar ? new Rect(0, TitleBarHeight, windowRect.width, windowRect.height - TitleBarHeight) : new Rect(default, windowRect.size);
                     using (new GUILayout.AreaScope(effectiveArea))
                     {
@@ -413,7 +419,6 @@ namespace Kwytto.LiteUI
 
             GUILayout.Space(16.0f);
 
-            var mouse = UIScaler.MousePosition;
 
             DrawBorder();
 
@@ -649,7 +654,13 @@ namespace Kwytto.LiteUI
         private void DrawResizeHandle(Vector3 mouse)
         {
             var resizeRect = new Rect(windowRect.x + windowRect.width - 12, windowRect.y + windowRect.height - 12, 12, 12);
-            var resizeTex = ResizeNormalTexture;
+
+            GUI.DrawTexture(new Rect(windowRect.width - 12, windowRect.height - 12, 12, 12), resizingWindow == this || resizeRect.Contains(mouse) ? ResizeHoverTexture : ResizeNormalTexture, ScaleMode.StretchToFill);
+        }
+
+        private void CheckResizeHandle(Vector3 mouse)
+        {
+            var resizeRect = new Rect(windowRect.x + windowRect.width - 12, windowRect.y + windowRect.height - 12, 12, 12);
 
             // TODO: reduce nesting
             if (!GUIUtility.hasModalWindow)
@@ -658,8 +669,6 @@ namespace Kwytto.LiteUI
                 {
                     if (resizingWindow == this)
                     {
-                        resizeTex = ResizeHoverTexture;
-
                         if (Input.GetMouseButton(0))
                         {
                             var size = new Vector2(mouse.x, mouse.y)
@@ -683,7 +692,6 @@ namespace Kwytto.LiteUI
                 }
                 else if (resizeRect.Contains(mouse))
                 {
-                    resizeTex = ResizeHoverTexture;
                     if (Event.current.type == EventType.mouseDown && Input.GetMouseButtonDown(0))
                     {
                         resizingWindow = this;
@@ -694,8 +702,6 @@ namespace Kwytto.LiteUI
                 }
             }
 
-            GUI.DrawTexture(new Rect(windowRect.width - 12, windowRect.height - 12, 12, 12), resizeTex, ScaleMode.StretchToFill);
         }
-
     }
 }
