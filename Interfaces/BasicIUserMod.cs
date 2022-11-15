@@ -298,6 +298,15 @@ namespace Kwytto.Interfaces
             PatchesApply();
             DoOnEnable();
             LogUtils.FlushBuffer();
+            AppDomain.CurrentDomain.UnhandledException += OnErrorHandle;
+        }
+
+        private void OnErrorHandle(object sender, UnhandledExceptionEventArgs args)
+        {
+            if (args.ExceptionObject is Exception e && e.StackTrace.Contains($"{SafeName}."))
+            {
+                LogUtils.DoErrorLog($"UNHANDLED EXCEPTION! {e}");
+            }
         }
 
         protected virtual void DoOnEnable() { }
@@ -307,6 +316,7 @@ namespace Kwytto.Interfaces
             PluginManager.instance.eventPluginsStateChanged -= SearchIncompatibilitiesModal;
             Redirector.UnpatchAll();
             DestroyMod();
+            AppDomain.CurrentDomain.UnhandledException -= OnErrorHandle;
         }
 
         protected void PatchesApply()

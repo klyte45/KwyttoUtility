@@ -85,6 +85,7 @@ namespace Kwytto.Utils
                 }
                 m_buffer = null;
             }
+            m_size = Math.Min(m_size, capacity);
         }
 
         public void Clear()
