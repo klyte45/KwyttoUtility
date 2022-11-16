@@ -27,18 +27,18 @@ namespace Kwytto.LiteUI
         public void Init(BindProperties properties)
         {
             this.properties = properties;
-            base.Init(properties.title, new Rect(new Vector2((Screen.width / 2) - 400 * GUIWindow.ResolutionMultiplier, (Screen.height / 2) - 250 * GUIWindow.ResolutionMultiplier) / UIScaler.UIScale, new Vector2(800, 500) * GUIWindow.ResolutionMultiplier / UIScaler.UIScale), false, true, new Vector2(500, 500));
+            base.Init(properties.title, new Rect(new Vector2((Screen.width / 2) - 400 , (Screen.height / 2) - 250 ) / UIScaler.UIScale, new Vector2(800, 500)  / UIScaler.UIScale), false, true, new Vector2(500, 500));
             properties.showClose = properties.buttons is null || properties.buttons.Length == 0;
             this.Visible = true;
         }
 
         protected override void DrawWindow(Vector2 size)
         {
-            var area = new Rect(5 * GUIWindow.ResolutionMultiplier, 0, size.x - 10 * GUIWindow.ResolutionMultiplier, size.y);
+            var area = new Rect(5 , 0, size.x - 10 , size.y);
             using (new GUILayout.AreaScope(area))
             {
-                var textArea = new Rect(0, 0, area.size.x, area.size.y - 30 * ResolutionMultiplier); ;
-                var buttonsArea = new Rect(0, area.size.y - 30 * ResolutionMultiplier, area.size.x, 30 * ResolutionMultiplier);
+                var textArea = new Rect(0, 0, area.size.x, area.size.y - 30 ); ;
+                var buttonsArea = new Rect(0, area.size.y - 30 , area.size.x, 30 );
                 using (new GUILayout.AreaScope(textArea))
                 {
                     using (new GUILayout.VerticalScope())

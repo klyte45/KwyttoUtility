@@ -35,7 +35,7 @@ namespace Kwytto.LiteUI
             GUILayoutOption widthOption = null;
             if (fieldWidth is float w)
             {
-                widthOption = GUILayout.Width(w * GUIWindow.ResolutionMultiplier);
+                widthOption = GUILayout.Width(w );
             }
 
             if (lastValue != null)

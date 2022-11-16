@@ -35,8 +35,8 @@ namespace Kwytto.LiteUI
                     {
                         background = GUIKwyttoCommons.yellowTexture
                     },
-                    fixedHeight = 20 * GUIWindow.ResolutionMultiplier,
-                    fixedWidth = 20 * GUIWindow.ResolutionMultiplier
+                    fixedHeight = 20 ,
+                    fixedWidth = 20 
                 };
             }
             if (m_selectionBtnUns is null)
@@ -51,8 +51,8 @@ namespace Kwytto.LiteUI
                     {
                         background = GUIKwyttoCommons.whiteTexture
                     },
-                    fixedHeight = 20 * GUIWindow.ResolutionMultiplier,
-                    fixedWidth = 20 * GUIWindow.ResolutionMultiplier
+                    fixedHeight = 20 ,
+                    fixedWidth = 20 
                 };
             }
             if (m_labelYellowOnHover is null)

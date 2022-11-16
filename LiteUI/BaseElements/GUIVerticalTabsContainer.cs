@@ -22,11 +22,10 @@ namespace Kwytto.UI
         [Obsolete("Use version 2: listwidth wasn't ensured to multiply by the resolution multiplier", true)]
         public void DrawListTabs(Rect area, float listWidth = 120)
         {
-            DrawListTabs2(area, listWidth / GUIWindow.ResolutionMultiplier);
+            DrawListTabs2(area, listWidth );
         }
         public void DrawListTabs2(Rect area, float listWidth = 120)
         {
-            listWidth *= GUIWindow.ResolutionMultiplier;
             using (new GUILayout.AreaScope(area))
             {
                 var sideListArea = new Rect(0, 0, listWidth, area.height);
@@ -40,7 +39,7 @@ namespace Kwytto.UI
                 }
                 var usedHeight = 0f;
 
-                var tabAreaRect = new Rect(listWidth + 5 * GUIWindow.ResolutionMultiplier, usedHeight, area.width - listWidth - 10 * GUIWindow.ResolutionMultiplier, area.height);
+                var tabAreaRect = new Rect(listWidth + 5 , usedHeight, area.width - listWidth - 10 , area.height);
                 using (new GUILayout.AreaScope(tabAreaRect))
                 {
                     m_tabs[CurrentTabIdx].DrawArea(tabAreaRect.size);

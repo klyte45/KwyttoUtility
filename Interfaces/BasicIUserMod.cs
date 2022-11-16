@@ -194,6 +194,9 @@ namespace Kwytto.Interfaces
         public abstract string Description { get; }
         public virtual IUUIButtonContainerPlaceholder[] UUIButtons { get; } = new IUUIButtonContainerPlaceholder[0];
 
+        public virtual float BrightnessUiBg { get; } = .25f;
+        public virtual float BrightnessUiTitleBar { get; } = .15f;
+
         #endregion
 
         #region Old CommonProperties Fixed

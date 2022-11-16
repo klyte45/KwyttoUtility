@@ -340,7 +340,7 @@ namespace Kwytto.LiteUI
         [Obsolete("Use version 2: size here is not ensured to be multiplied by resolution factor", true)]
         public static void SquareTextureButton(Texture2D icon, string tooltip, Action onClick, bool condition = true, int size = 30, GUIStyle style = null)
         {
-            SquareTextureButton2(icon, tooltip, onClick, condition, size / GUIWindow.ResolutionMultiplier, style);
+            SquareTextureButton2(icon, tooltip, onClick, condition, size , style);
         }
         public static void SquareTextureButton2(Texture2D icon, string tooltip, Action onClick, bool condition = true, float size = 30, GUIStyle style = null)
         {
@@ -348,8 +348,8 @@ namespace Kwytto.LiteUI
             {
                 contentOffset = default,
                 padding = new RectOffset(),
-                fixedHeight = size * GUIWindow.ResolutionMultiplier,
-                fixedWidth = size * GUIWindow.ResolutionMultiplier
+                fixedHeight = size ,
+                fixedWidth = size 
             }))
             {
                 onClick();
@@ -377,7 +377,7 @@ namespace Kwytto.LiteUI
 
         public static void Space(float size)
         {
-            GUILayout.Space(size * GUIWindow.ResolutionMultiplier);
+            GUILayout.Space(size );
         }
 
         public static bool AddSlider(float totalWidth, string i18nLocale, float value, out float newVal, float min, float max, bool isEnabled = true)

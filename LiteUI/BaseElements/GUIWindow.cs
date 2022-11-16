@@ -51,8 +51,7 @@ namespace Kwytto.LiteUI
                 OnOpacityChanged(bgOpacity);
             }
         }
-        protected float EffectiveFontSizeMultiplier => FontSizeMultiplier * ResolutionMultiplier;
-        public static float ResolutionMultiplier => Screen.height / 1080f;
+        protected float EffectiveFontSizeMultiplier => FontSizeMultiplier ;
 
         protected virtual bool ShowCloseButton { get; } = true;
         protected virtual bool ShowMinimizeButton { get; } = false;
@@ -172,8 +171,8 @@ namespace Kwytto.LiteUI
         {
             if (Skin == null)
             {
-                bgColor = BasicIUserMod.Instance.ModColor.SetBrightness(.15f);
-                titleBar = BasicIUserMod.Instance.ModColor.SetBrightness(.33f);
+                bgColor = BasicIUserMod.Instance.ModColor.SetBrightness(BasicIUserMod.Instance.BrightnessUiBg).ClampSaturation(.7f);
+                titleBar = BasicIUserMod.Instance.ModColor.SetBrightness(BasicIUserMod.Instance.BrightnessUiTitleBar);
                 titleBarHover = BasicIUserMod.Instance.ModColor.SetBrightness(1);
 
                 BgTexture = TextureUtils.New(1, 1);
@@ -296,16 +295,16 @@ namespace Kwytto.LiteUI
                 GUI.matrix = UIScaler.ScaleMatrix;
                 BeforeDrawWindow();
                 var windowRect = GUI.Window(Id, WindowRect, WindowFunction, string.Empty);
-                Panel.absolutePosition = windowRect.position / ResolutionMultiplier;
+                Panel.absolutePosition = windowRect.position ;
                 Panel.enabled = true;
                 if (!Minimized)
                 {
-                    Panel.size = windowRect.size / ResolutionMultiplier;
+                    Panel.size = windowRect.size ;
                     this.windowRect = windowRect;
                 }
                 else
                 {
-                    Panel.size = new Vector2(TitleBarWidthMinimized, TitleBarHeight) / ResolutionMultiplier;
+                    Panel.size = new Vector2(TitleBarWidthMinimized, TitleBarHeight) ;
                 }
 
                 OnWindowDrawn();
@@ -478,8 +477,8 @@ namespace Kwytto.LiteUI
         {
             var windowRectCalc = WindowRect;
             var minSize = Minimized && HasTitlebar && ShowMinimizeButton ? new Vector2(TitleBarWidthMinimized, TitleBarHeight) : this.minSize;
-            windowRectCalc.width = Mathf.Clamp(windowRectCalc.width, minSize.x * ResolutionMultiplier, Mathf.Min(UIScaler.MaxWidth, maxSize.x * ResolutionMultiplier));
-            windowRectCalc.height = Mathf.Clamp(windowRectCalc.height, minSize.y * ResolutionMultiplier, Mathf.Min(UIScaler.MaxHeight, maxSize.y * ResolutionMultiplier));
+            windowRectCalc.width = Mathf.Clamp(windowRectCalc.width, minSize.x , Mathf.Min(UIScaler.MaxWidth, maxSize.x ));
+            windowRectCalc.height = Mathf.Clamp(windowRectCalc.height, minSize.y , Mathf.Min(UIScaler.MaxHeight, maxSize.y ));
             windowRect.x = Mathf.Clamp(windowRectCalc.x, 0, UIScaler.MaxWidth);
             windowRect.y = Mathf.Clamp(windowRectCalc.y, 0, UIScaler.MaxHeight);
             if (windowRectCalc.xMax > UIScaler.MaxWidth)
@@ -493,8 +492,8 @@ namespace Kwytto.LiteUI
             }
         }
 
-        protected float TitleBarHeight => (12 * ResolutionMultiplier) + (16 * EffectiveFontSizeMultiplier);
-        protected float TitleBarWidthMinimized => (160 * ResolutionMultiplier);
+        protected float TitleBarHeight => (12 ) + (16 * EffectiveFontSizeMultiplier);
+        protected float TitleBarWidthMinimized => (160 );
 
         private void CheckMoveAnywhere(Vector3 mouse)
         {
@@ -556,7 +555,7 @@ namespace Kwytto.LiteUI
                 cachedModIcon.filterMode = FilterMode.Trilinear;
             }
             GUI.DrawTexture(new Rect(3.0f, 0.0f, TitleBarHeight, TitleBarHeight), cachedModIcon, ScaleMode.StretchToFill, true);
-            GUI.Label(new Rect(18 * ResolutionMultiplier + 16 * EffectiveFontSizeMultiplier, 0.0f, windowRect.width - 30 * ResolutionMultiplier + 32 * EffectiveFontSizeMultiplier, TitleBarHeight - 2 * EffectiveFontSizeMultiplier), Title, new GUIStyle(GUI.skin.label)
+            GUI.Label(new Rect(18  + 16 * EffectiveFontSizeMultiplier, 0.0f, windowRect.width - 30  + 32 * EffectiveFontSizeMultiplier, TitleBarHeight - 2 * EffectiveFontSizeMultiplier), Title, new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleLeft
             });

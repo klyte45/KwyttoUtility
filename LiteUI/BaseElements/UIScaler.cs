@@ -53,37 +53,13 @@ namespace Kwytto.LiteUI
 
         public static float AspectRatio => Screen.width / (float)Screen.height;
 
-        public static float MaxWidth
-        {
-            get
-            {
-                float ret =
-                    Screen.width;
-                return ret / BasicIUserMod.Instance.UIScale;
-            }
-        }
+        public static float MaxWidth => Screen.width / UIScale;
 
-        public static float MaxHeight
-        {
-            get
-            {
-                float ret =
-                    Screen.height;
-                return ret / BasicIUserMod.Instance.UIScale;
-            }
-        }
+        public static float MaxHeight => Screen.height / UIScale;
 
-        public static float UIScale
-        {
-            get
-            {
-                var w = Screen.width / MaxWidth;
-                var h = Screen.height / MaxHeight;
-                return Mathf.Min(w, h);
-            }
-        }
+        public static float UIScale => BasicIUserMod.Instance.UIScale * Screen.height / 1080f;
 
-        public static Matrix4x4 ScaleMatrix => Matrix4x4.Scale(Vector3.one * UIScaler.UIScale);
+        public static Matrix4x4 ScaleMatrix => Matrix4x4.Scale(Vector3.one * UIScale);
 
         public static Vector2 MousePosition
         {
@@ -91,7 +67,7 @@ namespace Kwytto.LiteUI
             {
                 var mouse = Input.mousePosition;
                 mouse.y = Screen.height - mouse.y;
-                return mouse / UIScaler.UIScale;
+                return mouse / UIScale;
             }
         }
     }

@@ -80,7 +80,7 @@ namespace Kwytto.LiteUI
             maxWidthObj = null;
             if (maxWidth != null)
             {
-                maxWidthObj = GUILayout.MaxWidth((maxWidth ?? 4) - 4);
+                maxWidthObj = GUILayout.MaxWidth(((maxWidth ?? 4) - 4));
             }
             switch (items.Length)
             {
@@ -145,7 +145,7 @@ namespace Kwytto.LiteUI
                 height += itemSize.y + 1;
             }
 
-            return new Vector2(width, height) * UIScaler.UIScale / GUIWindow.ResolutionMultiplier + new Vector2(56, 36);
+            return new Vector2(width, height) * UIScaler.UIScale + new Vector2(56, 36);
         }
 
         private sealed class PopupWindow : MonoBehaviour
