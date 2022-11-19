@@ -118,51 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="comm_addItemList" xml:space="preserve">
-    <value>Add Item</value>
+    <value>Ajouter un élément</value>
   </data>
   <data name="comm_betaExtraInfo" xml:space="preserve">
-    <value>Extra informations</value>
+    <value>Informations supplémentaires</value>
   </data>
   <data name="comm_currentVersionFormat" xml:space="preserve">
-    <value>Current version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <value>Version actuelle : &lt;color yellow&gt;{0}&lt;/color&gt;</value>
     <comment>Keep the formatting; used in default game UI (mod options)</comment>
   </data>
   <data name="comm_debugMode" xml:space="preserve">
-    <value>Debug mode</value>
+    <value>Mode de débogage</value>
   </data>
   <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
-    <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+    <value>Une erreur s'est produite lors du chargement des données de &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Raw data:</value>
+    <value>Données brutes:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
+    <value>Veuillez ouvrir un problème dans GitHub avec le journal du jeu ci-joint et un printscreen de cette fenêtre pour que cela soit vérifié par le développeur du mod. Voir le bouton &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; dans le menu des options de mod pour voir des détails sur la façon d'obtenir le journal du jeu.</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
-    <value>Error loading '{0}' data</value>
+    <value>Erreur de chargement des données '{0}'</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
-    <value>See release notes</value>
+    <value>Voir notes de versions</value>
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
   <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
-    <value>Current Version:</value>
+    <value>Version actuelle :</value>
     <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
   </data>
   <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
-    <value>Follow Kwytto at Twitter to get update news!</value>
+    <value>Suivez Kwytto sur Twitter pour obtenir des nouvelles de mise à jour !</value>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
-    <value>Okay!</value>
+    <value>Ok!</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
-    <value>See news at Workshop Page!</value>
+    <value>Voir les actualités sur la page Workshop !</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
-    <value>{0} was updated! Release notes:</value>
+    <value>{0} a été mis à jour ! Notes de version :</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
@@ -247,5 +247,26 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
     <value>UI Background Opacity (when in game)</value>
+  </data>
+  <data name="comm_connectionsSection_title" xml:space="preserve">
+    <value>Mod Connections</value>
+  </data>
+  <data name="comm_connectionSection_asConnected" xml:space="preserve">
+    <value>Connected to mod</value>
+  </data>
+  <data name="comm_connectionSection_asFallback" xml:space="preserve">
+    <value>Disconnected/Standalone</value>
+  </data>
+  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
+    <value>Custom implementation ({0}; p={1})</value>
+  </data>
+  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
+    <value>Default connection on</value>
+  </data>
+  <data name="comm_connectionSection_invalidMode" xml:space="preserve">
+    <value>Loading mode not supported</value>
+  </data>
+  <data name="comm_connectionSection_notConnected" xml:space="preserve">
+    <value>Not connected</value>
   </data>
 </root>

@@ -248,4 +248,25 @@ Erstellen eine Diskussion im Workshop oder hinterlasse einfach einen Kommentar, 
   <data name="comm_uiOpacity" xml:space="preserve">
     <value>UI Hintergrundtransparenz (wenn im Spiel)</value>
   </data>
+  <data name="comm_connectionsSection_title" xml:space="preserve">
+    <value>Mod-Verbindungen</value>
+  </data>
+  <data name="comm_connectionSection_asConnected" xml:space="preserve">
+    <value>Verbunden mit Mod</value>
+  </data>
+  <data name="comm_connectionSection_asFallback" xml:space="preserve">
+    <value>Getrennt/Eigenständig</value>
+  </data>
+  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
+    <value>Benutzerdefinierte Implementierung ({0}; p={1})</value>
+  </data>
+  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
+    <value>Standardverbindung an</value>
+  </data>
+  <data name="comm_connectionSection_invalidMode" xml:space="preserve">
+    <value>Lade-Modus wird nicht unterstützt</value>
+  </data>
+  <data name="comm_connectionSection_notConnected" xml:space="preserve">
+    <value>Nicht verbunden</value>
+  </data>
 </root>
