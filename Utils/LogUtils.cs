@@ -80,7 +80,7 @@ namespace Kwytto.Utils
                     streamWriter.WriteLine(IndentString() + string.Format(format, args));
             }
         }
-        private static string LogLineStart(string level) => $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ffff}][{BasicIUserMod.Instance.Acronym,-4}][v{BasicIUserMod.FullVersion,-12}][{level,-8}] ";
+        private static string LogLineStart(string level) => $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}][{BasicIUserMod.Instance.Acronym,-4}][v{BasicIUserMod.FullVersion,-12}][{level,-8}] ";
 
         public static void DoLog(string format, params object[] args)
         {
