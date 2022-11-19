@@ -35,7 +35,7 @@ namespace Kwytto.Utils
         {
             get
             {
-                if (m_prefabsData is null)
+                if (m_prefabsData is null || m_prefabsData.Count != PrefabCollection<T>.PrefabCount())
                 {
                     var prefabMapping = PackageManager.FilterAssets(new Package.AssetType[] { Package.AssetType.Object })
                         .Select(x => Tuple.New(x.fullName, x))
@@ -88,6 +88,7 @@ namespace Kwytto.Utils
         {
             yield return result.Value = PrefabsData.Values
               .Where((x) => input.IsNullOrWhiteSpace() || LocaleManager.cultureInfo.CompareInfo.IndexOf($"{x.DisplayName}\n{x.Author?.personaName}\n{x.PrefabName}", input, CompareOptions.IgnoreCase) >= 0)
+              .OrderBy(x => x.DisplayName)
               .ToArray();
         }
 

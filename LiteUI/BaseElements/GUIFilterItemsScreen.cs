@@ -38,7 +38,7 @@ namespace Kwytto.LiteUI
         private readonly string m_title;
         private GUIStyle m_titleLabelStyle;
 
-        private string m_searchText;
+        private string m_searchText = "";
         private Coroutine m_searchCoroutine;
         private Vector2 m_searchResultPanelScroll;
         private void RestartFilterCoroutine()
@@ -60,7 +60,6 @@ namespace Kwytto.LiteUI
         }
         private void GotFocus()
         {
-            m_searchText = "";
             RestartFilterCoroutine();
         }
         public void DrawButton(float width, string value, bool enabled) => GUIKwyttoCommons.AddButtonSelector(width, m_title, value, () => SetFocus(true), enabled);
