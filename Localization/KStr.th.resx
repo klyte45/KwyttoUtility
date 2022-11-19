@@ -248,4 +248,25 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   <data name="comm_uiOpacity" xml:space="preserve">
     <value>ความทึบแสงของพื้นหลังของ UI (เมื่ออยู่ในเกม)</value>
   </data>
+  <data name="comm_connectionsSection_title" xml:space="preserve">
+    <value>Mod Connections</value>
+  </data>
+  <data name="comm_connectionSection_asConnected" xml:space="preserve">
+    <value>Connected to mod</value>
+  </data>
+  <data name="comm_connectionSection_asFallback" xml:space="preserve">
+    <value>Disconnected/Standalone</value>
+  </data>
+  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
+    <value>Custom implementation ({0}; p={1})</value>
+  </data>
+  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
+    <value>Default connection on</value>
+  </data>
+  <data name="comm_connectionSection_invalidMode" xml:space="preserve">
+    <value>Loading mode not supported</value>
+  </data>
+  <data name="comm_connectionSection_notConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
 </root>
