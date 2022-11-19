@@ -108,6 +108,17 @@ namespace Kwytto.Utils
                 LogBuffered($"{LogLineStart("SEVERE")} Erro ao fazer warn log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
             }
         }
+        public static void DoInfoLog(string format, params object[] args)
+        {
+            try
+            {
+                LogBuffered(LogLineStart("INFO") + format, args);
+            }
+            catch
+            {
+                LogBuffered($"{LogLineStart("SEVERE")} Erro ao fazer warn log: {{0}} (args = {{1}})", format, args == null ? "[]" : string.Join(",", args.Select(x => x != null ? x.ToString() : "--NULL--").ToArray()));
+            }
+        }
         public static void DoErrorLog(string format, params object[] args)
         {
             try
