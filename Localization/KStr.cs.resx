@@ -124,20 +124,20 @@
     <value>Další informace</value>
   </data>
   <data name="comm_currentVersionFormat" xml:space="preserve">
-    <value>Current version: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <value>Aktuální verze: &lt;color yellow&gt;{0}&lt;/color&gt;</value>
     <comment>Keep the formatting; used in default game UI (mod options)</comment>
   </data>
   <data name="comm_debugMode" xml:space="preserve">
     <value>Režim ladění</value>
   </data>
   <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
-    <value>An error occurred while loading the data from &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
+    <value>Došlo k chybě při načítání dat z &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
     <value>Surová data:</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Please open a issue in GitHub along with the game log attached and a printscreen of this window to get this checked by the mod developer. See the &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; button in the mod options menu to see details about how to get the game log.</value>
+    <value>Otevřete prosím problém v GitHubu spolu s přiloženým logem hry a obrazovku tohoto okna, abyste to mohli kontrolovat vývojáři módů. Podívejte se na tlačítko &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; v nabídce Možnosti modu pro zobrazení podrobností o tom, jak získat herní log.</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
     <value>Chyba při načítání '{0}' dat</value>
@@ -162,19 +162,19 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>Podívejte se na novinky na Workshopu!</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
-    <value>{0} was updated! Release notes:</value>
+    <value>{0} byl aktualizován! Poznámky k vydání:</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
-    <value>Report-a-bug helper</value>
+    <value>Pomocník pro nahlášení chyby</value>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
-Additionally, you can find the mod log at the leftmost button below.
+    <value>Pokud najdete nějaký problém s tímto modem, pošlete mi prosím output_log.txt (nebo player.log na Mac/Linux) na stránce módu na Workshopu. Pokud se použije, může snímek obrazovky pomoci lépe odhadnout, co se zde děje špatně..
+Navíc můžete najít protokol modifikací na levém tlačítku níže.
 
-There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
-Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+Existuje odkaz na průvodce Workshopem od &lt;color=#008800&gt;aubergine18&lt;/color&gt;, který vysvětluje, jak najít váš log soubor, v závislosti na OS, který používáte.
+Neváhejte si vytvořit téma ve Workshopu nebo jen zanechat komentář propojující vaše soubory.</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
     <value>Přejít na průvodce</value>
@@ -246,25 +246,25 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
     <value>Měřítko uživatelského rozhraní</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>UI Background Opacity (when in game)</value>
+    <value>Průhlednost pozadí UI (ve hře)</value>
   </data>
   <data name="comm_connectionsSection_title" xml:space="preserve">
-    <value>Mod Connections</value>
+    <value>Připojení modů</value>
   </data>
   <data name="comm_connectionSection_asConnected" xml:space="preserve">
     <value>Připojeno k módu</value>
   </data>
   <data name="comm_connectionSection_asFallback" xml:space="preserve">
-    <value>Disconnected/Standalone</value>
+    <value>Odpojené/Samostatné</value>
   </data>
   <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
-    <value>Custom implementation ({0}; p={1})</value>
+    <value>Vlastní implementace ({0}; p={1})</value>
   </data>
   <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
-    <value>Default connection on</value>
+    <value>Výchozí připojení zapnuto</value>
   </data>
   <data name="comm_connectionSection_invalidMode" xml:space="preserve">
-    <value>Loading mode not supported</value>
+    <value>Načtení módu není podporováno</value>
   </data>
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
     <value>Nepřipojeno</value>
