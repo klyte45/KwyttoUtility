@@ -64,11 +64,12 @@ namespace Kwytto.LiteUI
                     GUILayout.Space(8);
                     using (var scroll = new GUILayout.ScrollViewScope(m_rightPanelScroll))
                     {
-                        DrawRightPanel(new Vector2(size.x / 2 - 20, size.y - topHeight - 50));
+                        DrawRightPanel(new Vector2(size.x / 2 - 20, size.y - topHeight - 45));
                         m_rightPanelScroll = scroll.scrollPosition;
                     }
                 };
             };
+            GUILayout.FlexibleSpace();
             using (new GUILayout.HorizontalScope())
             {
                 if (GUILayout.Button(Locale.Get("CANCEL"), GUILayout.Width(size.x / 2)))

@@ -57,7 +57,11 @@ namespace Kwytto.LiteUI
 
         public static float MaxHeight => Screen.height / UIScale;
 
-        public static float UIScale => BasicIUserMod.Instance.UIScale * Screen.height / 1080f;
+        public static float UIMultiplier => BasicIUserMod.Instance.UIScale;
+
+        public static float BasicUIScale => Screen.height / 1080f;
+
+        public static float UIScale => UIMultiplier * BasicUIScale;
 
         public static Matrix4x4 ScaleMatrix => Matrix4x4.Scale(Vector3.one * UIScale);
 

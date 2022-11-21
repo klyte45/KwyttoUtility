@@ -81,10 +81,10 @@ namespace Kwytto.UI
             var usedHeight = 0f;
             using (new GUILayout.AreaScope(area))
             {
-                var sideListArea = horizontal ? new Rect(0, 0, area.width, usedHeight += 48 ) : new Rect(0, 0, 200 , area.height);
+                var sideListArea = horizontal ? new Rect(0, 0, area.width, usedHeight += 36) : new Rect(0, 0, 200, area.height);
                 var sideList = m_listGetter() ?? new string[0];
                 var addItemText = KStr.comm_addItemList;
-                if (GUIKwyttoCommons.CreateItemList(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, GreenButton, out int newSel, horizontal, () => m_extraButtonsGen?.Invoke(allowAdd)))
+                if (GUIItemList.Draw(sideListArea, ref m_scrollPosition, ListSel, sideList, allowAdd ? addItemText : null, new GUIStyle(GreenButton) { stretchHeight = horizontal }, out int newSel, horizontal, () => m_extraButtonsGen?.Invoke(allowAdd)))
                 {
                     m_onAdd();
                 }
@@ -92,16 +92,17 @@ namespace Kwytto.UI
                 if (ListSel >= 0 && ListSel < sideList.Length)
                 {
 
-                    using (new GUILayout.AreaScope(horizontal ? new Rect(0, usedHeight, area.width, usedHeight += 48 ) : new Rect(205 , 0, area.width - 215 , usedHeight += 48 )))
+                    using (new GUILayout.AreaScope(horizontal ? new Rect(0, usedHeight, area.width, usedHeight += 36) : new Rect(205, 0, area.width - 215, usedHeight += 36)))
                     {
                         CurrentTabIdx = GUILayout.SelectionGrid(CurrentTabIdx, m_tabsUI.Select(x => x.TabIcon).ToArray(), m_tabsUI.Length, new GUIStyle(GUI.skin.button)
                         {
-                            fixedWidth = 48,
-                            fixedHeight = 48,
+                            fixedWidth = 36,
+                            fixedHeight = 36,
+                            padding = new RectOffset(),
                         });
                     }
 
-                    var tabAreaRect = new Rect(horizontal ? 0 : 205 , usedHeight, horizontal ? area.width : area.width - 210 , area.height - usedHeight);
+                    var tabAreaRect = new Rect(horizontal ? 0 : 205, usedHeight, horizontal ? area.width : area.width - 210, area.height - usedHeight);
                     using (new GUILayout.AreaScope(tabAreaRect))
                     {
                         if (CurrentTabIdx >= 0 && CurrentTabIdx < m_tabsUI.Length)

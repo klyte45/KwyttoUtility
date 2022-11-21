@@ -11,7 +11,10 @@ namespace Kwytto.LiteUI
             var shouldInvertValue = false;
             using (new GUILayout.HorizontalScope())
             {
-                shouldInvertValue |= GUILayout.Button("", isSelected ? m_selectionBtnSel : m_selectionBtnUns);
+                GUILayout.Space(20);
+                var btnRect = GUILayoutUtility.GetLastRect();
+                GUI.DrawTexture(new Rect(btnRect.position, new Vector2(20, 20)), GUIKwyttoCommons.whiteTexture);
+                shouldInvertValue |= GUI.Button(new Rect(btnRect.position + new Vector2(2, 2), new Vector2(16, 16)), "", isSelected ? m_selectionBtnSel : m_selectionBtnUns);
                 GUIKwyttoCommons.Space(5);
                 shouldInvertValue |= GUILayout.Button(title, m_labelYellowOnHover);
             }
@@ -35,8 +38,8 @@ namespace Kwytto.LiteUI
                     {
                         background = GUIKwyttoCommons.yellowTexture
                     },
-                    fixedHeight = 20 ,
-                    fixedWidth = 20 
+                    fixedHeight = 16,
+                    fixedWidth = 16
                 };
             }
             if (m_selectionBtnUns is null)
@@ -51,8 +54,8 @@ namespace Kwytto.LiteUI
                     {
                         background = GUIKwyttoCommons.whiteTexture
                     },
-                    fixedHeight = 20 ,
-                    fixedWidth = 20 
+                    fixedHeight = 16,
+                    fixedWidth = 16
                 };
             }
             if (m_labelYellowOnHover is null)

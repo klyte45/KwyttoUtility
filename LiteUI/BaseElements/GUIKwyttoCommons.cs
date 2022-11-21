@@ -284,63 +284,10 @@ namespace Kwytto.LiteUI
             };
         }
 
-        public static bool CreateItemList(Rect sideListArea, ref Vector2 scrollPosition, int currentSelection, string[] sideList, string addButtonText, GUIStyle addButtonStyle, out int newSelection, bool horizontal = false, Action extraButtonsGeneration = null)
-        {
-            var result = false;
-            using (new GUILayout.AreaScope(sideListArea))
-            {
-                using (var scroll = new GUILayout.ScrollViewScope(scrollPosition))
-                {
-                    if (horizontal)
-                    {
-                        using (new GUILayout.HorizontalScope())
-                        {
-                            AfterDrawList(sideListArea, currentSelection, sideList, addButtonText, addButtonStyle, out newSelection, extraButtonsGeneration, ref result, horizontal);
-                        }
-                    }
-                    else
-                    {
-                        using (new GUILayout.VerticalScope())
-                        {
-                            AfterDrawList(sideListArea, currentSelection, sideList, addButtonText, addButtonStyle, out newSelection, extraButtonsGeneration, ref result, horizontal);
-                        }
-                    }
-                    scrollPosition = scroll.scrollPosition;
-                }
-            }
-            return result;
-        }
-
-        private static void AfterDrawList(Rect sideListArea, int currentSelection, string[] sideList, string addButtonText, GUIStyle addButtonStyle, out int newSelection, Action extraButtonsGeneration, ref bool result, bool horizontal)
-        {
-            newSelection = currentSelection;
-            var newListSel = GUILayout.SelectionGrid(currentSelection, sideList, horizontal ? sideList.Length : 1, new GUIStyle(GUI.skin.button)
-            {
-                wordWrap = true,
-                stretchWidth = !horizontal
-            }, GUILayout.MaxWidth(sideListArea.width - 4));
-            if (newListSel >= 0 && newListSel < sideList.Length)
-            {
-                newSelection = newListSel;
-            }
-            if (addButtonText != null && GUILayout.Button(addButtonText, addButtonStyle, GUILayout.ExpandWidth(!horizontal)))
-            {
-                result = true;
-                newSelection = sideList.Length;
-            }
-            if (extraButtonsGeneration != null)
-            {
-
-                GUILayout.Space(10);
-                extraButtonsGeneration();
-
-            }
-        }
-
         [Obsolete("Use version 2: size here is not ensured to be multiplied by resolution factor", true)]
         public static void SquareTextureButton(Texture2D icon, string tooltip, Action onClick, bool condition = true, int size = 30, GUIStyle style = null)
         {
-            SquareTextureButton2(icon, tooltip, onClick, condition, size , style);
+            SquareTextureButton2(icon, tooltip, onClick, condition, size, style);
         }
         public static void SquareTextureButton2(Texture2D icon, string tooltip, Action onClick, bool condition = true, float size = 30, GUIStyle style = null)
         {
@@ -348,8 +295,8 @@ namespace Kwytto.LiteUI
             {
                 contentOffset = default,
                 padding = new RectOffset(),
-                fixedHeight = size ,
-                fixedWidth = size 
+                fixedHeight = size,
+                fixedWidth = size
             }))
             {
                 onClick();
@@ -377,7 +324,7 @@ namespace Kwytto.LiteUI
 
         public static void Space(float size)
         {
-            GUILayout.Space(size );
+            GUILayout.Space(size);
         }
 
         public static bool AddSlider(float totalWidth, string i18nLocale, float value, out float newVal, float min, float max, bool isEnabled = true)

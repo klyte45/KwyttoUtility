@@ -29,6 +29,8 @@ namespace Kwytto.LiteUI
         private readonly Texture2D ExportTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Export);
         private readonly Texture2D FolderTex = KResourceLoader.LoadTextureKwytto(CommonsSpriteNames.K45_Load);
 
+        private GUIStyle m_btnNoBorder;
+
         public string DeleteQuestionI18n { get; set; } = "";
         public string ImportI18n { get; set; } = "";
         public string ExportI18n { get; set; } = "";
@@ -53,6 +55,7 @@ namespace Kwytto.LiteUI
 
         public void DrawImportView(Action<T, bool> OnSelect)
         {
+            InitStyles();
             using (new GUILayout.HorizontalScope())
             {
                 var newFilterVal = GUILayout.TextField(libraryFilter, GUILayout.Height(30));
@@ -85,6 +88,7 @@ namespace Kwytto.LiteUI
 
         public void Draw(GUIStyle removeButtonStyle, Action doOnDelete, Func<T> getCurrent, Action<GUIStyle> onNormalDraw = null)
         {
+            InitStyles();
             using (new GUILayout.HorizontalScope())
             {
                 switch (Status)
@@ -153,14 +157,26 @@ namespace Kwytto.LiteUI
             }
         }
 
+        private void InitStyles()
+        {
+            if (m_btnNoBorder is null)
+            {
+                m_btnNoBorder = new GUIStyle(GUI.skin.button)
+                {
+                    padding = new RectOffset(),
+                };
+            }
+        }
+
         private FooterBarStatus m_currentHover;
         public void FooterDraw(GUIStyle removeButtonStyle)
         {
+            InitStyles();
             var hoverSomething = false;
             if (!ImportAdditiveI18n.IsNullOrWhiteSpace())
             {
                 GUI.SetNextControlName(GetHashCode() + "_IMPORT_ADD");
-                if (GUILayout.Button(ImportAdd, GUILayout.MaxHeight(20)))
+                if (GUILayout.Button(ImportAdd, m_btnNoBorder, GUILayout.MaxHeight(20)))
                 {
                     GoToImportAdditive();
                 }
@@ -171,7 +187,7 @@ namespace Kwytto.LiteUI
                 }
             }
             GUI.SetNextControlName(GetHashCode() + "_IMPORT");
-            if (GUILayout.Button(ImportTex, GUILayout.MaxHeight(20)))
+            if (GUILayout.Button(ImportTex, m_btnNoBorder, GUILayout.MaxHeight(20)))
             {
                 GoToImport();
             }
@@ -181,7 +197,7 @@ namespace Kwytto.LiteUI
                 hoverSomething = true;
             }
             GUI.SetNextControlName(GetHashCode() + "_EXPORT");
-            if (GUILayout.Button(ExportTex, GUILayout.MaxHeight(20)))
+            if (GUILayout.Button(ExportTex, m_btnNoBorder, GUILayout.MaxHeight(20)))
             {
                 GoToExport();
             }
