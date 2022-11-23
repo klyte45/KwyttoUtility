@@ -170,103 +170,103 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
-Additionally, you can find the mod log at the leftmost button below.
+    <value>如果您发现此模组有任何问题，请在模组创意工坊页面向我发送 output_log.txt (或Mac/Linux上的 player.log )。 如果有心，截屏也可以帮助更好地猜测这里发生的错误。 。
+此外，您可以在下方最左侧的按钮找到模组日志。
 
-There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
-Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+&lt;color=#008800&gt;aubergine18&lt;/color&gt; 这是一个创意工坊指南链接。 说明如何根据您使用的操作系统找到您的日志文件。
+在创意工坊自由创建一个主题，或只是留下一个评论链接您的文件。</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
-    <value>Go to the guide</value>
+    <value>跳转到指南</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
-    <value>Go to mod log</value>
+    <value>转到模组日志</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
-    <value>Go to mod page</value>
+    <value>转到模组页面</value>
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
-    <value>Okay...</value>
+    <value>确定...</value>
   </data>
   <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
-    <value>NE</value>
+    <value>东北</value>
   </data>
   <data name="comm_Enum__Cardinal16_N" xml:space="preserve">
-    <value>N</value>
+    <value>北</value>
   </data>
   <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">
-    <value>NNE</value>
+    <value>东北偏北</value>
   </data>
   <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">
-    <value>ENE</value>
+    <value>东北偏东</value>
   </data>
   <data name="comm_Enum__Cardinal16_E" xml:space="preserve">
-    <value>E</value>
+    <value>东</value>
   </data>
   <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">
-    <value>ESE</value>
+    <value>东南偏东</value>
   </data>
   <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">
-    <value>SE</value>
+    <value>东南</value>
   </data>
   <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">
-    <value>SSE</value>
+    <value>东南偏南</value>
   </data>
   <data name="comm_Enum__Cardinal16_S" xml:space="preserve">
-    <value>S</value>
+    <value>南</value>
   </data>
   <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">
-    <value>SSW</value>
+    <value>西南偏南</value>
   </data>
   <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
-    <value>SW</value>
+    <value>西南</value>
   </data>
   <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
-    <value>WSW</value>
+    <value>西南偏西</value>
   </data>
   <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
-    <value>W</value>
+    <value>西</value>
   </data>
   <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
-    <value>WNW</value>
+    <value>西北偏西</value>
   </data>
   <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
-    <value>NW</value>
+    <value>西北</value>
   </data>
   <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">
-    <value>NNW</value>
+    <value>西北偏北</value>
   </data>
   <data name="comm_errorTitle" xml:space="preserve">
-    <value>Error!</value>
+    <value>错误!</value>
   </data>
   <data name="comm_goToFileLocation" xml:space="preserve">
-    <value>Go to file location</value>
+    <value>前往文件位置</value>
   </data>
   <data name="comm_uiScale" xml:space="preserve">
-    <value>UI Scale</value>
+    <value>界面缩放比例</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>UI Background Opacity (when in game)</value>
+    <value>界面背景不透明度 (在游戏中)</value>
   </data>
   <data name="comm_connectionsSection_title" xml:space="preserve">
-    <value>Mod Connections</value>
+    <value>模组连接</value>
   </data>
   <data name="comm_connectionSection_asConnected" xml:space="preserve">
-    <value>Connected to mod</value>
+    <value>已连接到模组</value>
   </data>
   <data name="comm_connectionSection_asFallback" xml:space="preserve">
-    <value>Disconnected/Standalone</value>
+    <value>已断开连接/单机</value>
   </data>
   <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
-    <value>Custom implementation ({0}; p={1})</value>
+    <value>自定义实现({0}; p={1})</value>
   </data>
   <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
-    <value>Default connection on</value>
+    <value>默认连接开启</value>
   </data>
   <data name="comm_connectionSection_invalidMode" xml:space="preserve">
-    <value>Loading mode not supported</value>
+    <value>不支持加载模式</value>
   </data>
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
-    <value>Not connected</value>
+    <value>尚未连接</value>
   </data>
 </root>
