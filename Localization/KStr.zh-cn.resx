@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,5 +117,156 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
- 
+  <data name="comm_addItemList" xml:space="preserve">
+    <value>添加条目</value>
+  </data>
+  <data name="comm_betaExtraInfo" xml:space="preserve">
+    <value>扩展信息</value>
+  </data>
+  <data name="comm_currentVersionFormat" xml:space="preserve">
+    <value>当前版本： &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <comment>Keep the formatting; used in default game UI (mod options)</comment>
+  </data>
+  <data name="comm_debugMode" xml:space="preserve">
+    <value>调试模式</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
+    <value>从 &lt;color=yellow&gt;{0}&lt;/color&gt; 加载数据时出错。</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
+    <value>源数据：</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
+    <value>请在 GitHub 中打开一个问题以及附加的游戏日志和这个窗口的打印机以获得模组开发者的检查。 在模组选项菜单中查看 &lt;color=cyan&gt;报告-a bug Helper&lt;/color&gt; 按钮以查看如何获取游戏日志的详情。</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
+    <value>加载 '{0}' 数据时出错</value>
+  </data>
+  <data name="comm_releaseNotes" xml:space="preserve">
+    <value>查看所有发行说明</value>
+    <comment>Any other language shall inform that the release notes are always in English. 
+PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
+  </data>
+  <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
+    <value>当前版本：</value>
+    <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
+  </data>
+  <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
+    <value>在Twitter关注Kwytto以获取更新消息！</value>
+    <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
+  </data>
+  <data name="comm_releaseNotes_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
+    <value>在创意工坊页面查看新消息！</value>
+  </data>
+  <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
+    <value>{0} 已更新！发布说明：</value>
+    <comment>Argument 0 is the mod name</comment>
+  </data>
+  <data name="comm_reportABugBtn" xml:space="preserve">
+    <value>报告错误助手</value>
+    <comment>This is also the title of the window with the information</comment>
+  </data>
+  <data name="comm_reportABugContent" xml:space="preserve">
+    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
+Additionally, you can find the mod log at the leftmost button below.
+
+There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
+Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
+    <value>Go to the guide</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
+    <value>Go to mod log</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
+    <value>Go to mod page</value>
+  </data>
+  <data name="comm_reportABugOpt_Ok" xml:space="preserve">
+    <value>Okay...</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
+    <value>NE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_N" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">
+    <value>NNE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">
+    <value>ENE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_E" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">
+    <value>ESE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">
+    <value>SE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">
+    <value>SSE</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_S" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">
+    <value>SSW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
+    <value>SW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
+    <value>WSW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
+    <value>WNW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
+    <value>NW</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">
+    <value>NNW</value>
+  </data>
+  <data name="comm_errorTitle" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="comm_goToFileLocation" xml:space="preserve">
+    <value>Go to file location</value>
+  </data>
+  <data name="comm_uiScale" xml:space="preserve">
+    <value>UI Scale</value>
+  </data>
+  <data name="comm_uiOpacity" xml:space="preserve">
+    <value>UI Background Opacity (when in game)</value>
+  </data>
+  <data name="comm_connectionsSection_title" xml:space="preserve">
+    <value>Mod Connections</value>
+  </data>
+  <data name="comm_connectionSection_asConnected" xml:space="preserve">
+    <value>Connected to mod</value>
+  </data>
+  <data name="comm_connectionSection_asFallback" xml:space="preserve">
+    <value>Disconnected/Standalone</value>
+  </data>
+  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
+    <value>Custom implementation ({0}; p={1})</value>
+  </data>
+  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
+    <value>Default connection on</value>
+  </data>
+  <data name="comm_connectionSection_invalidMode" xml:space="preserve">
+    <value>Loading mode not supported</value>
+  </data>
+  <data name="comm_connectionSection_notConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
 </root>
