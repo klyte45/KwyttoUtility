@@ -249,24 +249,24 @@ Siéntase libre de crear un tema en la Workshop o simplemente dejar un comentari
     <value>Transparencia del fondo de la interfaz (cuando está en el juego)</value>
   </data>
   <data name="comm_connectionsSection_title" xml:space="preserve">
-    <value>Mod Connections</value>
+    <value>Conexiones de mod</value>
   </data>
   <data name="comm_connectionSection_asConnected" xml:space="preserve">
-    <value>Connected to mod</value>
+    <value>Conectado al mod</value>
   </data>
   <data name="comm_connectionSection_asFallback" xml:space="preserve">
-    <value>Disconnected/Standalone</value>
+    <value>Desconectado/Independiente</value>
   </data>
   <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
-    <value>Custom implementation ({0}; p={1})</value>
+    <value>Implementación personalizada ({0}; p={1})</value>
   </data>
   <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
-    <value>Default connection on</value>
+    <value>Conexión por defecto activada</value>
   </data>
   <data name="comm_connectionSection_invalidMode" xml:space="preserve">
-    <value>Loading mode not supported</value>
+    <value>Modo de carga no compatible</value>
   </data>
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
-    <value>Not connected</value>
+    <value>No conectado</value>
   </data>
 </root>
