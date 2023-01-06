@@ -258,7 +258,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>ยกเลิกการเชื่อมต่อแล้ว/แบบสแตนด์อโลน</value>
   </data>
   <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
-    <value>Custom implementation ({0}; p={1})</value>
+    <value>การดำเนินการที่กำหนดเอง ({0}; p={1})</value>
   </data>
   <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
     <value>เปิดใช้ค่าเริ่มต้นการเชื่อมต่อ</value>
