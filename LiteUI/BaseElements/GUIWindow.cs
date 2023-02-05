@@ -314,6 +314,7 @@ namespace Kwytto.LiteUI
                 var windowRect = GUI.Window(Id, WindowRect, WindowFunction, string.Empty);
                 Panel.absolutePosition = windowRect.position * BasicIUserMod.Instance.UIScale;
                 Panel.enabled = true;
+                Panel.zOrder = int.MaxValue;
                 if (!Minimized)
                 {
                     Panel.size = windowRect.size * BasicIUserMod.Instance.UIScale;
@@ -493,7 +494,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        protected float TitleBarHeight => (40 * EffectiveFontSizeMultiplier);
+        protected float TitleBarHeight => 40;
         protected float TitleBarWidthMinimized => (160);
 
         private void CheckMoveAnywhere(Vector3 mouse)
@@ -649,7 +650,6 @@ namespace Kwytto.LiteUI
         private void DrawResizeHandle(Vector3 mouse)
         {
             var resizeRect = new Rect(windowRect.x + windowRect.width - 12, windowRect.y + windowRect.height - 12, 12, 12);
-
             GUI.DrawTexture(new Rect(windowRect.width - 12, windowRect.height - 12, 12, 12), resizingWindow == this || resizeRect.Contains(mouse) ? ResizeHoverTexture : ResizeNormalTexture, ScaleMode.StretchToFill);
         }
 

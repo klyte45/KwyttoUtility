@@ -84,5 +84,7 @@
         UI_RestoreBtn,
         UI_RestoreBtn_Hover,
         UI_PanelBG_NoTitle,
+        UI_Toggle,
+        UI_Toggle_Checked
     }
 }

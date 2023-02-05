@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Kwytto.Utils;
+using UnityEngine;
 
 namespace Kwytto.LiteUI
 {
@@ -29,11 +30,7 @@ namespace Kwytto.LiteUI
                 {
                     normal =
                     {
-                        background = GUIKwyttoCommons.greenTexture
-                    },
-                    hover =
-                    {
-                        background = GUIKwyttoCommons.yellowTexture
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_Toggle_Checked)
                     },
                     fixedHeight = 20 ,
                     fixedWidth = 20 
@@ -45,11 +42,7 @@ namespace Kwytto.LiteUI
                 {
                     normal =
                     {
-                        background = GUIKwyttoCommons.blackTexture
-                    },
-                    hover =
-                    {
-                        background = GUIKwyttoCommons.whiteTexture
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_Toggle)
                     },
                     fixedHeight = 20 ,
                     fixedWidth = 20 
