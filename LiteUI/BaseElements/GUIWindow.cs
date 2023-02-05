@@ -207,6 +207,7 @@ namespace Kwytto.LiteUI
                 MoveHoverTexture.Apply();
 
                 Skin = ScriptableObject.CreateInstance<GUISkin>();
+                Skin.font = Font.CreateDynamicFontFromOSFont(FindObjectOfType<UITextComponent>().font.baseFont.fontNames, 14);
                 Skin.box = new GUIStyle(GUI.skin.box);
                 Skin.button = new GUIStyle(GUI.skin.button);
                 Skin.horizontalScrollbar = new GUIStyle(GUI.skin.horizontalScrollbar);
