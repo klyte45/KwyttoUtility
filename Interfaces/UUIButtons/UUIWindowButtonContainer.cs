@@ -31,7 +31,6 @@ namespace Kwytto.Interfaces
 
              );
             m_modButton.IsPressed = false;
-            ApplyButtonColor();
             if (m_modButton.Button is UIButton btn)
             {
                 btn.state = UIButton.ButtonState.Normal;
@@ -46,7 +45,6 @@ namespace Kwytto.Interfaces
                 m_modButton.IsPressed = false;
                 w.Visible = false;
                 m_modButton.Button?.Unfocus();
-                ApplyButtonColor();
             }
         }
         public void CheckBind(GUIWindow w)
@@ -64,16 +62,10 @@ namespace Kwytto.Interfaces
                     {
                         m_modButton.Button.Unfocus();
                     }
-                    ApplyButtonColor();
                 };
                 isBinded = true;
             }
         }
-        private void ApplyButtonColor()
-        {
-            m_modButton.Button.color = Color.Lerp(Color.gray, m_modButton.IsPressed ? Color.white : Color.black, 0.5f);
-        }
-
         public void Open()
         {
             if (window() is GUIWindow w)
@@ -83,7 +75,6 @@ namespace Kwytto.Interfaces
                 w.Visible = true;
                 w.transform.position = new Vector3(25, 50);
                 m_modButton.Button.Focus();
-                ApplyButtonColor();
                 GUI.BringWindowToFront(w.Id);
             }
         }
