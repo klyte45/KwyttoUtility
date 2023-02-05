@@ -272,9 +272,9 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>未接続</value>
   </data>
   <data name="comm_modUiFont" xml:space="preserve">
-    <value>Mod UI Font</value>
+    <value>MODのUIフォント</value>
   </data>
   <data name="comm_sameAsGameFont" xml:space="preserve">
-    <value>&lt;Same as Game&gt;</value>
+    <value>&lt;ゲームと同じ&gt;</value>
   </data>
 </root>
