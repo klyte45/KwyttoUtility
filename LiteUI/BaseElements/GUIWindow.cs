@@ -178,36 +178,45 @@ namespace Kwytto.LiteUI
         {
             if (Skin == null)
             {
-                BgTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_PanelBG);
-                BgTexture.SetPixels(BgTexture.GetPixels().Select(x => new Color(x.r, x.g, x.b, x.a * bgOpacity)).ToArray());
-                BgTexture.Apply();
-
-
-                ResizeNormalTexture = TextureUtils.New(1, 1);
-                ResizeNormalTexture.SetPixel(0, 0, Color.white);
-                ResizeNormalTexture.Apply();
-
-                ResizeHoverTexture = TextureUtils.New(1, 1);
-                ResizeHoverTexture.SetPixel(0, 0, Color.blue);
-                ResizeHoverTexture.Apply();
-
+                if (!BgTexture)
+                {
+                    BgTexture = HasTitlebar ? KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_PanelBG) : KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_PanelBG_NoTitle);
+                    BgTexture.SetPixels(BgTexture.GetPixels().Select(x => new Color(x.r, x.g, x.b, x.a * bgOpacity)).ToArray());
+                    BgTexture.Apply();
+                }
+                if (!ResizeNormalTexture)
+                {
+                    ResizeNormalTexture = TextureUtils.New(1, 1);
+                    ResizeNormalTexture.SetPixel(0, 0, Color.white);
+                    ResizeNormalTexture.Apply();
+                }
+                if (!ResizeHoverTexture)
+                {
+                    ResizeHoverTexture = TextureUtils.New(1, 1);
+                    ResizeHoverTexture.SetPixel(0, 0, Color.blue);
+                    ResizeHoverTexture.Apply();
+                }
                 if (!CloseNormalTexture) CloseNormalTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_CloseBtn);
                 if (!CloseHoverTexture) CloseHoverTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_CloseBtn_Hover);
                 if (!RestoreNormalTexture) RestoreNormalTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_RestoreBtn);
                 if (!RestoreHoverTexture) RestoreHoverTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_RestoreBtn_Hover);
                 if (!MinimizeNormalTexture) MinimizeNormalTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_MinimizeBtn);
                 if (!MinimizeHoverTexture) MinimizeHoverTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_MinimizeBtn_Hover);
-
-                MoveNormalTexture = TextureUtils.New(1, 1);
-                MoveNormalTexture.SetPixel(0, 0, Color.clear);
-                MoveNormalTexture.Apply();
-
-                MoveHoverTexture = TextureUtils.New(1, 1);
-                MoveHoverTexture.SetPixel(0, 0, Color.clear);
-                MoveHoverTexture.Apply();
+                if (!MoveNormalTexture)
+                {
+                    MoveNormalTexture = TextureUtils.New(1, 1);
+                    MoveNormalTexture.SetPixel(0, 0, Color.clear);
+                    MoveNormalTexture.Apply();
+                }
+                if (!MoveHoverTexture)
+                {
+                    MoveHoverTexture = TextureUtils.New(1, 1);
+                    MoveHoverTexture.SetPixel(0, 0, Color.clear);
+                    MoveHoverTexture.Apply();
+                }
 
                 Skin = ScriptableObject.CreateInstance<GUISkin>();
-                Skin.font = Font.CreateDynamicFontFromOSFont(FindObjectOfType<UITextComponent>().font.baseFont.fontNames, 14);
+                Skin.font = Font.CreateDynamicFontFromOSFont(new string[] { BasicIUserMod.UIFontName.value.TrimToNull() }.Concat(FindObjectOfType<UITextComponent>().font.baseFont.fontNames).Where(x => x != null).ToArray(), 14);
                 Skin.box = new GUIStyle(GUI.skin.box);
                 Skin.button = new GUIStyle(GUI.skin.button);
                 Skin.horizontalScrollbar = new GUIStyle(GUI.skin.horizontalScrollbar);
@@ -235,7 +244,7 @@ namespace Kwytto.LiteUI
                 Skin.verticalSliderThumb = new GUIStyle(GUI.skin.verticalSliderThumb);
                 Skin.window = new GUIStyle(GUI.skin.window)
                 {
-                    border = new RectOffset(8, 8, 45, 8),
+                    border = new RectOffset(8, 8, HasTitlebar ? 45 : 8, 8),
                     padding = new RectOffset(2, 2, HasTitlebar ? 0 : 2, 2)
                 };
                 Skin.window.normal.background = BgTexture;
@@ -688,6 +697,14 @@ namespace Kwytto.LiteUI
                 }
             }
 
+        }
+
+        internal static void ResetSkin()
+        {
+            foreach (var window in Windows)
+            {
+                window.Skin = null;
+            }
         }
     }
 }

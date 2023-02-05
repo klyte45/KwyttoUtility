@@ -83,5 +83,6 @@
         UI_MinimizeBtn_Hover,
         UI_RestoreBtn,
         UI_RestoreBtn_Hover,
+        UI_PanelBG_NoTitle,
     }
 }
