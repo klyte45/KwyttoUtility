@@ -269,4 +269,10 @@ Siéntase libre de crear un tema en la Workshop o simplemente dejar un comentari
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
     <value>No conectado</value>
   </data>
+  <data name="comm_modUiFont" xml:space="preserve">
+    <value>Mod UI Font</value>
+  </data>
+  <data name="comm_sameAsGameFont" xml:space="preserve">
+    <value>&lt;Same as Game&gt;</value>
+  </data>
 </root>
