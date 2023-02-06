@@ -19,6 +19,29 @@ namespace Kwytto.LiteUI
             return shouldInvertValue != isSelected;
         }
 
+        public static GUIStyle SelectionBtnSel
+        {
+            get
+            {
+                if(m_selectionBtnSel is null)
+                {
+                    InitToggleLayouts();
+                }
+                return m_selectionBtnSel;
+            }
+        }
+        public static GUIStyle SelectionBtnUns
+        {
+            get
+            {
+                if (m_selectionBtnUns is null)
+                {
+                    InitToggleLayouts();
+                }
+                return m_selectionBtnUns;
+
+            }
+        }
         private static GUIStyle m_selectionBtnSel;
         private static GUIStyle m_selectionBtnUns;
         private static GUIStyle m_labelYellowOnHover;
@@ -32,8 +55,11 @@ namespace Kwytto.LiteUI
                     {
                         background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_Toggle_Checked)
                     },
-                    fixedHeight = 20 ,
-                    fixedWidth = 20 
+                    fixedHeight = 20,
+                    fixedWidth = 20,
+                    margin = new RectOffset(0, 0, 5, 0),
+                    padding = new RectOffset(),
+                    border = new RectOffset()
                 };
             }
             if (m_selectionBtnUns is null)
@@ -44,8 +70,11 @@ namespace Kwytto.LiteUI
                     {
                         background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_Toggle)
                     },
-                    fixedHeight = 20 ,
-                    fixedWidth = 20 
+                    fixedHeight = 20,
+                    fixedWidth = 20,
+                    margin = new RectOffset(0, 0, 5, 0),
+                    padding = new RectOffset(),
+                    border = new RectOffset()
                 };
             }
             if (m_labelYellowOnHover is null)

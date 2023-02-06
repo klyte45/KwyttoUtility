@@ -340,7 +340,7 @@ namespace Kwytto.LiteUI
         [Obsolete("Use version 2: size here is not ensured to be multiplied by resolution factor", true)]
         public static void SquareTextureButton(Texture2D icon, string tooltip, Action onClick, bool condition = true, int size = 30, GUIStyle style = null)
         {
-            SquareTextureButton2(icon, tooltip, onClick, condition, size , style);
+            SquareTextureButton2(icon, tooltip, onClick, condition, size, style);
         }
         public static void SquareTextureButton2(Texture2D icon, string tooltip, Action onClick, bool condition = true, float size = 30, GUIStyle style = null)
         {
@@ -348,8 +348,8 @@ namespace Kwytto.LiteUI
             {
                 contentOffset = default,
                 padding = new RectOffset(),
-                fixedHeight = size ,
-                fixedWidth = size 
+                fixedHeight = size,
+                fixedWidth = size
             }))
             {
                 onClick();
@@ -377,7 +377,7 @@ namespace Kwytto.LiteUI
 
         public static void Space(float size)
         {
-            GUILayout.Space(size );
+            GUILayout.Space(size);
         }
 
         public static bool AddSlider(float totalWidth, string i18nLocale, float value, out float newVal, float min, float max, bool isEnabled = true)
@@ -517,7 +517,7 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth - 75));
+                GUILayout.Label(title, GUILayout.Width(totalWidth - 80));
                 GUILayout.FlexibleSpace();
                 if (isEnabled)
                 {
@@ -599,6 +599,52 @@ namespace Kwytto.LiteUI
                 }
                 return false;
             };
+        }
+        #endregion
+
+        #region Tooltip
+        public static void DrawTooltip(Rect refRectangle, float maxWidth, GUIContent content, UIAnchorStyle anchor = UIAnchorStyle.Top)
+        {
+            Vector2 sizeTooltip = maxWidth != 0
+                ? new Vector2(maxWidth - 4, GUI.skin.label.CalcHeight(content, maxWidth))
+                : GUI.skin.label.CalcSize(content);
+            Vector2 targetPos = GetTargetPosition(refRectangle, sizeTooltip, anchor);
+            GUI.DrawTexture(new Rect(targetPos, sizeTooltip + new Vector2(4, 4)), GUIKwyttoCommons.blackTexture);
+            GUI.Label(new Rect(targetPos + new Vector2(2, 2), sizeTooltip), content);
+        }
+
+
+        private static Vector2 GetTargetPosition(Rect refRectangle, Vector2 sizeTooltip, UIAnchorStyle anchor)
+        {
+            switch (anchor)
+            {
+                case UIAnchorStyle.Top:
+                    {
+                        var targetPos = refRectangle.position - new Vector2(0, sizeTooltip.y + 4);
+                        if (targetPos.y < 0)
+                        {
+                            targetPos = refRectangle.position + new Vector2(0, refRectangle.height);
+                        }
+                        return targetPos;
+                    }
+                case UIAnchorStyle.Bottom:
+                    {
+                        var targetPos = refRectangle.position + new Vector2(0, refRectangle.height);
+                        return targetPos;
+                    }
+                case UIAnchorStyle.Right:
+                    {
+                        var targetPos = refRectangle.position + new Vector2(refRectangle.width, 0);
+                        return targetPos;
+                    }
+                case UIAnchorStyle.Left:
+                    {
+                        var targetPos = refRectangle.position - new Vector2(sizeTooltip.x + 4, 0);
+                        return targetPos;
+                    }
+                default:
+                    return refRectangle.position;
+            }
         }
         #endregion
 
