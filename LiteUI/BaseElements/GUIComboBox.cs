@@ -7,16 +7,16 @@ namespace Kwytto.LiteUI
         private const string ExpandDownButtonText = " ▼ ";
         private static PopupWindow popupWindow;
 
-        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null)
+        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null, string forceBoxText = null)
         {
-            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, new GUIContent(nullStr)) is int retNum)
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, new GUIContent(nullStr), forceBoxText is null ? null : new GUIContent(forceBoxText)) is int retNum)
             {
                 return retNum;
             }
 
             var popupSize = GetPopupDimensions(items);
 
-            GUILayout.Box(itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
+            GUILayout.Box(forceBoxText ?? (itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex]), maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
             var lastRect = GUILayoutUtility.GetLastRect();
             if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
             {
@@ -75,7 +75,7 @@ namespace Kwytto.LiteUI
             return itemIndex;
         }
 
-        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj, GUIContent nullStr)
+        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj, GUIContent nullStr, GUIContent overrideContent = null)
         {
             maxWidthObj = null;
             if (maxWidth != null)
@@ -85,13 +85,13 @@ namespace Kwytto.LiteUI
             switch (items.Length)
             {
                 case 0:
-                    GUILayout.Box(nullStr, maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
+                    GUILayout.Box(overrideContent ?? nullStr, maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
                     return -1;
 
                 case 1:
                     if (itemIndex == 0)
                     {
-                        GUILayout.Box(items[0], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
+                        GUILayout.Box(overrideContent ?? new GUIContent(items[0]), maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
                         return 0;
                     }
                     break;
