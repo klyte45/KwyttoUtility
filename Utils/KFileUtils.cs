@@ -176,7 +176,7 @@ namespace Kwytto.Utils
         {
 
             var executingAssembly = KResourceLoader.RefAssemblyMod;
-            string folderName = $"Klyte.{packageDirectory}";
+            string folderName = $"{BasicIUserMod.Instance.SafeName}.{packageDirectory}";
             return executingAssembly
                 .GetManifestResourceNames()
                 .Where(r => r.StartsWith(folderName) && r.EndsWith(extension))
