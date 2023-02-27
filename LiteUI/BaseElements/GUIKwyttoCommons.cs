@@ -443,25 +443,38 @@ namespace Kwytto.LiteUI
             {
                 GUILayout.Label(title);
                 GUILayout.FlexibleSpace();
-                GUILayout.Space(totalWidth / 3);
-                if (isEnabled)
-                {
-                    var rect = GUILayoutUtility.GetLastRect();
-                    var newValue = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max));
-                    newValue = GUIIntField.IntField(title, newValue, min, max, 40) ?? newValue;
-                    if (newValue != value)
-                    {
-                        value = newValue;
-                        return true;
-                    }
-                }
-                else
-                {
-                    GUILayout.Label(value.ToString("F3"));
-                }
-                return false;
+                return DrawIntSlider(totalWidth / 3, title, ref value, min, max, isEnabled);
             };
         }
+
+        public static bool DrawIntSlider(float width, string id, int value, out int newVal, int min, int max, bool isEnabled = true)
+        {
+            newVal = value;
+            return DrawIntSlider(width, id, ref newVal, min, max, isEnabled);
+        }
+
+        public static bool DrawIntSlider(float width, string id, ref int value, int min, int max, bool isEnabled = true)
+        {
+            GUILayout.Space(width - 40);
+            if (isEnabled)
+            {
+                var rect = GUILayoutUtility.GetLastRect();
+                var newValue = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max));
+                newValue = GUIIntField.IntField(id, newValue, min, max, 40) ?? newValue;
+                if (newValue != value)
+                {
+                    value = newValue;
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                GUILayout.Label(value.ToString("F3"));
+                return false;
+            }
+        }
+
         public static bool AddFloatField(float totalWidth, string i18nLocale, float value, out float newVal, bool isEnabled = true, float min = float.MinValue, float max = float.MaxValue)
         {
             var res = AddFloatField(totalWidth, i18nLocale, ref value, isEnabled, min, max);

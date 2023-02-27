@@ -32,11 +32,12 @@ namespace Kwytto.LiteUI
                     // discard last value if user did not use enter to submit results
                     lastValue = null;
                 }
-                else if (EnterPressed())
+                else if (id == lastFocusedFieldId && EnterPressed())
                 {
                     value = lastValue;
                     lastValue = null;
                     GUI.FocusControl(null);
+                    lastFocusedFieldId = null;
                 }
             }
 
