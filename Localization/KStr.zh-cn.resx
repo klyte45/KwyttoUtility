@@ -137,13 +137,13 @@
     <value>源数据：</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>请在 GitHub 中打开一个问题以及附加的游戏日志和这个窗口的打印机以获得模组开发者的检查。 在模组选项菜单中查看 &lt;color=cyan&gt;报告-a bug Helper&lt;/color&gt; 按钮以查看如何获取游戏日志的详情。</value>
+    <value>请在 GitHub 中发起一个 Issue，并附带上游戏日志和截图，以便模组开发者检查。在模组选项菜单中点击 &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt;按钮来了解如何获取游戏日志。</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
     <value>加载 '{0}' 数据时出错</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
-    <value>查看所有发行说明</value>
+    <value>查看版本更新记录</value>
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
@@ -156,13 +156,13 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>确定</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
     <value>在创意工坊页面查看新消息！</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
-    <value>{0} 已更新！发布说明：</value>
+    <value>{0} 已更新！更新内容：</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
@@ -270,9 +270,9 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>尚未连接</value>
   </data>
   <data name="comm_modUiFont" xml:space="preserve">
-    <value>Mod UI Font</value>
+    <value>模组UI的字体</value>
   </data>
   <data name="comm_sameAsGameFont" xml:space="preserve">
-    <value>&lt;Same as Game&gt;</value>
+    <value>&lt;与游戏相同&gt;</value>
   </data>
 </root>
