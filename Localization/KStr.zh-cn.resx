@@ -170,11 +170,11 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>如果您发现此模组有任何问题，请在模组创意工坊页面向我发送 output_log.txt (或Mac/Linux上的 player.log )。 如果有心，截屏也可以帮助更好地猜测这里发生的错误。 。
-此外，您可以在下方最左侧的按钮找到模组日志。
+    <value>如果您发现此模组的任何问题，请在模组的创意工坊页面向我发送 output_log.txt (或 Mac/Linux 系统的 player.log)。发送游戏截图也可以帮助更好地查找这里发生的错误。
+此外，您可以在下方最左侧的按钮找到模组的日志。
 
-&lt;color=#008800&gt;aubergine18&lt;/color&gt; 这是一个创意工坊指南链接。 说明如何根据您使用的操作系统找到您的日志文件。
-在创意工坊自由创建一个主题，或只是留下一个评论链接您的文件。</value>
+这里有一个链接，指向 &lt;color=#008800&gt;aubergine18&lt;/color&gt; 制作的工坊指南。该指南可以说明在不同操作系统上如何找到日志文件。
+您可以在创意工坊创建一个讨论区话题，或留下一条附带有您文件的链接的评论。</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
     <value>跳转到指南</value>
@@ -237,7 +237,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>西北偏北</value>
   </data>
   <data name="comm_errorTitle" xml:space="preserve">
-    <value>错误!</value>
+    <value>出错了！</value>
   </data>
   <data name="comm_goToFileLocation" xml:space="preserve">
     <value>前往文件位置</value>
@@ -246,7 +246,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>界面缩放比例</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>界面背景不透明度 (在游戏中)</value>
+    <value>(游戏内)界面背景不透明度</value>
   </data>
   <data name="comm_connectionsSection_title" xml:space="preserve">
     <value>模组连接</value>
