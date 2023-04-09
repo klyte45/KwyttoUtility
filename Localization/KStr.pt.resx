@@ -273,6 +273,6 @@ Sinta-se à vontade para criar um tópico na Oficina ou apenas deixar um coment�
     <value>Mod UI Font</value>
   </data>
   <data name="comm_sameAsGameFont" xml:space="preserve">
-    <value>&lt;Same as Game&gt;</value>
+    <value>&lt;O mesmo que nome de usuário&gt;</value>
   </data>
 </root>
