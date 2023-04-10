@@ -270,9 +270,9 @@ Erstellen eine Diskussion im Workshop oder hinterlasse einfach einen Kommentar, 
     <value>Nicht verbunden</value>
   </data>
   <data name="comm_modUiFont" xml:space="preserve">
-    <value>Mod UI Font</value>
+    <value>Zeichensatz der Benutzeroberfläche</value>
   </data>
   <data name="comm_sameAsGameFont" xml:space="preserve">
-    <value>&lt;Same as Game&gt;</value>
+    <value>&lt;Wie das Spiel&gt;</value>
   </data>
 </root>
