@@ -143,7 +143,7 @@
     <value>Erreur de chargement des données '{0}'</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
-    <value>Voir notes de versions</value>
+    <value>Voir les notes de versions</value>
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
@@ -159,7 +159,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>Ok!</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
-    <value>Voir les actualités sur la page Workshop !</value>
+    <value>Voir les actualités sur la page du Workshop !</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
     <value>{0} a été mis à jour ! Notes de version :</value>
@@ -180,7 +180,7 @@ N'hésitez pas à créer un sujet dans le Workshop ou à laisser un commentaire 
     <value>Suivez le guide</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
-    <value>Accéder au journal des mods</value>
+    <value>Accéder au journal du mod</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
     <value>Accéder à la page du mod</value>
@@ -270,9 +270,9 @@ N'hésitez pas à créer un sujet dans le Workshop ou à laisser un commentaire 
     <value>Non connecté</value>
   </data>
   <data name="comm_modUiFont" xml:space="preserve">
-    <value>Mod UI Font</value>
+    <value>Police de l'interface utilisateur du Mod</value>
   </data>
   <data name="comm_sameAsGameFont" xml:space="preserve">
-    <value>&lt;Same as Game&gt;</value>
+    <value>&lt;Identique au jeu&gt;</value>
   </data>
 </root>
