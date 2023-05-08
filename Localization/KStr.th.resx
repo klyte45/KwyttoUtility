@@ -270,9 +270,9 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>ไม่มีการเชื่อมต่อ</value>
   </data>
   <data name="comm_modUiFont" xml:space="preserve">
-    <value>Mod UI Font</value>
+    <value>ม็อด UI ฟอนต์</value>
   </data>
   <data name="comm_sameAsGameFont" xml:space="preserve">
-    <value>&lt;Same as Game&gt;</value>
+    <value>&lt;เหมือนกับชื่อเกม&gt;</value>
   </data>
 </root>
