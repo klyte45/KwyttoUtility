@@ -134,10 +134,10 @@
     <value>Une erreur s'est produite lors du chargement des données de &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Données brutes:</value>
+    <value>Données brutes :</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Veuillez ouvrir un problème dans GitHub avec le journal du jeu ci-joint et un printscreen de cette fenêtre pour que cela soit vérifié par le développeur du mod. Voir le bouton &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; dans le menu des options de mod pour voir des détails sur la façon d'obtenir le journal du jeu.</value>
+    <value>Veuillez ouvrir un problème dans GitHub avec le journal du jeu ci-joint et un printscreen de cette fenêtre pour que cela soit vérifié par le développeur du mod. Voir le bouton &lt;color=cyan&gt;Aide pour signaler un bogue&lt;/color&gt; dans le menu des options de mod pour voir des détails sur la façon d'obtenir le journal du jeu.</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
     <value>Erreur de chargement des données '{0}'</value>
@@ -156,7 +156,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
-    <value>Ok!</value>
+    <value>Ok !</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
     <value>Voir les actualités sur la page du Workshop !</value>
@@ -177,7 +177,7 @@ Il y a un lien pour un guide du Worksho par &lt;color=#008800&gt;aubergine18&lt;
 N'hésitez pas à créer un sujet dans le Workshop ou à laisser un commentaire liant vos fichiers.</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
-    <value>Suivez le guide</value>
+    <value>Aller au guide</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
     <value>Accéder au journal du mod</value>
