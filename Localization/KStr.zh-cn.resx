@@ -246,7 +246,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>界面缩放比例</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>(游戏内)界面背景不透明度</value>
+    <value>(游戏内) 界面背景不透明度</value>
   </data>
   <data name="comm_connectionsSection_title" xml:space="preserve">
     <value>模组连接</value>
@@ -267,7 +267,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>不支持加载模式</value>
   </data>
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
-    <value>尚未连接</value>
+    <value>未连接</value>
   </data>
   <data name="comm_modUiFont" xml:space="preserve">
     <value>模组UI的字体</value>
