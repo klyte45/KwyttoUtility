@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,5 +117,162 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
- 
+  <data name="comm_addItemList" xml:space="preserve">
+    <value>添加条目</value>
+  </data>
+  <data name="comm_betaExtraInfo" xml:space="preserve">
+    <value>扩展信息</value>
+  </data>
+  <data name="comm_currentVersionFormat" xml:space="preserve">
+    <value>当前版本： &lt;color yellow&gt;{0}&lt;/color&gt;</value>
+    <comment>Keep the formatting; used in default game UI (mod options)</comment>
+  </data>
+  <data name="comm_debugMode" xml:space="preserve">
+    <value>调试模式</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_Header" xml:space="preserve">
+    <value>从 &lt;color=yellow&gt;{0}&lt;/color&gt; 加载数据时出错。</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
+    <value>源数据：</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
+    <value>请在 GitHub 中发起一个 Issue，并附带上游戏日志和截图，以便模组开发者检查。在模组选项菜单中点击 &lt;color=cyan&gt;报告错误助手&lt;/color&gt;按钮来了解如何获取游戏日志。</value>
+  </data>
+  <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
+    <value>加载 '{0}' 数据时出错</value>
+  </data>
+  <data name="comm_releaseNotes" xml:space="preserve">
+    <value>查看版本更新记录</value>
+    <comment>Any other language shall inform that the release notes are always in English. 
+PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
+  </data>
+  <data name="comm_releaseNotes_CurrentVersion" xml:space="preserve">
+    <value>当前版本：</value>
+    <comment>This one is used in the release notes, and may have a different diagramation than the mod options label</comment>
+  </data>
+  <data name="comm_releaseNotes_FollowKwytto" xml:space="preserve">
+    <value>在Twitter关注Kwytto以获取更新消息！</value>
+    <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
+  </data>
+  <data name="comm_releaseNotes_Ok" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
+    <value>在创意工坊页面查看新消息！</value>
+  </data>
+  <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
+    <value>{0} 已更新！更新内容：</value>
+    <comment>Argument 0 is the mod name</comment>
+  </data>
+  <data name="comm_reportABugBtn" xml:space="preserve">
+    <value>报告错误助手</value>
+    <comment>This is also the title of the window with the information</comment>
+  </data>
+  <data name="comm_reportABugContent" xml:space="preserve">
+    <value>如果您发现此模组的任何问题，请在模组的创意工坊页面向我发送 output_log.txt (或 Mac/Linux 系统的 player.log)。发送游戏截图也可以帮助更好地查找这里发生的错误。
+此外，您可以在下方最左侧的按钮找到模组的日志。
+
+这里有一个链接，指向 &lt;color=#008800&gt;aubergine18&lt;/color&gt; 制作的工坊指南。该指南可以说明在不同操作系统上如何找到日志文件。
+您可以在创意工坊创建一个讨论区话题，或留下一条附带有您文件的链接的评论。</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
+    <value>跳转到指南</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
+    <value>转到模组日志</value>
+  </data>
+  <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
+    <value>转到模组页面</value>
+  </data>
+  <data name="comm_reportABugOpt_Ok" xml:space="preserve">
+    <value>确定...</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
+    <value>东北</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_N" xml:space="preserve">
+    <value>北</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNE" xml:space="preserve">
+    <value>东北偏北</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ENE" xml:space="preserve">
+    <value>东北偏东</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_E" xml:space="preserve">
+    <value>东</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_ESE" xml:space="preserve">
+    <value>东南偏东</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SE" xml:space="preserve">
+    <value>东南</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSE" xml:space="preserve">
+    <value>东南偏南</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_S" xml:space="preserve">
+    <value>南</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SSW" xml:space="preserve">
+    <value>西南偏南</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_SW" xml:space="preserve">
+    <value>西南</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WSW" xml:space="preserve">
+    <value>西南偏西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_W" xml:space="preserve">
+    <value>西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_WNW" xml:space="preserve">
+    <value>西北偏西</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NW" xml:space="preserve">
+    <value>西北</value>
+  </data>
+  <data name="comm_Enum__Cardinal16_NNW" xml:space="preserve">
+    <value>西北偏北</value>
+  </data>
+  <data name="comm_errorTitle" xml:space="preserve">
+    <value>出错了！</value>
+  </data>
+  <data name="comm_goToFileLocation" xml:space="preserve">
+    <value>前往文件位置</value>
+  </data>
+  <data name="comm_uiScale" xml:space="preserve">
+    <value>界面缩放比例</value>
+  </data>
+  <data name="comm_uiOpacity" xml:space="preserve">
+    <value>(游戏内) 界面背景不透明度</value>
+  </data>
+  <data name="comm_connectionsSection_title" xml:space="preserve">
+    <value>模组连接</value>
+  </data>
+  <data name="comm_connectionSection_asConnected" xml:space="preserve">
+    <value>已连接到模组</value>
+  </data>
+  <data name="comm_connectionSection_asFallback" xml:space="preserve">
+    <value>已断开连接/单机</value>
+  </data>
+  <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
+    <value>自定义实现({0}; p={1})</value>
+  </data>
+  <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
+    <value>默认连接开启</value>
+  </data>
+  <data name="comm_connectionSection_invalidMode" xml:space="preserve">
+    <value>不支持加载模式</value>
+  </data>
+  <data name="comm_connectionSection_notConnected" xml:space="preserve">
+    <value>未连接</value>
+  </data>
+  <data name="comm_modUiFont" xml:space="preserve">
+    <value>模组UI的字体</value>
+  </data>
+  <data name="comm_sameAsGameFont" xml:space="preserve">
+    <value>&lt;与游戏相同&gt;</value>
+  </data>
 </root>
