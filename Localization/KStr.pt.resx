@@ -270,9 +270,9 @@ Sinta-se à vontade para criar um tópico na Oficina ou apenas deixar um coment�
     <value>Não conectado</value>
   </data>
   <data name="comm_modUiFont" xml:space="preserve">
-    <value>Mod UI Font</value>
+    <value>Fonte da UI do Mod</value>
   </data>
   <data name="comm_sameAsGameFont" xml:space="preserve">
-    <value>&lt;O mesmo que nome de usuário&gt;</value>
+    <value>&lt;A mesma do jogo&gt;</value>
   </data>
 </root>
