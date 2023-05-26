@@ -266,7 +266,7 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>デフォルトの接続はオン</value>
   </data>
   <data name="comm_connectionSection_invalidMode" xml:space="preserve">
-    <value>ロードモードは未対応</value>
+    <value>ローディングモードはサポートされていません</value>
   </data>
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
     <value>未接続</value>
