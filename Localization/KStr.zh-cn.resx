@@ -137,7 +137,7 @@
     <value>源数据：</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>请在 GitHub 中发起一个 Issue，并附带上游戏日志和截图，以便模组开发者检查。在模组选项菜单中点击 &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt;按钮来了解如何获取游戏日志。</value>
+    <value>请在 GitHub 中发起一个 Issue，并附带上游戏日志和截图，以便模组开发者检查。在模组选项菜单中点击 &lt;color=cyan&gt;报告错误助手&lt;/color&gt;按钮来了解如何获取游戏日志。</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
     <value>加载 '{0}' 数据时出错</value>
