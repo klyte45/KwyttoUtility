@@ -19,7 +19,7 @@ namespace Kwytto.LiteUI
 
             var popupSize = GetPopupDimensions(items);
 
-            GUILayout.Box(forceBoxText ?? (itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex].TrimToNull() is string str ? str : onNullNameValue?.Invoke(itemIndex) ?? GUIKwyttoCommons.v_empty), maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
+            GUILayout.Box(forceBoxText ?? (itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex].TrimToNull() is string str ? str : onNullNameValue?.Invoke(itemIndex) ?? GUIKwyttoCommons.v_empty), GUIWindow.DropDownBg, maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
             var lastRect = GUILayoutUtility.GetLastRect();
             if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
             {
@@ -156,7 +156,7 @@ namespace Kwytto.LiteUI
         {
             private const float MaxPopupHeight = 400f;
 
-            private static readonly GUIStyle WindowStyle = CreateWindowStyle();
+            private static GUIStyle WindowStyle => GUIWindow.DropDownBg; //CreateWindowStyle();
 
             private readonly int popupWindowId = GUIUtility.GetControlID(FocusType.Passive);
             private readonly GUIStyle hoverStyle;

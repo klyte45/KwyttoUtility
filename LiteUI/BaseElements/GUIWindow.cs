@@ -145,6 +145,8 @@ namespace Kwytto.LiteUI
 
         protected static Texture2D MoveHoverTexture { get; set; }
 
+        internal static GUIStyle DropDownBg { get; private set; }
+
         protected string Title { get; set; }
 
         public UIPanel Panel { get; private set; }
@@ -217,7 +219,8 @@ namespace Kwytto.LiteUI
 
                 Skin = ScriptableObject.CreateInstance<GUISkin>();
                 Skin.font = Font.CreateDynamicFontFromOSFont(new string[] { BasicIUserMod.UIFontName.value.TrimToNull() }.Concat(FindObjectOfType<UITextComponent>().font.baseFont.fontNames).Where(x => x != null).ToArray(), 14);
-                Skin.box = new GUIStyle(GUI.skin.box)
+                Skin.box = new GUIStyle(GUI.skin.box);
+                DropDownBg = new GUIStyle(GUI.skin.box)
                 {
                     border = new RectOffset(6, 6, 6, 6),
                     padding = new RectOffset(4, 4, 3, 5),

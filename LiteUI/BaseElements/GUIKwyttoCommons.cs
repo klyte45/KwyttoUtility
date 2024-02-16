@@ -498,7 +498,7 @@ namespace Kwytto.LiteUI
 
         public static bool AddComboBox<T>(float totalWidth, string i18nLocale, T selectedVal, string[] options, T[] values, GUIRootWindowBase root, Action<T> onChange, bool isEditable = true, string name = null)
         {
-            var selIdx = Array.IndexOf(values, selectedVal);
+            var selIdx = Array.IndexOf(values ?? new T[0], selectedVal);
             var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable, name ?? i18nLocale);
             if (changed)
             {
@@ -515,7 +515,7 @@ namespace Kwytto.LiteUI
         }
         public static bool AddComboBox<T>(float totalWidth, string i18nLocale, ref T selectedVal, string[] options, T[] values, GUIRootWindowBase root, bool isEditable = true, string name = null)
         {
-            var selIdx = Array.IndexOf(values, selectedVal);
+            var selIdx = Array.IndexOf(values ?? new T[0], selectedVal);
             var changed = AddComboBox(totalWidth, i18nLocale, ref selIdx, options, root, isEditable, name ?? i18nLocale);
             if (changed)
             {
