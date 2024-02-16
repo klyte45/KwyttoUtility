@@ -85,6 +85,14 @@
         UI_RestoreBtn_Hover,
         UI_PanelBG_NoTitle,
         UI_Toggle,
-        UI_Toggle_Checked
+        UI_Toggle_Checked,
+        UI_TextFieldBg,
+        UI_TextFieldBgHover,
+        UI_TextFieldBgFocused,
+        UI_ButtonSmall,
+        UI_ButtonSmallDisabled,
+        UI_ButtonSmallFocused,
+        UI_ButtonSmallHovered,
+        UI_ButtonSmallPressed,
     }
 }

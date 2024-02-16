@@ -14,8 +14,7 @@ namespace Kwytto.LiteUI
             {
                 GUILayout.Space(20);
                 var btnRect = GUILayoutUtility.GetLastRect();
-                GUI.DrawTexture(new Rect(btnRect.position, new Vector2(20, 20)), GUIKwyttoCommons.whiteTexture);
-                shouldInvertValue |= GUI.Button(new Rect(btnRect.position + new Vector2(2, 2), new Vector2(16, 16)), "", isSelected ? m_selectionBtnSel : m_selectionBtnUns);
+                shouldInvertValue |= GUI.Button(new Rect(btnRect.position + new Vector2(2, 5), new Vector2(16, 16)), "", isSelected ? m_selectionBtnSel : m_selectionBtnUns);
                 GUIKwyttoCommons.Space(5);
                 shouldInvertValue |= GUILayout.Button(title, m_labelYellowOnHover);
             }
@@ -26,7 +25,7 @@ namespace Kwytto.LiteUI
         {
             get
             {
-                if(m_selectionBtnSel is null)
+                if (m_selectionBtnSel is null)
                 {
                     InitToggleLayouts();
                 }

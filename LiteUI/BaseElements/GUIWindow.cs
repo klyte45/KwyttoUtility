@@ -182,19 +182,19 @@ namespace Kwytto.LiteUI
                 {
                     BgTexture = HasTitlebar ? KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_PanelBG) : KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_PanelBG_NoTitle);
                     BgTexture.SetPixels(BgTexture.GetPixels().Select(x => new Color(x.r, x.g, x.b, x.a * bgOpacity)).ToArray());
-                BgTexture.Apply();
+                    BgTexture.Apply();
                 }
                 if (!ResizeNormalTexture)
                 {
-                ResizeNormalTexture = TextureUtils.New(1, 1);
-                ResizeNormalTexture.SetPixel(0, 0, Color.white);
-                ResizeNormalTexture.Apply();
+                    ResizeNormalTexture = TextureUtils.New(1, 1);
+                    ResizeNormalTexture.SetPixel(0, 0, Color.white);
+                    ResizeNormalTexture.Apply();
                 }
                 if (!ResizeHoverTexture)
                 {
-                ResizeHoverTexture = TextureUtils.New(1, 1);
-                ResizeHoverTexture.SetPixel(0, 0, Color.blue);
-                ResizeHoverTexture.Apply();
+                    ResizeHoverTexture = TextureUtils.New(1, 1);
+                    ResizeHoverTexture.SetPixel(0, 0, Color.blue);
+                    ResizeHoverTexture.Apply();
                 }
                 if (!CloseNormalTexture) CloseNormalTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_CloseBtn);
                 if (!CloseHoverTexture) CloseHoverTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_CloseBtn_Hover);
@@ -204,21 +204,65 @@ namespace Kwytto.LiteUI
                 if (!MinimizeHoverTexture) MinimizeHoverTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_MinimizeBtn_Hover);
                 if (!MoveNormalTexture)
                 {
-                MoveNormalTexture = TextureUtils.New(1, 1);
+                    MoveNormalTexture = TextureUtils.New(1, 1);
                     MoveNormalTexture.SetPixel(0, 0, Color.clear);
-                MoveNormalTexture.Apply();
+                    MoveNormalTexture.Apply();
                 }
                 if (!MoveHoverTexture)
                 {
-                MoveHoverTexture = TextureUtils.New(1, 1);
+                    MoveHoverTexture = TextureUtils.New(1, 1);
                     MoveHoverTexture.SetPixel(0, 0, Color.clear);
-                MoveHoverTexture.Apply();
+                    MoveHoverTexture.Apply();
                 }
 
                 Skin = ScriptableObject.CreateInstance<GUISkin>();
                 Skin.font = Font.CreateDynamicFontFromOSFont(new string[] { BasicIUserMod.UIFontName.value.TrimToNull() }.Concat(FindObjectOfType<UITextComponent>().font.baseFont.fontNames).Where(x => x != null).ToArray(), 14);
-                Skin.box = new GUIStyle(GUI.skin.box);
-                Skin.button = new GUIStyle(GUI.skin.button);
+                Skin.box = new GUIStyle(GUI.skin.box)
+                {
+                    border = new RectOffset(6, 6, 6, 6),
+                    padding = new RectOffset(4, 4, 3, 5),
+                    contentOffset = default,
+                    normal = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBg),
+                        textColor = Color.white
+                    },
+                    hover = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBgHover),
+                        textColor = Color.white
+                    },
+                    focused = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBgFocused),
+                        textColor = Color.white
+                    }
+                };
+                Skin.button = new GUIStyle(GUI.skin.button)
+                {
+                    border = new RectOffset(7, 7, 7, 7),
+                    padding = new RectOffset(4, 4, 4, 4),
+                    normal = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_ButtonSmall),
+                        textColor = Color.white
+                    },
+                    hover = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_ButtonSmallHovered),
+                        textColor = Color.white
+                    },
+                    focused = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_ButtonSmallFocused),
+                        textColor = Color.white
+                    },
+                    active = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_ButtonSmallPressed),
+                        textColor = Color.black
+                    }
+                };
                 Skin.horizontalScrollbar = new GUIStyle(GUI.skin.horizontalScrollbar);
                 Skin.horizontalScrollbarLeftButton = new GUIStyle(GUI.skin.horizontalScrollbarLeftButton);
                 Skin.horizontalScrollbarRightButton = new GUIStyle(GUI.skin.horizontalScrollbarRightButton);
@@ -230,8 +274,47 @@ namespace Kwytto.LiteUI
                     richText = true,
                 };
                 Skin.scrollView = new GUIStyle(GUI.skin.scrollView);
-                Skin.textArea = new GUIStyle(GUI.skin.textArea);
-                Skin.textField = new GUIStyle(GUI.skin.textField);
+                Skin.textArea = new GUIStyle(GUI.skin.textArea)
+                {
+                    border = new RectOffset(6, 6, 6, 6),
+                    padding = new RectOffset(2, 2, 2, 2),
+                    normal = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBg),
+                        textColor = Color.white
+                    },
+                    hover = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBgHover),
+                        textColor = Color.white
+                    },
+                    focused = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBgFocused),
+                        textColor = Color.white
+                    }
+                };
+                Skin.textField = new GUIStyle(GUI.skin.textField)
+                {
+                    border = new RectOffset(6, 6, 6, 6),
+                    padding = new RectOffset(2, 2, 2, 2),
+                    stretchHeight = true,
+                    normal = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBg),
+                        textColor = Color.white
+                    },
+                    hover = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBgHover),
+                        textColor = Color.white
+                    },
+                    focused = new GUIStyleState()
+                    {
+                        background = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_TextFieldBgFocused),
+                        textColor = Color.white
+                    }
+                };
                 Skin.toggle = new GUIStyle(GUI.skin.toggle)
                 {
                     wordWrap = true
@@ -251,7 +334,7 @@ namespace Kwytto.LiteUI
                 Skin.window.onNormal.background = BgTexture;
                 Skin.window.clipping = TextClipping.Overflow;
 
-                
+
                 Skin.settings.cursorColor = GUI.skin.settings.cursorColor;
                 Skin.settings.cursorFlashSpeed = GUI.skin.settings.cursorFlashSpeed;
                 Skin.settings.doubleClickSelectsWord = GUI.skin.settings.doubleClickSelectsWord;
@@ -335,7 +418,7 @@ namespace Kwytto.LiteUI
             }
         }
 
-        public static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.highlight);
+        public static Texture2D LoadHighlightTexture() => highlightTexture = KResourceLoader.LoadTextureKwytto(UI.CommonsSpriteNames.UI_ButtonSmallFocused);
 
         public void MoveResize(Rect newWindowRect) => windowRect = newWindowRect;
 
@@ -704,7 +787,7 @@ namespace Kwytto.LiteUI
             foreach (var window in Windows)
             {
                 window.Skin = null;
-    }
+            }
         }
     }
 }
