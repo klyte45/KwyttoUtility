@@ -109,10 +109,67 @@ namespace Kwytto.Interfaces
 
 
         #region Saved shared config
-        public static SavedBool DebugMode { get; }
-        public static SavedString CurrentSaveVersion { get; }
-        private static SavedFloat UIScaleSaved { get; }
-        private static SavedFloat UIOpacitySaved { get; }
+        public static SavedBool DebugMode
+        {
+            get
+            {
+                if (m_DebugMode is null && _Instance is BasicIUserMod b)
+                {
+                    m_DebugMode = new SavedBool("K45_" + b.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
+                }
+                return m_DebugMode;
+            }
+        }
+        public static SavedString CurrentSaveVersion
+        {
+            get
+            {
+                if (m_CurrentSaveVersion is null && _Instance is BasicIUserMod b)
+                {
+                    m_CurrentSaveVersion = new SavedString("K45_" + b.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
+                }
+                return m_CurrentSaveVersion;
+            }
+        }
+        private static SavedFloat UIScaleSaved
+        {
+            get
+            {
+                if (m_UIScaleSaved is null && _Instance is BasicIUserMod b)
+                {
+                    m_UIScaleSaved = new SavedFloat("K45_" + b.Acronym + "_uiScale", Settings.gameSettingsFile, 1, true);
+                }
+                return m_UIScaleSaved;
+            }
+        }
+        private static SavedFloat UIOpacitySaved
+        {
+            get
+            {
+                if (m_UIOpacitySaved is null && _Instance is BasicIUserMod b)
+                {
+                    m_UIOpacitySaved = new SavedFloat("K45_" + b.Acronym + "_uiOpacity", Settings.gameSettingsFile, 0.85f, true);
+                }
+                return m_UIOpacitySaved;
+            }
+        }
+        public static SavedString UIFontName
+        {
+            get
+            {
+                if (m_UIFontName is null && _Instance is BasicIUserMod b)
+                {
+                    m_UIFontName = new SavedString("K45_" + b.Acronym + "_uiFontName", Settings.gameSettingsFile, "", true);
+                }
+                return m_UIFontName;
+            }
+        }
+
+        public static SavedBool m_DebugMode;
+        public static SavedString m_CurrentSaveVersion;
+        private static SavedFloat m_UIScaleSaved;
+        private static SavedFloat m_UIOpacitySaved;
+        public static SavedString m_UIFontName;
         #endregion
 
         #region Old CommonProperties Static
@@ -120,10 +177,41 @@ namespace Kwytto.Interfaces
         {
             get
             {
+                return _Instance;
+            }
+        }
+        private static BasicIUserMod m_instance;
+        protected static BasicIUserMod _Instance
+        {
+            get
+            {
+                if (m_instance is null)
+                {
+                    try
+                    {
+                        m_instance = Singleton<PluginManager>.instance.GetPluginsInfo().First((PluginManager.PluginInfo pi) =>
+                          pi.assemblyCount > 0
+                          && pi.GetAssemblies().Where(x => x == typeof(BasicIUserMod).Assembly).Count() > 0
+                      ).GetAssemblies().SelectMany(x =>
+                      {
+                          try
+                          {
+                              return x.GetExportedTypes();
+                          }
+                          catch
+                          {
+                              return new Type[0];
+                          }
+                      })
+                      .First(t => t.IsClass && typeof(BasicIUserMod).IsAssignableFrom(t) && !t.IsAbstract)
+                     .GetConstructor(new Type[0])
+                     .Invoke(new object[0]) as BasicIUserMod;
+                    }
+                    catch { }
+                }
                 return m_instance;
             }
         }
-        protected static readonly BasicIUserMod m_instance;
 
         private static ulong m_modId;
         public static ulong ModId
@@ -163,11 +251,15 @@ namespace Kwytto.Interfaces
             {
                 if (m_modWsRootFolder == null)
                 {
-                    m_modWsRootFolder = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
-                         pi.assemblyCount > 0
-                         && pi.isEnabled
-                         && pi.GetAssemblies().Where(x => x == Instance.GetType().Assembly).Count() > 0
-                     ).FirstOrDefault()?.modPath;
+                    try
+                    {
+                        m_modWsRootFolder = Singleton<PluginManager>.instance.GetPluginsInfo().Where((PluginManager.PluginInfo pi) =>
+                             pi.assemblyCount > 0
+                             && pi.isEnabled
+                             && pi.GetAssemblies().Where(x => x == Instance.GetType().Assembly).Count() > 0
+                         ).FirstOrDefault()?.modPath;
+                    }
+                    catch { }
                 }
                 return m_modWsRootFolder;
             }
@@ -423,7 +515,13 @@ namespace Kwytto.Interfaces
             //    KlyteLocaleManager.SaveLoadedLanguage(idx);
             //    KlyteLocaleManager.ReloadLanguage();
             //    KlyteLocaleManager.RedrawUIComponents();
-            //});
+            //}); 
+            var systemFonts = Font.GetOSInstalledFontNames().OrderBy(x => x).ToArray();
+            group9.AddDropdown(KStr.comm_modUiFont, new string[] { KStr.comm_sameAsGameFont }.Concat(systemFonts).ToArray(), Array.IndexOf(systemFonts, UIFontName.value) + 1, delegate (int idx)
+            {
+                UIFontName.value = idx <= 0 ? "" : systemFonts[idx - 1];
+                GUIWindow.ResetSkin();
+            });
 
         }
         public virtual void Group9SettingsUI(UIHelper group9) { }
@@ -628,42 +726,6 @@ namespace Kwytto.Interfaces
             Instance.SetLocaleCulture(newCulture);
         }
         #endregion
-
-        #region Static Initializer
-        static BasicIUserMod()
-        {
-            try
-            {
-                m_instance = Singleton<PluginManager>.instance.GetPluginsInfo().First((PluginManager.PluginInfo pi) =>
-                             pi.assemblyCount > 0
-                             && pi.GetAssemblies().Where(x => x == typeof(BasicIUserMod).Assembly).Count() > 0
-                         ).GetAssemblies().SelectMany(x =>
-                         {
-                             try
-                             {
-                                 return x.GetExportedTypes();
-                             }
-                             catch
-                             {
-                                 return new Type[0];
-                             }
-                         })
-                         .First(t => t.IsClass && typeof(BasicIUserMod).IsAssignableFrom(t) && !t.IsAbstract)
-                        .GetConstructor(new Type[0])
-                        .Invoke(new object[0]) as BasicIUserMod;
-                DebugMode = new SavedBool("K45_" + m_instance.Acronym + "_DebugMode", Settings.gameSettingsFile, false, true);
-                UIScaleSaved = new SavedFloat("K45_" + m_instance.Acronym + "_uiScale", Settings.gameSettingsFile, 1, true);
-                UIOpacitySaved = new SavedFloat("K45_" + m_instance.Acronym + "_uiOpacity", Settings.gameSettingsFile, 0.85f, true);
-                CurrentSaveVersion = new SavedString("K45_" + m_instance.Acronym + "_SaveVersion", Settings.gameSettingsFile, "null", true);
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-        }
-
-        #endregion
-
     }
 
 }

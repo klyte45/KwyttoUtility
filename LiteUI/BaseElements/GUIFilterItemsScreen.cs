@@ -98,7 +98,7 @@ namespace Kwytto.LiteUI
             {
                 RestartFilterCoroutine();
             }
-            using (var scroll = new GUILayout.ScrollViewScope(m_searchResultPanelScroll, GUILayout.Height(height - 72 - usedHeight)))
+            using (var scroll = new GUILayout.ScrollViewScope(m_searchResultPanelScroll, GUILayout.Height(height - 80 - usedHeight)))
             {
                 var selectFont = GUILayout.SelectionGrid(-1, m_stringCachedResultList, 1, new GUIStyle(GUI.skin.button)
                 {

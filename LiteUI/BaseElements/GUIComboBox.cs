@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Kwytto.Utils;
+using System;
+using System.Linq;
+using UnityEngine;
 
 namespace Kwytto.LiteUI
 {
@@ -7,16 +10,16 @@ namespace Kwytto.LiteUI
         private const string ExpandDownButtonText = " ▼ ";
         private static PopupWindow popupWindow;
 
-        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null)
+        public static int Box(int itemIndex, string[] items, string callerId, GUIRootWindowBase root, float? maxWidth = null, string nullStr = GUIKwyttoCommons.v_null, string forceBoxText = null, Func<int, string> onNullNameValue = null)
         {
-            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, new GUIContent(nullStr)) is int retNum)
+            if (Initialize(ref itemIndex, items, callerId, maxWidth, out var maxWidthObj, new GUIContent(nullStr), forceBoxText is null ? null : new GUIContent(forceBoxText), onNullNameValue) is int retNum)
             {
                 return retNum;
             }
 
             var popupSize = GetPopupDimensions(items);
 
-            GUILayout.Box(itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
+            GUILayout.Box(forceBoxText ?? (itemIndex < 0 ? nullStr : itemIndex >= items.Length ? GUIKwyttoCommons.v_invalid : items[itemIndex].TrimToNull() is string str ? str : onNullNameValue?.Invoke(itemIndex) ?? GUIKwyttoCommons.v_empty), maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
             var lastRect = GUILayoutUtility.GetLastRect();
             if (GUILayout.Button(ExpandDownButtonText, GUILayout.Width(24f)) && EnsurePopupWindow(root))
             {
@@ -26,7 +29,7 @@ namespace Kwytto.LiteUI
                     popupSize.x = lastRect.width * UIScaler.UIScale;
                 }
                 popupPosition.y += lastRect.height * UIScaler.UIScale;
-                popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize);
+                popupWindow.Show(callerId, items, itemIndex, popupPosition, popupSize, onNullNameValue);
             }
 
             return itemIndex;
@@ -75,7 +78,7 @@ namespace Kwytto.LiteUI
             return itemIndex;
         }
 
-        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj, GUIContent nullStr)
+        private static int? Initialize(ref int itemIndex, string[] items, string callerId, float? maxWidth, out GUILayoutOption maxWidthObj, GUIContent nullStr, GUIContent overrideContent = null, Func<int, string> onNullNameValue = null)
         {
             maxWidthObj = null;
             if (maxWidth != null)
@@ -85,13 +88,14 @@ namespace Kwytto.LiteUI
             switch (items.Length)
             {
                 case 0:
-                    GUILayout.Box(nullStr, maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
+                    GUILayout.Box(overrideContent ?? nullStr, maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
                     return -1;
 
                 case 1:
                     if (itemIndex == 0)
                     {
-                        GUILayout.Box(items[0], maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
+                        var contentTxt = items[0] ?? onNullNameValue?.Invoke(0);
+                        GUILayout.Box(overrideContent ?? (contentTxt is null ? nullStr : new GUIContent(contentTxt)), maxWidthObj is null ? new GUILayoutOption[0] : new[] { maxWidthObj });
                         return 0;
                     }
                     break;
@@ -165,16 +169,18 @@ namespace Kwytto.LiteUI
             private int selectedIndex;
 
             private string[] popupItems;
+            private Func<int, string> onNullNameValue;
 
             public PopupWindow() => hoverStyle = CreateHoverStyle();
 
             public string OwnerId { get; private set; }
 
-            public void Show(string ownerId, string[] items, int currentIndex, Vector2 position, Vector2 popupSize)
+            public void Show(string ownerId, string[] items, int currentIndex, Vector2 position, Vector2 popupSize, Func<int, string> onNullNameValue = null)
             {
                 OwnerId = ownerId;
                 popupItems = items;
                 selectedIndex = currentIndex;
+                this.onNullNameValue = onNullNameValue;
                 popupRect = new Rect(position, new Vector2(popupSize.x, Mathf.Min(MaxPopupHeight, popupSize.y, Screen.height - position.y - 16)));
                 popupScrollPosition = default;
                 mouseClickPoint = null;
@@ -278,7 +284,7 @@ namespace Kwytto.LiteUI
                 popupScrollPosition = GUILayout.BeginScrollView(popupScrollPosition, false, false);
 
                 var oldSelectedIndex = selectedIndex;
-                selectedIndex = GUILayout.SelectionGrid(selectedIndex, popupItems, xCount: 1, new GUIStyle(hoverStyle)
+                selectedIndex = GUILayout.SelectionGrid(selectedIndex, onNullNameValue is null ? popupItems : popupItems.Select((x, i) => x.TrimToNull() ?? onNullNameValue(i)).ToArray(), xCount: 1, new GUIStyle(hoverStyle)
                 {
                     fontSize = Mathf.RoundToInt(16 * UIScaler.UIScale)
                 });
@@ -295,6 +301,7 @@ namespace Kwytto.LiteUI
             {
                 OwnerId = null;
                 popupItems = null;
+                onNullNameValue = null;
                 selectedIndex = -1;
                 mouseClickPoint = null;
             }

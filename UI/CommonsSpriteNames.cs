@@ -74,6 +74,17 @@
         K45_Lamp,
         K45_Flag,
         K45_Eye,
-        K45_EyeSlash
+        K45_EyeSlash,
+        UI_PanelBG,
+        UI_CloseBtn,
+        UI_CloseBtn_Hover,
+        UI_CloseBtn_Pressed,
+        UI_MinimizeBtn,
+        UI_MinimizeBtn_Hover,
+        UI_RestoreBtn,
+        UI_RestoreBtn_Hover,
+        UI_PanelBG_NoTitle,
+        UI_Toggle,
+        UI_Toggle_Checked
     }
 }

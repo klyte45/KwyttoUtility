@@ -390,25 +390,38 @@ namespace Kwytto.LiteUI
             {
                 GUILayout.Label(title);
                 GUILayout.FlexibleSpace();
-                GUILayout.Space(totalWidth / 3);
-                if (isEnabled)
-                {
-                    var rect = GUILayoutUtility.GetLastRect();
-                    var newValue = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max));
-                    newValue = GUIIntField.IntField(title, newValue, min, max, 40) ?? newValue;
-                    if (newValue != value)
-                    {
-                        value = newValue;
-                        return true;
-                    }
-                }
-                else
-                {
-                    GUILayout.Label(value.ToString("F3"));
-                }
-                return false;
+                return DrawIntSlider(totalWidth / 3, title, ref value, min, max, isEnabled);
             };
         }
+
+        public static bool DrawIntSlider(float width, string id, int value, out int newVal, int min, int max, bool isEnabled = true)
+        {
+            newVal = value;
+            return DrawIntSlider(width, id, ref newVal, min, max, isEnabled);
+        }
+
+        public static bool DrawIntSlider(float width, string id, ref int value, int min, int max, bool isEnabled = true)
+        {
+            GUILayout.Space(width - 40);
+            if (isEnabled)
+            {
+                var rect = GUILayoutUtility.GetLastRect();
+                var newValue = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(rect.x, rect.yMin + 7, rect.width, 15), value, min, max));
+                newValue = GUIIntField.IntField(id, newValue, min, max, 40) ?? newValue;
+                if (newValue != value)
+                {
+                    value = newValue;
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                GUILayout.Label(value.ToString("F3"));
+                return false;
+            }
+        }
+
         public static bool AddFloatField(float totalWidth, string i18nLocale, float value, out float newVal, bool isEnabled = true, float min = float.MinValue, float max = float.MaxValue)
         {
             var res = AddFloatField(totalWidth, i18nLocale, ref value, isEnabled, min, max);
@@ -464,7 +477,7 @@ namespace Kwytto.LiteUI
         {
             using (new GUILayout.HorizontalScope())
             {
-                GUILayout.Label(title, GUILayout.Width(totalWidth - 75));
+                GUILayout.Label(title, GUILayout.Width(totalWidth - 80));
                 GUILayout.FlexibleSpace();
                 if (isEnabled)
                 {
@@ -546,6 +559,52 @@ namespace Kwytto.LiteUI
                 }
                 return false;
             };
+        }
+        #endregion
+
+        #region Tooltip
+        public static void DrawTooltip(Rect refRectangle, float maxWidth, GUIContent content, UIAnchorStyle anchor = UIAnchorStyle.Top)
+        {
+            Vector2 sizeTooltip = maxWidth != 0
+                ? new Vector2(maxWidth - 4, GUI.skin.label.CalcHeight(content, maxWidth))
+                : GUI.skin.label.CalcSize(content);
+            Vector2 targetPos = GetTargetPosition(refRectangle, sizeTooltip, anchor);
+            GUI.DrawTexture(new Rect(targetPos, sizeTooltip + new Vector2(4, 4)), GUIKwyttoCommons.blackTexture);
+            GUI.Label(new Rect(targetPos + new Vector2(2, 2), sizeTooltip), content);
+        }
+
+
+        private static Vector2 GetTargetPosition(Rect refRectangle, Vector2 sizeTooltip, UIAnchorStyle anchor)
+        {
+            switch (anchor)
+            {
+                case UIAnchorStyle.Top:
+                    {
+                        var targetPos = refRectangle.position - new Vector2(0, sizeTooltip.y + 4);
+                        if (targetPos.y < 0)
+                        {
+                            targetPos = refRectangle.position + new Vector2(0, refRectangle.height);
+                        }
+                        return targetPos;
+                    }
+                case UIAnchorStyle.Bottom:
+                    {
+                        var targetPos = refRectangle.position + new Vector2(0, refRectangle.height);
+                        return targetPos;
+                    }
+                case UIAnchorStyle.Right:
+                    {
+                        var targetPos = refRectangle.position + new Vector2(refRectangle.width, 0);
+                        return targetPos;
+                    }
+                case UIAnchorStyle.Left:
+                    {
+                        var targetPos = refRectangle.position - new Vector2(sizeTooltip.x + 4, 0);
+                        return targetPos;
+                    }
+                default:
+                    return refRectangle.position;
+            }
         }
         #endregion
 

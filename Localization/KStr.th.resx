@@ -249,24 +249,30 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <value>ความทึบแสงของพื้นหลังของ UI (เมื่ออยู่ในเกม)</value>
   </data>
   <data name="comm_connectionsSection_title" xml:space="preserve">
-    <value>Mod Connections</value>
+    <value>การเชื่อมต่อของม็อด</value>
   </data>
   <data name="comm_connectionSection_asConnected" xml:space="preserve">
-    <value>Connected to mod</value>
+    <value>เชื่อมต่อไปยังม็อดแล้ว</value>
   </data>
   <data name="comm_connectionSection_asFallback" xml:space="preserve">
-    <value>Disconnected/Standalone</value>
+    <value>ยกเลิกการเชื่อมต่อแล้ว/แบบสแตนด์อโลน</value>
   </data>
   <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
-    <value>Custom implementation ({0}; p={1})</value>
+    <value>การดำเนินการที่กำหนดเอง ({0}; p={1})</value>
   </data>
   <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
-    <value>Default connection on</value>
+    <value>เปิดใช้ค่าเริ่มต้นการเชื่อมต่อ</value>
   </data>
   <data name="comm_connectionSection_invalidMode" xml:space="preserve">
-    <value>Loading mode not supported</value>
+    <value>โหมดการโหลดไม่รองรับ</value>
   </data>
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
-    <value>Not connected</value>
+    <value>ไม่มีการเชื่อมต่อ</value>
+  </data>
+  <data name="comm_modUiFont" xml:space="preserve">
+    <value>ฟอนต์ Mod UI</value>
+  </data>
+  <data name="comm_sameAsGameFont" xml:space="preserve">
+    <value>&lt;เหมือนกับเกม&gt;</value>
   </data>
 </root>

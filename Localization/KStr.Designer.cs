@@ -358,6 +358,15 @@ namespace Kwytto.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mod UI Font.
+        /// </summary>
+        public static string comm_modUiFont {
+            get {
+                return ResourceManager.GetString("comm_modUiFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a See release notes.
         /// </summary>
         public static string comm_releaseNotes {
@@ -466,6 +475,15 @@ namespace Kwytto.Localization {
         public static string comm_reportABugOpt_Ok {
             get {
                 return ResourceManager.GetString("comm_reportABugOpt_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &lt;Same as Game&gt;.
+        /// </summary>
+        public static string comm_sameAsGameFont {
+            get {
+                return ResourceManager.GetString("comm_sameAsGameFont", resourceCulture);
             }
         }
         

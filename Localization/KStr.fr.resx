@@ -134,16 +134,16 @@
     <value>Une erreur s'est produite lors du chargement des données de &lt;color=yellow&gt;{0}&lt;/color&gt;.</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderRawData" xml:space="preserve">
-    <value>Données brutes:</value>
+    <value>Données brutes :</value>
   </data>
   <data name="comm_errLoadingDataWindow_HeaderReportABug" xml:space="preserve">
-    <value>Veuillez ouvrir un problème dans GitHub avec le journal du jeu ci-joint et un printscreen de cette fenêtre pour que cela soit vérifié par le développeur du mod. Voir le bouton &lt;color=cyan&gt;Report-a-bug Helper&lt;/color&gt; dans le menu des options de mod pour voir des détails sur la façon d'obtenir le journal du jeu.</value>
+    <value>Veuillez ouvrir un problème dans GitHub avec le journal du jeu ci-joint et un printscreen de cette fenêtre pour que cela soit vérifié par le développeur du mod. Voir le bouton &lt;color=cyan&gt;Aide pour signaler un bogue&lt;/color&gt; dans le menu des options de mod pour voir des détails sur la façon d'obtenir le journal du jeu.</value>
   </data>
   <data name="comm_errLoadingDataWindow_Title" xml:space="preserve">
     <value>Erreur de chargement des données '{0}'</value>
   </data>
   <data name="comm_releaseNotes" xml:space="preserve">
-    <value>Voir notes de versions</value>
+    <value>Voir les notes de versions</value>
     <comment>Any other language shall inform that the release notes are always in English. 
 PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
   </data>
@@ -156,37 +156,37 @@ PT-BR Example: `Ver as notas de lançamento (em inglês)`</comment>
     <comment>This button leads to Kwytto The Cat profile on twitter, that posts any update of my mods.</comment>
   </data>
   <data name="comm_releaseNotes_Ok" xml:space="preserve">
-    <value>Ok!</value>
+    <value>Ok !</value>
   </data>
   <data name="comm_releaseNotes_ToWorkshop" xml:space="preserve">
-    <value>Voir les actualités sur la page Workshop !</value>
+    <value>Voir les actualités sur la page du Workshop !</value>
   </data>
   <data name="comm_releaseNotes_WasUpdatedTitle" xml:space="preserve">
     <value>{0} a été mis à jour ! Notes de version :</value>
     <comment>Argument 0 is the mod name</comment>
   </data>
   <data name="comm_reportABugBtn" xml:space="preserve">
-    <value>Report-a-bug helper</value>
+    <value>Aide pour signaler un bogue</value>
     <comment>This is also the title of the window with the information</comment>
   </data>
   <data name="comm_reportABugContent" xml:space="preserve">
-    <value>If you find any problem with this mod, please send me the output_log.txt (or player.log on Mac/Linux) in the mod Workshop page. If applies, a printscreen can help too to make a better guess about what is happening wrong here...
-Additionally, you can find the mod log at the leftmost button below.
+    <value>Si vous rencontrez un problème avec ce mod, envoyez-moi le output_log.txt (ou player.log sur Mac/Linux) dans la page du mod sur le Workshop. Si c'est le cas, une impression d'écran peut également aider à mieux deviner ce qui se passe mal.
+De plus, vous pouvez trouver le journal des mods sur le bouton le plus à gauche ci-dessous.
 
-There's a link for a Workshop guide by &lt;color=#008800&gt;aubergine18&lt;/color&gt; explaining how to find your log file, depending of OS you're using.
-Feel free to create a topic at Workshop or just leave a comment linking your files.</value>
+Il y a un lien pour un guide du Worksho par &lt;color=#008800&gt;aubergine18&lt;/color&gt; expliquant comment trouver votre fichier de log, selon le système d'exploitation que vous utilisez.
+N'hésitez pas à créer un sujet dans le Workshop ou à laisser un commentaire liant vos fichiers.</value>
   </data>
   <data name="comm_reportABugOpt_GoToGuide" xml:space="preserve">
-    <value>Go to the guide</value>
+    <value>Aller au guide</value>
   </data>
   <data name="comm_reportABugOpt_GoToModLog" xml:space="preserve">
-    <value>Go to mod log</value>
+    <value>Accéder au journal du mod</value>
   </data>
   <data name="comm_reportABugOpt_GoToModPage" xml:space="preserve">
-    <value>Go to mod page</value>
+    <value>Accéder à la page du mod</value>
   </data>
   <data name="comm_reportABugOpt_Ok" xml:space="preserve">
-    <value>Okay...</value>
+    <value>Ok ...</value>
   </data>
   <data name="comm_Enum__Cardinal16_NE" xml:space="preserve">
     <value>NE</value>
@@ -237,36 +237,42 @@ Feel free to create a topic at Workshop or just leave a comment linking your fil
     <value>NNW</value>
   </data>
   <data name="comm_errorTitle" xml:space="preserve">
-    <value>Error!</value>
+    <value>Erreur !</value>
   </data>
   <data name="comm_goToFileLocation" xml:space="preserve">
-    <value>Go to file location</value>
+    <value>Aller à l'emplacement du fichier</value>
   </data>
   <data name="comm_uiScale" xml:space="preserve">
-    <value>UI Scale</value>
+    <value>Taille de l'interface</value>
   </data>
   <data name="comm_uiOpacity" xml:space="preserve">
-    <value>UI Background Opacity (when in game)</value>
+    <value>Opacité de l'arrière-plan de l'interface (quand jeu en cours)</value>
   </data>
   <data name="comm_connectionsSection_title" xml:space="preserve">
-    <value>Mod Connections</value>
+    <value>Connexions de mods</value>
   </data>
   <data name="comm_connectionSection_asConnected" xml:space="preserve">
-    <value>Connected to mod</value>
+    <value>Connecté au mod</value>
   </data>
   <data name="comm_connectionSection_asFallback" xml:space="preserve">
-    <value>Disconnected/Standalone</value>
+    <value>Déconnecté/Autonome</value>
   </data>
   <data name="comm_connectionSection_connectedCustom" xml:space="preserve">
-    <value>Custom implementation ({0}; p={1})</value>
+    <value>Implémentation personnalisée ({0}; p={1})</value>
   </data>
   <data name="comm_connectionSection_connectedDefault" xml:space="preserve">
-    <value>Default connection on</value>
+    <value>Connexion par défaut activé</value>
   </data>
   <data name="comm_connectionSection_invalidMode" xml:space="preserve">
-    <value>Loading mode not supported</value>
+    <value>Mode de chargement non pris en charge</value>
   </data>
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
-    <value>Not connected</value>
+    <value>Non connecté</value>
+  </data>
+  <data name="comm_modUiFont" xml:space="preserve">
+    <value>Police de l'interface utilisateur du Mod</value>
+  </data>
+  <data name="comm_sameAsGameFont" xml:space="preserve">
+    <value>&lt;Identique au jeu&gt;</value>
   </data>
 </root>

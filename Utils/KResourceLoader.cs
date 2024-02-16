@@ -11,7 +11,7 @@ namespace Kwytto.Utils
     public static class KResourceLoader
     {
         public static Assembly RefAssemblyMod => BasicIUserMod.Instance.GetType().Assembly;
-        private static string NamespaceMod => $"{BasicIUserMod.Instance.SafeName}.";
+        private static string NamespaceMod => $"{RefAssemblyMod.GetName().Name}.";
         public static Assembly RefAssemblyKwytto => typeof(KResourceLoader).Assembly;
 
         public static byte[] LoadResourceDataMod(string name) => LoadResourceData(NamespaceMod + name, RefAssemblyMod);
@@ -98,9 +98,10 @@ namespace Kwytto.Utils
 
         public static AssetBundle LoadBundle(string filename, Assembly refAssembly = null)
         {
+            refAssembly = refAssembly ?? RefAssemblyMod;
             try
             {
-                return AssetBundle.LoadFromMemory(LoadResourceData(NamespaceMod + filename, refAssembly ?? RefAssemblyMod));
+                return AssetBundle.LoadFromMemory(LoadResourceData(refAssembly.GetName().Name + "." + filename, refAssembly));
             }
             catch (Exception e)
             {

@@ -269,4 +269,10 @@ Erstellen eine Diskussion im Workshop oder hinterlasse einfach einen Kommentar, 
   <data name="comm_connectionSection_notConnected" xml:space="preserve">
     <value>Nicht verbunden</value>
   </data>
+  <data name="comm_modUiFont" xml:space="preserve">
+    <value>Zeichensatz der Benutzeroberfläche</value>
+  </data>
+  <data name="comm_sameAsGameFont" xml:space="preserve">
+    <value>&lt;Wie das Spiel&gt;</value>
+  </data>
 </root>
