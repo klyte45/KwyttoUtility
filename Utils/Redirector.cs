@@ -1,5 +1,4 @@
-﻿using CitiesHarmony.API;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -59,45 +58,40 @@ namespace Kwytto.Utils
 
         public static void UnpatchAll()
         {
-            HarmonyHelper.DoOnHarmonyReady(() =>
+            LogUtils.DoWarnLog($"Unpatching all: {m_harmony.Id}");
+            foreach (MethodInfo method in m_patches)
             {
-                LogUtils.DoWarnLog($"Unpatching all: {m_harmony.Id}");
-                foreach (MethodInfo method in m_patches)
-                {
-                    m_harmony.Unpatch(method, HarmonyPatchType.All, m_harmony.Id);
-                }
-                foreach (Action action in m_onUnpatchActions)
-                {
-                    action?.Invoke();
-                }
-                m_onUnpatchActions.Clear();
-                m_patches.Clear();
-            });
+                m_harmony.Unpatch(method, HarmonyPatchType.All, m_harmony.Id);
+            }
+            foreach (Action action in m_onUnpatchActions)
+            {
+                action?.Invoke();
+            }
+            m_onUnpatchActions.Clear();
+            m_patches.Clear();
         }
         public static void PatchAll()
         {
-            HarmonyHelper.DoOnHarmonyReady(() =>
+            LogUtils.DoWarnLog($"Patching all: {m_harmony.Id}");
+            GameObject m_topObj = GameObject.Find("k45_Redirectors") ?? new GameObject("k45_Redirectors");
+            Type typeTarg = typeof(IRedirectable);
+            List<Type> instances = ReflectionUtils.GetInterfaceImplementations(typeTarg);
+            LogUtils.DoLog($"Found Redirectors: {instances.Count}");
+            Application.logMessageReceived += ErrorPatchingHandler;
+            try
             {
-                LogUtils.DoWarnLog($"Patching all: {m_harmony.Id}");
-                GameObject m_topObj = GameObject.Find("k45_Redirectors") ?? new GameObject("k45_Redirectors");
-                Type typeTarg = typeof(IRedirectable);
-                List<Type> instances = ReflectionUtils.GetInterfaceImplementations(typeTarg);
-                LogUtils.DoLog($"Found Redirectors: {instances.Count}");
-                Application.logMessageReceived += ErrorPatchingHandler;
-                try
+                foreach (Type t in instances)
                 {
-                    foreach (Type t in instances)
-                    {
-                        LogUtils.DoLog($"Redirector: {t}");
-                        m_topObj.AddComponent(t);
+                    LogUtils.DoLog($"Redirector: {t}");
+                    m_topObj.AddComponent(t);
 
-                    }
                 }
-                finally
-                {
-                    Application.logMessageReceived -= ErrorPatchingHandler;
-                }
-            });
+            }
+            finally
+            {
+                Application.logMessageReceived -= ErrorPatchingHandler;
+            }
+
         }
 
         private static void ErrorPatchingHandler(string logString, string stackTrace, LogType type)
