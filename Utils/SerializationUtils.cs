@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Kwytto.Interfaces;
+using System.Linq;
 using UnityEngine;
 
 namespace Kwytto.Utils
@@ -19,7 +20,7 @@ namespace Kwytto.Utils
                 }
                 else
                 {
-                    LogUtils.DoLog($"val = {value}; list = {string.Join(",", list.ToArray())} (Size {list.Count})");
+                   if (BasicIUserMod.DebugMode) LogUtils.DoLog($"val = {value}; list = {string.Join(",", list.ToArray())} (Size {list.Count})");
                 }
             }
             return Color.clear;

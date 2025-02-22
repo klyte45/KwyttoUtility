@@ -138,7 +138,7 @@ namespace Kwytto.Utils
                         }
 
 
-                        LogUtils.DoLog($"[{buildingInfo}] pos + dir = ({position} {position2} + {directionPath})");
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"[{buildingInfo}] pos + dir = ({position} {position2} + {directionPath})");
                         Vector3 lanePos = position + (lane.m_position / 2 * directionPath) + new Vector3(0, lane.m_verticalOffset);
                         Vector3 lanePos2 = position2 + (lane.m_position / 2 * directionPath) + new Vector3(0, lane.m_verticalOffset);
                         Vector3 b3, c;
@@ -149,22 +149,22 @@ namespace Kwytto.Utils
                         else
                         {
                             GetMiddlePointsFor(path, out b3, out c);
-                            LogUtils.DoLog($"[{buildingInfo}] GetMiddlePointsFor path =  ({b3} {c})");
+                           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"[{buildingInfo}] GetMiddlePointsFor path =  ({b3} {c})");
                             b3 += (lane.m_position * directionPath) + new Vector3(0, lane.m_verticalOffset);
                             c += (lane.m_position * directionPath) + new Vector3(0, lane.m_verticalOffset);
                             b3.y = c.y = (lanePos.y + lanePos2.y) / 2;
                         }
                         var refBezier = new Bezier3(lanePos, b3, c, lanePos2);
-                        LogUtils.DoLog($"[{buildingInfo}]refBezier = {refBezier} ({lanePos} {b3} {c} {lanePos2})");
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"[{buildingInfo}]refBezier = {refBezier} ({lanePos} {b3} {c} {lanePos2})");
 
 
                         Vector3 positionR = refBezier.Position(m_defaultStopOffset);
                         Vector3 direction = refBezier.Tangent(m_defaultStopOffset);
-                        LogUtils.DoLog($"[{buildingInfo}]1positionR = {positionR}; direction = {direction}");
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"[{buildingInfo}]1positionR = {positionR}; direction = {direction}");
 
                         Vector3 normalized = Vector3.Cross(Vector3.up, direction).normalized;
                         positionR += normalized * (MathUtils.SmootherStep(0.5f, 0f, Mathf.Abs(m_defaultStopOffset - 0.5f)) * lane.m_stopOffset);
-                        LogUtils.DoLog($"[{buildingInfo}]2positionR = {positionR}; direction = {direction}; {normalized}");
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"[{buildingInfo}]2positionR = {positionR}; direction = {direction}; {normalized}");
                         resultList.Add(new StopPointDescriptorLanes
                         {
                             platformLine = refBezier,
@@ -223,7 +223,7 @@ namespace Kwytto.Utils
             });
             if (BasicIUserMod.DebugMode)
             {
-                LogUtils.DoLog($"{buildingInfo.name} PLAT ORDER:\n{string.Join("\n", resultList.Select((x, y) => $"{y}=> {x.ToString()}").ToArray())}");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{buildingInfo.name} PLAT ORDER:\n{string.Join("\n", resultList.Select((x, y) => $"{y}=> {x.ToString()}").ToArray())}");
             }
             resultWrap.Value = resultList.ToArray();
         }

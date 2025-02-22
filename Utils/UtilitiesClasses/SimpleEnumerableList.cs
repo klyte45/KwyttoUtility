@@ -25,7 +25,7 @@ namespace Kwytto.Utils
                 return;
             }
             var valueSerializer = new XmlSerializer(typeof(ValueContainer<TKey, TValue>), "");
-            LogUtils.DoLog($"reader = {reader}; empty = {reader.IsEmptyElement}");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"reader = {reader}; empty = {reader.IsEmptyElement}");
             reader.ReadStartElement();
             while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
             {

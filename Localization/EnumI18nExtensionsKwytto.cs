@@ -34,7 +34,7 @@ namespace Kwytto.Localization
                     }
                     break;
             }
-            LogUtils.DoLog($"<data name=\"{BasicIUserMod.Instance.Acronym.ToLower()}_Enum__{variable?.GetType().Name}_{variable}\" xml:space=\"preserve\">    <value>{variable?.GetType()}|{variable}</value>  </data>");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"<data name=\"{BasicIUserMod.Instance.Acronym.ToLower()}_Enum__{variable?.GetType().Name}_{variable}\" xml:space=\"preserve\">    <value>{variable?.GetType()}|{variable}</value>  </data>");
             return $"{variable?.GetType()}|{variable}";
         }
 

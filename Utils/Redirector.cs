@@ -34,7 +34,7 @@ namespace Kwytto.Utils
         {
             var stackTrace = new StackTrace();
             StackFrame[] stackFrames = stackTrace.GetFrames();
-            LogUtils.DoLog($"SemiPreventDefault fullStackTrace: \r\n {Environment.StackTrace}");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"SemiPreventDefault fullStackTrace: \r\n {Environment.StackTrace}");
             for (int i = 2; i < stackFrames.Length; i++)
             {
                 if (stackFrames[i].GetMethod().DeclaringType.ToString().StartsWith("Klyte."))
@@ -50,7 +50,7 @@ namespace Kwytto.Utils
         public void AddRedirect(MethodInfo oldMethod, MethodInfo newMethodPre, MethodInfo newMethodPost = null, MethodInfo transpiler = null)
         {
 
-            LogUtils.DoLog($"Adding patch! {oldMethod.DeclaringType} {oldMethod}");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Adding patch! {oldMethod.DeclaringType} {oldMethod}");
             m_detourList.Add(GetHarmonyInstance().Patch(oldMethod, newMethodPre != null ? new HarmonyMethod(newMethodPre) : null, newMethodPost != null ? new HarmonyMethod(newMethodPost) : null, transpiler != null ? new HarmonyMethod(transpiler) : null));
             m_patches.Add(oldMethod);
         }
@@ -76,13 +76,13 @@ namespace Kwytto.Utils
             GameObject m_topObj = GameObject.Find("k45_Redirectors") ?? new GameObject("k45_Redirectors");
             Type typeTarg = typeof(IRedirectable);
             List<Type> instances = ReflectionUtils.GetInterfaceImplementations(typeTarg);
-            LogUtils.DoLog($"Found Redirectors: {instances.Count}");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Found Redirectors: {instances.Count}");
             Application.logMessageReceived += ErrorPatchingHandler;
             try
             {
                 foreach (Type t in instances)
                 {
-                    LogUtils.DoLog($"Redirector: {t}");
+                   if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Redirector: {t}");
                     m_topObj.AddComponent(t);
 
                 }

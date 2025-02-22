@@ -9,7 +9,7 @@ namespace Kwytto.Redirectors
         private static AssetEditorLoadSaveActionsRedirector instance;
         private event Action OnLoad;
         private event Action OnSave;
-        public void Awake()
+        public void Start()
         {
             instance = this;
             System.Collections.Generic.List<Type> impls = ReflectionUtils.GetInterfaceImplementations(typeof(IAssetEditorActions));

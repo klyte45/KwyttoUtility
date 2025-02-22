@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kwytto.Interfaces;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -46,7 +47,7 @@ namespace Kwytto.Utils
 
             float endTime = Time.realtimeSinceStartup;
 
-            LogUtils.DoLog($"Exec time filter apply: {endTime - startTime}s");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Exec time filter apply: {endTime - startTime}s");
 
             return outPixels;
         }

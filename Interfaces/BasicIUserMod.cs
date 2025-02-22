@@ -1,5 +1,4 @@
-﻿extern alias UUI;
-using ColossalFramework;
+﻿using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.Packaging;
 using ColossalFramework.PlatformServices;
@@ -33,6 +32,7 @@ namespace Kwytto.Interfaces
                 {
                     Controller = OwnGO.AddComponent<C>();
                 }
+                if (DebugMode) LogUtils.DoLog($"Instanced controller: {Controller}");
                 SimulationManager.instance.StartCoroutine(LevelUnloadBinds());
                 return true;
             }
@@ -50,7 +50,7 @@ namespace Kwytto.Interfaces
             {
                 if (controller is null && LoadingManager.instance.m_currentlyLoading)
                 {
-                    LogUtils.DoLog($"Trying to access controller while loading. NOT ALLOWED!\nAsk at Klyte45's GitHub to fix this. Stacktrace:\n{Environment.StackTrace}");
+                    if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Trying to access controller while loading. NOT ALLOWED!\nAsk at Klyte45's GitHub to fix this. Stacktrace:\n{Environment.StackTrace}");
                 }
                 return controller;
             }
@@ -98,10 +98,7 @@ namespace Kwytto.Interfaces
         {
             get
             {
-                if (m_ownObj is null)
-                {
-                    m_ownObj = GameObject.Find(Name) ?? new GameObject(Name);
-                }
+                m_ownObj ??= GameObject.Find(GoName) ?? new GameObject(GoName);
                 return m_ownObj;
             }
         }
@@ -292,6 +289,7 @@ namespace Kwytto.Interfaces
         #endregion
 
         #region Old CommonProperties Fixed
+        public string GoName => $"K45_{Name}";
         public string Name => $"{SimpleName} {Version}";
         public string GeneralName => $"{SimpleName} (v{Version})";
         public abstract BaseController GetController();
@@ -333,6 +331,7 @@ namespace Kwytto.Interfaces
 
         public void OnLevelLoaded(LoadMode mode)
         {
+            if (DebugMode) LogUtils.DoInfoLog("ON LEVEL LOADED");
             if (OnLevelLoadedInherit(mode))
             {
                 OnLevelLoadingInternal();
@@ -466,7 +465,7 @@ namespace Kwytto.Interfaces
                 CreateGroup9(helper);
             }
 
-            LogUtils.DoLog("End Loading Options");
+            if (BasicIUserMod.DebugMode) LogUtils.DoLog("End Loading Options");
         }
 
 
@@ -721,7 +720,7 @@ namespace Kwytto.Interfaces
         public static void LocaleChanged()
         {
             var newCulture = Culture;
-            LogUtils.DoLog($"{Instance.SimpleName} Locale changed {KStr.Culture?.Name}->{newCulture.Name}");
+            if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{Instance.SimpleName} Locale changed {KStr.Culture?.Name}->{newCulture.Name}");
             KStr.Culture = newCulture;
             Instance.SetLocaleCulture(newCulture);
         }

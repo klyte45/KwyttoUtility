@@ -1,6 +1,7 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Math;
 using ColossalFramework.UI;
+using Kwytto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace Kwytto.Utils
 
                 float textureScale = height / (spriteInfo.region.height * texture.height);
 
-                LogUtils.DoLog($"height = {height} - width = {width} -  renderer.pixelRatio = 1 - textureScale = {height} / {(spriteInfo.region.height * texture.height)}");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"height = {height} - width = {width} -  renderer.pixelRatio = 1 - textureScale = {height} / {(spriteInfo.region.height * texture.height)}");
 
                 var size = new Vector3(width, height);
                 float borderWidth = textScale * 3;

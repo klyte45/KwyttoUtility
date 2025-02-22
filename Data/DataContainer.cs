@@ -27,13 +27,13 @@ namespace Kwytto.Data
         public void OnCreated(ISerializableData serializableData) => SerializableDataManager = serializableData;
         public void OnLoadData()
         {
-            LogUtils.DoLog($"LOADING DATA {GetType()}");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"LOADING DATA {GetType()}");
             instance.Instances = new Dictionary<Type, IDataExtension>();
             List<Type> instancesExt = ReflectionUtils.GetInterfaceImplementations(typeof(IDataExtension));//, new Assembly[] { GetType().Assembly, BasicIUserMod.Instance.GetType().Assembly });
-            LogUtils.DoLog($"SUBTYPE COUNT: {instancesExt.Count};");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"SUBTYPE COUNT: {instancesExt.Count};");
             foreach (Type type in instancesExt)
             {
-                LogUtils.DoLog($"LOADING DATA TYPE {type}");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"LOADING DATA TYPE {type}");
                 if (type.IsGenericType)
                 {
                     try
@@ -48,7 +48,7 @@ namespace Kwytto.Data
                             allTypes = r.Types.Where(k => !(k is null));
                         }
                         var targetParameters = allTypes.Where(x => !x.IsAbstract && !x.IsInterface && !x.IsGenericType && ReflectionUtils.CanMakeGenericTypeVia(type.GetGenericArguments()[0], x)).ToArray();
-                        LogUtils.DoLog($"PARAMETER PARAMS FOR {type.GetGenericArguments()[0]} FOUND: [{string.Join(",", targetParameters.Select(x => x.ToString()).ToArray())}]");
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"PARAMETER PARAMS FOR {type.GetGenericArguments()[0]} FOUND: [{string.Join(",", targetParameters.Select(x => x.ToString()).ToArray())}]");
                         foreach (var param in targetParameters)
                         {
                             var targetType = type.MakeGenericType(param);
@@ -78,7 +78,7 @@ namespace Kwytto.Data
             var basicInstance = (IDataExtension)Activator.CreateInstance(type);
             if (!SerializableDataManager.EnumerateData().Contains(basicInstance.SaveId))
             {
-                LogUtils.DoLog($"NO DATA TYPE {type} - Instancing basic instance");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"NO DATA TYPE {type} - Instancing basic instance");
                 instance.Instances[type] = basicInstance.LoadDefaults(SerializableDataManager) ?? basicInstance;
                 return;
             }
@@ -91,7 +91,7 @@ namespace Kwytto.Data
                     if (BasicIUserMod.DebugMode)
                     {
                         string content = System.Text.Encoding.UTF8.GetString(storage);
-                        LogUtils.DoLog($"{type} DATA {storage.Length}b => {content}");
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{type} DATA {storage.Length}b => {content}");
                     }
                 }
                 catch (Exception e)
@@ -133,7 +133,7 @@ namespace Kwytto.Data
         // Token: 0x0600003B RID: 59 RVA: 0x00004020 File Offset: 0x00002220
         public void OnSaveData()
         {
-            LogUtils.DoLog($"SAVING DATA {GetType()}");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"SAVING DATA {GetType()}");
             if (instance?.Instances is null)
             {
                 return;
@@ -151,7 +151,7 @@ namespace Kwytto.Data
                 if (BasicIUserMod.DebugMode)
                 {
                     string content = System.Text.Encoding.UTF8.GetString(data);
-                    LogUtils.DoLog($"{type} DATA (L = {data?.Length}) =>  {content}");
+                   if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{type} DATA (L = {data?.Length}) =>  {content}");
                 }
                 if (data is null || data.Length == 0)
                 {

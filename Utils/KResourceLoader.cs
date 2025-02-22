@@ -21,7 +21,7 @@ namespace Kwytto.Utils
             var stream = (UnmanagedMemoryStream)refAssembly.GetManifestResourceStream(name);
             if (stream == null)
             {
-                LogUtils.DoLog($"Could not find resource: {name} @ {refAssembly}");
+                if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Could not find resource: {name} @ {refAssembly}");
                 return null;
             }
 
@@ -36,7 +36,7 @@ namespace Kwytto.Utils
             var stream = (UnmanagedMemoryStream)refAssembly.GetManifestResourceStream(name);
             if (stream == null)
             {
-                LogUtils.DoLog($"Could not find resource: {name} @ {refAssembly}");
+                if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Could not find resource: {name} @ {refAssembly}");
                 return null;
             }
 
@@ -51,7 +51,7 @@ namespace Kwytto.Utils
             {
                 if (stream == null)
                 {
-                    LogUtils.DoLog($"Could not find resource: {name} @ {refAssembly}");
+                    if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Could not find resource: {name} @ {refAssembly}");
                     yield break;
                 }
 

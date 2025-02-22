@@ -1,5 +1,6 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Threading;
+using Kwytto.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Kwytto.Utils
             VehicleInfo saida = PrefabCollection<VehicleInfo>.FindLoaded(selectedModel ?? "");
             if (saida == null)
             {
-                LogUtils.DoLog("MODEL DOESN'T EXIST!");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog("MODEL DOESN'T EXIST!");
                 return null;
             }
             return saida;
@@ -56,13 +57,13 @@ namespace Kwytto.Utils
                 }
                 catch (Exception e)
                 {
-                    LogUtils.DoLog($"ERRO AO OBTER CAPACIDADE: [{info}] {e} {e.Message}\n{e.StackTrace}");
+                   if (BasicIUserMod.DebugMode) LogUtils.DoLog($"ERRO AO OBTER CAPACIDADE: [{info}] {e} {e.Message}\n{e.StackTrace}");
                 }
                 return capacity;
             }
             else
             {
-                LogUtils.DoLog($"AI \"{ai.GetType()}\" in asset {info} has no passenger Field!");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"AI \"{ai.GetType()}\" in asset {info} has no passenger Field!");
                 return 0;
             }
         }
@@ -137,7 +138,7 @@ namespace Kwytto.Utils
                 }
                 catch (Exception e)
                 {
-                    LogUtils.DoLog($"ERRO AO OBTER CAPACIDADE REL: [{info}] {e} {e.Message}\n{e.StackTrace}");
+                   if (BasicIUserMod.DebugMode) LogUtils.DoLog($"ERRO AO OBTER CAPACIDADE REL: [{info}] {e} {e.Message}\n{e.StackTrace}");
                 }
             }
         }

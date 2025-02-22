@@ -372,7 +372,7 @@ namespace Kwytto.Utils
         {
             if (BasicIUserMod.DebugMode)
             {
-                LogUtils.DoLog($"typeTarg = {typeTarg} | IsGenType={typeTarg.IsGenericType} ");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"typeTarg = {typeTarg} | IsGenType={typeTarg.IsGenericType} ");
             }
 
             IEnumerable<Type> classes = (from t in AppDomain.CurrentDomain.GetAssemblies().Where(x => refType == null || x == refType.Assembly)?.SelectMany(x =>
@@ -387,7 +387,7 @@ namespace Kwytto.Utils
             var result = new List<Type>();
             if (BasicIUserMod.DebugMode)
             {
-                LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
             }
 
             foreach (Type t in classes)
@@ -406,7 +406,7 @@ namespace Kwytto.Utils
 
         public static List<Type> GetInterfaceImplementations(Type interfaceType, IEnumerable<Assembly> assembly = null)
         {
-            LogUtils.DoLog($"interfaceType = {interfaceType}");
+           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"interfaceType = {interfaceType}");
 
             if (assembly == null)
             {
@@ -440,7 +440,7 @@ namespace Kwytto.Utils
                                              where t.IsClass && !t.IsAbstract && (y.Contains(interfaceType) || interfaceType.IsAssignableFrom(t))
                                              select t);
 
-                LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"classes:\r\n\t {string.Join("\r\n\t", classes.Select(x => x.ToString()).ToArray())} ");
                 return classes.ToList();
             }
         }

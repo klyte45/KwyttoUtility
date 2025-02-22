@@ -33,7 +33,7 @@ namespace Kwytto.Data
             string content = data[0] == '<' ? Encoding.UTF8.GetString(data) : ZipUtils.Unzip(data);
             if (BasicIUserMod.DebugMode)
             {
-                LogUtils.DoLog($"Deserializing {typeof(U)}:\n{content}");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Deserializing {typeof(U)}:\n{content}");
             }
 
             var result = XmlUtils.DefaultXmlDeserialize<U>(content);
@@ -51,7 +51,7 @@ namespace Kwytto.Data
             var xml = XmlUtils.DefaultXmlSerialize((U)this, BasicIUserMod.DebugMode);
             if (BasicIUserMod.DebugMode)
             {
-                LogUtils.DoLog($"Serializing  {typeof(U)}:\n{xml}");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Serializing  {typeof(U)}:\n{xml}");
             }
 
             return ZipUtils.Zip(xml);

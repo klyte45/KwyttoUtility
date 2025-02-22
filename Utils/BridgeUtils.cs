@@ -69,7 +69,7 @@ namespace Kwytto.Utils
             }).ToArray();
             if (BasicIUserMod.DebugMode)
             {
-                LogUtils.DoLog($"Found Classes of {typeof(T)} ({classes?.Count()}):\n\t{string.Join("\n\t", classes.Select(x => x.FullName).ToArray())}");
+               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Found Classes of {typeof(T)} ({classes?.Count()}):\n\t{string.Join("\n\t", classes.Select(x => x.FullName).ToArray())}");
             }
             return classes.Select(x =>
             {
@@ -80,7 +80,7 @@ namespace Kwytto.Utils
                 catch (Exception e)
                 {
                     if (BasicIUserMod.DebugMode)
-                        LogUtils.DoLog($"Class failed to be loaded as integration: {x}\n{e}");
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"Class failed to be loaded as integration: {x}\n{e}");
                     return null;
                 }
             }).Where(x => x?.IsBridgeEnabled ?? false).OrderBy(x => x.Priority).First();
@@ -88,11 +88,20 @@ namespace Kwytto.Utils
 
         public static void WarmupBridge(string targetModDll, string targetModName, List<Tuple<Type, string>> targetReversePatchTypes)
         {
-            var targetAssembly = PluginManager.instance.GetPluginsInfo().FirstOrDefault(x => x.assemblyCount > 0 && x.isEnabled && x.GetAssemblies().Any(y => y.GetName().Name == targetModDll))
+            var targetAssembly = PluginManager.instance.GetPluginsInfo().FirstOrDefault(x => x.assemblyCount > 0 && x.isEnabled && x.GetAssemblies().Any(y =>
+            {
+                LogUtils.DoInfoLog(y.GetName().Name);
+                return y.GetName().Name == targetModDll;
+            }))
              ?? throw new Exception($"The {targetModName} bridge isn't available due to the mod not being active. Using fallback!");
             var vsAsset = targetAssembly.GetAssemblies().First(y => y.GetName().Name == targetModDll);
 
-            var exportedTypes = vsAsset.GetExportedTypes();
+            WarmupBridge(vsAsset, targetReversePatchTypes, targetModName);
+        }
+
+        public static void WarmupBridge(Assembly assembly, List<Tuple<Type, string>> targetReversePatchTypes, string targetModName = null)
+        {
+            var exportedTypes = assembly.GetExportedTypes();
             foreach (var tuple in targetReversePatchTypes)
             {
                 var type = tuple.First;
@@ -102,7 +111,7 @@ namespace Kwytto.Utils
                 {
                     var srcMethod = targetType.GetMethod(method.Name, RedirectorUtils.allFlags, null, method.GetParameters().Select(x => x.ParameterType).ToArray(), null);
                     if (srcMethod != null) Harmony.ReversePatch(srcMethod, new HarmonyMethod(method));
-                    else LogUtils.DoWarnLog($"Method not found while patching {targetModName}: {targetType.FullName} {srcMethod.Name}({string.Join(", ", method.GetParameters().Select(x => $"{x.ParameterType}").ToArray())})");
+                    else LogUtils.DoWarnLog($"Method not found while patching {targetModName ?? assembly.GetName().Name}: {targetType.FullName} {srcMethod.Name}({string.Join(", ", method.GetParameters().Select(x => $"{x.ParameterType}").ToArray())})");
                 }
             }
         }

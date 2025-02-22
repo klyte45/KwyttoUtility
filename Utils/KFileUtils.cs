@@ -106,7 +106,7 @@ namespace Kwytto.Utils
                     if (!list.Contains(filePath))
                     {
                         list.Add(filePath);
-                        LogUtils.DoLog("DIRECTORY TO FIND: " + filePath);
+                       if (BasicIUserMod.DebugMode) LogUtils.DoLog("DIRECTORY TO FIND: " + filePath);
                         if (Directory.Exists(filePath))
                         {
                             action(loaded.Value as IndexedPrefabData<T>, filePath);
