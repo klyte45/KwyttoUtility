@@ -9,6 +9,7 @@ namespace Kwytto.Data
 {
 
     [XmlRoot("DataExtension")]
+    [Obsolete("Use binary serialization")]
     public abstract class DataExtensionBase<U> : IDataExtension where U : DataExtensionBase<U>, new()
     {
         public abstract string SaveId { get; }
@@ -28,7 +29,7 @@ namespace Kwytto.Data
 
         public virtual bool IsLegacyCompatOnly { get; } = false;
 
-        public IDataExtension Deserialize(Type type, byte[] data)
+        public IDataExtension Deserialize(byte[] data)
         {
             string content = data[0] == '<' ? Encoding.UTF8.GetString(data) : ZipUtils.Unzip(data);
             if (BasicIUserMod.DebugMode)

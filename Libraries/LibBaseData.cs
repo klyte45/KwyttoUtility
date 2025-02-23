@@ -26,7 +26,7 @@ namespace Kwytto.Libraries
 
         public bool IsLegacyCompatOnly { get; } = false;
 
-        public IDataExtension Deserialize(Type type, byte[] data)
+        public IDataExtension Deserialize(byte[] data)
         {
             string content;
             if (data[0] == '<')

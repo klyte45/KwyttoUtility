@@ -9,7 +9,7 @@ namespace Kwytto.Data
         bool IsLegacyCompatOnly { get; }
 
         IDataExtension LoadDefaults(ISerializableData serializableData);
-        IDataExtension Deserialize(Type type, byte[] data);
+        IDataExtension Deserialize(byte[] data);
         byte[] Serialize();
         void OnReleased();
     }

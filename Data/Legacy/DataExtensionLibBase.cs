@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Kwytto.Data
 {
+    [Obsolete("Use binary serialization")]
     public abstract class DataExtensionLibBase<LIB, DESC> : BasicLib<LIB, DESC>, IDataExtension
         where LIB : DataExtensionLibBase<LIB, DESC>, new()
         where DESC : class, ILibable
@@ -29,7 +30,7 @@ namespace Kwytto.Data
         }
 
 
-        public IDataExtension Deserialize(Type type, byte[] data)
+        public IDataExtension Deserialize(byte[] data)
         {
             string content = data[0] == '<' ? Encoding.UTF8.GetString(data) : ZipUtils.Unzip(data);
             var result = XmlUtils.DefaultXmlDeserialize<LIB>(content);

@@ -27,13 +27,13 @@ namespace Kwytto.Data
         public void OnCreated(ISerializableData serializableData) => SerializableDataManager = serializableData;
         public void OnLoadData()
         {
-           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"LOADING DATA {GetType()}");
+            if (BasicIUserMod.DebugMode) LogUtils.DoLog($"LOADING DATA {GetType()}");
             instance.Instances = new Dictionary<Type, IDataExtension>();
-            List<Type> instancesExt = ReflectionUtils.GetInterfaceImplementations(typeof(IDataExtension));//, new Assembly[] { GetType().Assembly, BasicIUserMod.Instance.GetType().Assembly });
-           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"SUBTYPE COUNT: {instancesExt.Count};");
+            List<Type> instancesExt = ReflectionUtils.GetInterfaceImplementations(typeof(IDataExtension));
+            if (BasicIUserMod.DebugMode) LogUtils.DoLog($"SUBTYPE COUNT: {instancesExt.Count};");
             foreach (Type type in instancesExt)
             {
-               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"LOADING DATA TYPE {type}");
+                if (BasicIUserMod.DebugMode) LogUtils.DoLog($"LOADING DATA TYPE {type}");
                 if (type.IsGenericType)
                 {
                     try
@@ -48,7 +48,7 @@ namespace Kwytto.Data
                             allTypes = r.Types.Where(k => !(k is null));
                         }
                         var targetParameters = allTypes.Where(x => !x.IsAbstract && !x.IsInterface && !x.IsGenericType && ReflectionUtils.CanMakeGenericTypeVia(type.GetGenericArguments()[0], x)).ToArray();
-                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"PARAMETER PARAMS FOR {type.GetGenericArguments()[0]} FOUND: [{string.Join(",", targetParameters.Select(x => x.ToString()).ToArray())}]");
+                        if (BasicIUserMod.DebugMode) LogUtils.DoLog($"PARAMETER PARAMS FOR {type.GetGenericArguments()[0]} FOUND: [{string.Join(",", targetParameters.Select(x => x.ToString()).ToArray())}]");
                         foreach (var param in targetParameters)
                         {
                             var targetType = type.MakeGenericType(param);
@@ -78,62 +78,50 @@ namespace Kwytto.Data
             var basicInstance = (IDataExtension)Activator.CreateInstance(type);
             if (!SerializableDataManager.EnumerateData().Contains(basicInstance.SaveId))
             {
-               if (BasicIUserMod.DebugMode) LogUtils.DoLog($"NO DATA TYPE {type} - Instancing basic instance");
+                if (BasicIUserMod.DebugMode) LogUtils.DoLog($"NO DATA TYPE {type} - Instancing basic instance");
                 instance.Instances[type] = basicInstance.LoadDefaults(SerializableDataManager) ?? basicInstance;
                 return;
             }
-            using (var memoryStream = new MemoryStream(SerializableDataManager.LoadData(basicInstance.SaveId)))
+            byte[] storage = SerializableDataManager.LoadData(basicInstance.SaveId);
+            try
             {
-                byte[] storage = memoryStream.ToArray();
-                try
+                instance.Instances[type] = basicInstance.Deserialize(storage) ?? basicInstance;
+                if (BasicIUserMod.DebugMode)
                 {
-                    instance.Instances[type] = basicInstance.Deserialize(type, storage) ?? basicInstance;
-                    if (BasicIUserMod.DebugMode)
-                    {
-                        string content = System.Text.Encoding.UTF8.GetString(storage);
-                       if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{type} DATA {storage.Length}b => {content}");
-                    }
-                }
-                catch (Exception e)
-                {
-                    byte[] targetArr;
-                    bool zipped = false;
-                    try
-                    {
-                        targetArr = ZipUtils.UnzipBytes(storage);
-                        zipped = true;
-                    }
-                    catch
-                    {
-                        targetArr = storage;
-                    }
-                    string content = System.Text.Encoding.UTF8.GetString(targetArr);
-                    LogUtils.DoErrorLog($"{type} CORRUPTED DATA! => \nException: {e.Message}\n{e.StackTrace}\nData {storage.Length} Z={zipped} b:\n{content}");
-                    KwyttoDialog.ShowModal(new KwyttoDialog.BindProperties
-                    {
-                        title = string.Format(KStr.comm_errLoadingDataWindow_Title, type),
-                        message = $"{string.Format(KStr.comm_errLoadingDataWindow_Header, BasicIUserMod.Instance.SimpleName)}\n{(BasicIUserMod.Instance.GitHubRepoPath.IsNullOrWhiteSpace() ? "" : "\n" + KStr.comm_errLoadingDataWindow_HeaderReportABug)}\n{KStr.comm_errLoadingDataWindow_HeaderRawData}:",
-                        scrollText = content,
-                        buttons = KwyttoDialog.basicOkButtonBar
-                    });
-                    instance.Instances[type] = basicInstance;
+                    string content = System.Text.Encoding.UTF8.GetString(storage);
+                    if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{type} DATA {storage.Length}b => {content}");
                 }
             }
-        }
-
-        private byte[] MemoryStreamToArray(string saveId)
-        {
-            using (var memoryStream2 = new MemoryStream(SerializableDataManager.LoadData(saveId)))
+            catch (Exception e)
             {
-                byte[] storage2 = memoryStream2.ToArray();
-                return storage2;
+                byte[] targetArr;
+                bool zipped = false;
+                try
+                {
+                    targetArr = ZipUtils.UnzipBytes(storage);
+                    zipped = true;
+                }
+                catch
+                {
+                    targetArr = storage;
+                }
+                string content = System.Text.Encoding.UTF8.GetString(targetArr);
+                LogUtils.DoErrorLog($"{type} CORRUPTED DATA! => \nException: {e.Message}\n{e.StackTrace}\nData {storage.Length} Z={zipped} b:\n{content}");
+                KwyttoDialog.ShowModal(new KwyttoDialog.BindProperties
+                {
+                    title = string.Format(KStr.comm_errLoadingDataWindow_Title, type),
+                    message = $"{string.Format(KStr.comm_errLoadingDataWindow_Header, BasicIUserMod.Instance.SimpleName)}\n{(BasicIUserMod.Instance.GitHubRepoPath.IsNullOrWhiteSpace() ? "" : "\n" + KStr.comm_errLoadingDataWindow_HeaderReportABug)}\n{KStr.comm_errLoadingDataWindow_HeaderRawData}:",
+                    scrollText = content,
+                    buttons = KwyttoDialog.basicOkButtonBar
+                });
+                instance.Instances[type] = basicInstance;
             }
         }
 
         // Token: 0x0600003B RID: 59 RVA: 0x00004020 File Offset: 0x00002220
         public void OnSaveData()
         {
-           if (BasicIUserMod.DebugMode) LogUtils.DoLog($"SAVING DATA {GetType()}");
+            if (BasicIUserMod.DebugMode) LogUtils.DoLog($"SAVING DATA {GetType()}");
             if (instance?.Instances is null)
             {
                 return;
@@ -151,7 +139,7 @@ namespace Kwytto.Data
                 if (BasicIUserMod.DebugMode)
                 {
                     string content = System.Text.Encoding.UTF8.GetString(data);
-                   if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{type} DATA (L = {data?.Length}) =>  {content}");
+                    if (BasicIUserMod.DebugMode) LogUtils.DoLog($"{type} DATA (L = {data?.Length}) =>  {content}");
                 }
                 if (data is null || data.Length == 0)
                 {
